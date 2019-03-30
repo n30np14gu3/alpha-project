@@ -1,0 +1,16 @@
+.panel-header{
+    padding-top: 5px !important;
+    height: 30px !important;
+    font-size: 20px !important;
+    text-align: center !important;
+}
+.success{
+    background-color: rgba(0,215,0,0.75) !important;
+}
+
+.warning{
+    background-color: rgba(252,255,0,0.73) !important;
+}
+.error{
+    background-color: rgba(215,0,0,0.86) !important;
+}

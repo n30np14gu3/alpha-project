@@ -1,0 +1,16 @@
+#chat-box{
+    position: fixed;
+    bottom: 1px;
+    right: 10px;
+    z-index: 1337;
+}
+
+p {
+    font-size: 16px;
+}
+
+em {
+    font-style: normal;
+    font-weight: bold;
+    color: black;
+}
