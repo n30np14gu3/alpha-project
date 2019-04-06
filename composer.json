@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
       "ext-json": "*",
       "ext-simplexml": "*",
-        "ext-curl": "*"
+        "ext-curl": "*",
+      "ext-openssl": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

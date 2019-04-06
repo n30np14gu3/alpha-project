@@ -7,7 +7,7 @@
             <i class="sidebar icon"></i>
         </a>
         <a class="item" href="/"><h2 id="main-logo">ALPHA | CHEAT</h2></a>
-        <div class="right item">
+        <div class="right item" style="margin-right: 50px">
             <a class="item" href="/">HOME</a>
             <a class="item active" href="/exchange">ACCOUNT</a>
             @if(env('BETA_SHOWLANG'))
