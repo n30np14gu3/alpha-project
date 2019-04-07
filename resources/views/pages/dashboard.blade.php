@@ -1,31 +1,7 @@
-
 @extends('index')
 
-@section('main menu')
-    <div class="ui large secondary pointing menu">
-        <a class="toc item">
-            <i class="sidebar icon"></i>
-        </a>
-        <a class="item" href="/"><h2 id="main-logo">ALPHA | CHEAT</h2></a>
-        <div class="right item" style="margin-right: 50px">
-            <a class="item" href="/">HOME</a>
-            <a class="item active" href="/exchange">ACCOUNT</a>
-            @if(env('BETA_SHOWLANG'))
-                <div class="ui selection dropdown transparent">
-                    <div class="default text">{{strtoupper(App::getLocale())}} <i class="{{App::getLocale()}} flag"></i></div>
-                    <div class="menu">
-                        <a class="item" href="/lang/us"><i class="us flag"></i>US</a>
-                        <a class="item" href="/lang/ru"><i class="ru flag"></i>RU</a>
-                    </div>
-                </div>
-            @endif
-            <a class="item" href="/action/logout">LOGOUT</a>
-        </div>
-    </div>
-@endsection
-
 @section('dashboard')
-    <div style="margin: 20px 70px">
+    <div id="dashboard-content">
         <div class="ui stackable grid">
             <div class="four wide column">
                 <div class="ui vertical fluid tabular menu">
@@ -45,9 +21,20 @@
                     <div class="item" data-tab="t-auth-history">@lang('dashboard.tab-auth-history')</div>
                 </div>
             </div>
+
             <div class="twelve wide stretched column">
                 <div class="ui tab active" data-tab="t-account">
                     <div class="ui raised segment">
+                        <div class="ui error message">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                There were some errors with your submission
+                            </div>
+                            <ul class="list">
+                                <li>You must include both a upper and lower case letters in your password.</li>
+                                <li>You need to select your home country.</li>
+                            </ul>
+                        </div>
                         @include('pages.modules.dashboard.account')
                     </div>
                 </div>

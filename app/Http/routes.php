@@ -15,7 +15,7 @@ Route::get('dashboard', ['uses' => 'dashboardController@index', 'as' => 'dashboa
 
 
 Route::group(['prefix' => 'action', 'middleware' => 'action'], function (){
-   Route::post('verify_steam', ['before' => 'csrf', 'uses' => 'actionController@verifyAccount', 'as' => 'steam']);
-   Route::get('logout', ['uses' => 'actionController@logout', 'as' => 'logout']);
-   Route::post('auth', ['uses' => 'actionController@login', 'as' => 'login']);
+    Route::post('register', ['uses' => 'actionController@register', 'as' => 'register']);
+    Route::post('login', ['uses' => 'actionController@login', 'as' => 'login']);
+    Route::get('logout', ['uses' => 'actionController@logout', 'as' => 'logout']);
 });

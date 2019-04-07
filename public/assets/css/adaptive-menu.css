@@ -68,23 +68,38 @@
     display: block;
 }
 
+.main-menu{
+    margin-right: 50px !important;
+}
+
+#dashboard-content{
+    margin: 20px 70px;
+}
+
 @media  only screen and (max-width: 770px) {
 
-    .large.secondary.pointing.menu{
-        background: linear-gradient(90deg, rgba(20,20,20,1) 0%, rgba(34,34,34,1) 100%) !important;
-        box-shadow: 0px 9px 20px -9px rgba(0,0,0,0.75);
+    #dashboard-content{
+        margin: 20px 0;
     }
+
+    .main-menu{
+        margin-right: 10px !important;
+    }
+
+
     .ui.fixed.menu {
         display: none !important;
     }
 
     .secondary.pointing.menu .item,
-    .secondary.pointing.menu .menu {
+    .secondary.pointing.menu .menu{
         display: none;
     }
+
     .secondary.pointing.menu .toc.item {
         display: block;
     }
+
     .masthead.segment {
         min-height: 350px;
     }
@@ -103,7 +118,6 @@
     .lso:before{
         border: none;
     }
-
 
     .alert-black{
         margin: 0 0 30px 0 !important;

@@ -8,10 +8,14 @@ use Illuminate\Contracts\Encryption\DecryptException;
 
 use App\Http\Requests;
 
+use App\Http\Helpers\UserHelper;
+
 class dashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        //        if(!UserHelper::CheckAuth($request, true))
+        //            return redirect()->route('index');
         return view('pages.dashboard');
     }
 }

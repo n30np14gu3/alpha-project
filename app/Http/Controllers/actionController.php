@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\UserHelper;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 
 use App\Models\User;
+use App\Models\LoginHistory;
 
-use App\Helpers\CryptoHelper;
+use App\Http\Helpers\CryptoHelper;
+use App\Http\Helpers\Geolocation;
 
 class actionController extends Controller
 {
@@ -47,12 +49,6 @@ class actionController extends Controller
           'message' => 'UNKNOWN ERROR!'
         ];
 
-        $user_data = [
-            'email' => '',
-            'password' => '',
-            'ip' => '',
-            'salt' => ''
-        ];
 
         $email = @$_POST['email'];
         $password = hash("sha256", @$_POST['password']);
@@ -64,17 +60,61 @@ class actionController extends Controller
             return json_encode($result);
         }
 
-        $user_data['email'] = $email;
-        $user_data['password'] = $password;
-        $user_data['ip'] = $_SERVER['REMOTE_ADDR'];
-        $user_data['salt'] = hash("sha256", base64_encode(openssl_random_pseudo_bytes(64)));
-
+        $user_data = UserHelper::GetUserData($email, $password);
         $user_session = CryptoHelper::EncryptResponse(json_encode($user_data));
 
         if($remember)
             setcookie('user_session', $user_session, time() + 60*60*24*7, '/');
 
+        unset($_COOKIE['referral']);
+
+        $log = new LoginHistory();
+        $log->user_id = $user->id;
+        $log->ip = $user_data['ip'];
+        $log->date = date("Y-m-d H:i:s");
+        $log->info = Geolocation::getLocationInfo();
+        $log->save();
         $request->session()->put('user_session', $user_session);
+        return json_encode($result);
+    }
+
+    public function register(Request $request){
+        $result = [
+            'status' => 'ERROR',
+            'message' => 'UNKNOWN ERROR!'
+        ];
+
+        if($request->session()->has('user_session')){
+            return json_encode($result);
+        }
+
+        $email = @$_POST['email'];
+        $password = @$_POST['password'];
+        $password2 = @$_POST['password-2'];
+        $confirm = @$_POST['confirm'];
+        $referral = @$_COOKIE['referral'];
+
+        if(!$email || !$password || !$password2 || !$confirm){
+            $result['message']  = "Одно или несколько полей пустые!";
+            return json_encode($result);
+        }
+
+        if($password != $password2){
+            $result['message']  = "Введенные пароли не совпадают!";
+            return json_encode($result);
+        }
+
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            $result['message']  = "Формат почтового ящика неправильный";
+            return json_encode($result);
+        }
+
+        if(!UserHelper::CreateNewUser($email, $password, $referral)){
+            $result['message']  = "Данный email уже зарегестрирован в системе";
+            return json_encode($result);
+        }
+
+        $result['status'] = "OK";
         return json_encode($result);
     }
 }

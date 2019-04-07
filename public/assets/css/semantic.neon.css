@@ -248,6 +248,11 @@
    font-weight: normal;
  }
 
+ @font-face {
+   font-family: 'BeauSans';
+   src: url('/public/assets/fonts/BeauSans/BeauSans.ttf') format('truetype');
+   font-weight: normal;
+ }
 
  *,
 *:before,
@@ -793,7 +798,7 @@ body {
   overflow-x: hidden;
   min-width: 320px;
   background: #1a232e;
-  font-family: "GlacialIndifference", 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-family: "BeauSans" , 'Helvetica Neue', Arial, Helvetica, sans-serif;
   font-size: 14px;
   line-height: 1.4285em;
   color: #e2e2e2;
@@ -18362,8 +18367,8 @@ ol.ui.horizontal.list li:before,
 ---------------------*/
 
 .ui.form .field > label {
-  letter-spacing: 6px;
-  font-family: "DIN Pro", 'Helvetica Neue', Arial, Helvetica, sans-serif !important;
+  /*  letter-spacing: 6px;*/
+  font-family: "BeauSans", 'Helvetica Neue', Arial, Helvetica, sans-serif !important;
   display: block;
   margin: 0em 0em 1rem 0em;
   color: #e4e4e4;
@@ -22812,7 +22817,7 @@ Floated Menu / Item
 -----------------------*/
 
 .ui.secondary.pointing.menu {
-    font-family: 'DIN Pro';
+    font-family: 'BeauSans';
     margin-left: 0;
     margin-right: 0;
 }
@@ -31973,7 +31978,7 @@ select.ui.dropdown {
   top: 50%;
   left: 50%;
   text-align: left;
-  background: #282828;
+  background: #0e101c;
   border: none;
   -webkit-box-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.2), 1px 3px 15px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.2), 1px 3px 15px 2px rgba(0, 0, 0, 0.2);
@@ -32030,8 +32035,8 @@ select.ui.dropdown {
 
 .ui.modal > .header {
   display: block;
-  font-family: "DIN Pro";
-  background: #282828;
+  font-family: "BeauSans";
+  background: #0e101c;
   margin: 0em;
   padding: 1.25rem 1.5rem;
   -webkit-box-shadow: none;
@@ -32133,9 +32138,9 @@ select.ui.dropdown {
 ---------------*/
 
 .ui.modal > .actions {
-  background: #282828;
+  background: #0e101c;
   padding: 1rem 1rem;
-  border-top: 1px solid #282828;
+  border-top: 1px solid #161f33;
   text-align: right;
 }
 

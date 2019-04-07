@@ -48,7 +48,7 @@
     <a class="item">@lang('menu.account')</a>
 </div>
 <div style="min-height: calc(100vh - 100px);">
-    @yield('main menu')
+    @include('pages.modules.default.main-menu')
     <div class="ui container fluid">
         @yield('dashboard')
     </div>
@@ -81,6 +81,9 @@
         </div>
     </div>
 </div>
+@if(!@$auth_complete)
+    @include('pages.modules.default.auth-modals')
+@endif
 <script src="{{url('/assets/js/semantic.min.js')}}"></script>
 <script src="{{url('/assets/js/slider-semantic.js')}}"></script>
 <script src="{{url('/assets/js/toast.js')}}"></script>
