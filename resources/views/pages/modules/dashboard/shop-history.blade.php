@@ -2,12 +2,11 @@
     <table class="ui unstackable striped selectable table center aligned very compact small fluid">
         <thead>
         <tr>
-            <th>Дата</th>
-            <th>Пара</th>
             <th>Тип</th>
-            <th>Цена</th>
-            <th>Кол-во</th>
-            <th>Сумма</th>
+            <th>Стоимость</th>
+            <th>Описание</th>
+            <th>Дата</th>
+            <th>Код оплаты</th>
         </tr>
         </thead>
         <tbody>

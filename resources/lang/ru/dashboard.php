@@ -9,5 +9,5 @@ return [
   'tab-promo' => 'Пропокоды',
   'tab-ref' => 'Реферальная система',
   'tab-shop-history' => 'История покупок',
-  'tab-auth-history' => 'История взодов',
+  'tab-auth-history' => 'История входов',
 ];

@@ -21,7 +21,10 @@ use App\Http\Helpers\Geolocation;
 
 class MailHelper
 {
-    public static function SendMail($email, $subject, $text){
-        
+    public static function SendMail($view, $data, $email, $title){
+        Mail::send($view, $data, function ($message) use ($email, $title){
+            $message->from(env('MAIL_USERNAME'), 'ALPHA PROJECT NOREPLY');
+            $message->to($email)->subject($title);
+        });
     }
 }

@@ -19,3 +19,11 @@ Route::group(['prefix' => 'action', 'middleware' => 'action'], function (){
     Route::post('login', ['uses' => 'actionController@login', 'as' => 'login']);
     Route::get('logout', ['uses' => 'actionController@logout', 'as' => 'logout']);
 });
+
+Route::group(['prefix' => 'email'], function (){
+   Route::get('confirm/{confirm_code}', ['uses' => 'mailController@confirm', 'as' => 'confirm']);
+});
+
+Route::group(['prefix' => 'mail_test'], function (){
+    Route::get('registration', function (){return view('mail.types.reg_complete' ,['link' => '']);});
+});

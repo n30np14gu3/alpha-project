@@ -37,7 +37,7 @@ class actionController extends Controller
             foreach($cookies as $cookie) {
                 $parts = explode('=', $cookie);
                 $name = trim($parts[0]);
-                unset($_COOKIE[$name]);
+                setcookie($name, '', time() - 100, '/');
             }
         }
         return redirect('/');
@@ -92,7 +92,7 @@ class actionController extends Controller
         $password = @$_POST['password'];
         $password2 = @$_POST['password-2'];
         $confirm = @$_POST['confirm'];
-        $referral = @$_COOKIE['referral'];
+        $referral = @$_COOKIE['referrer'];
 
         if(!$email || !$password || !$password2 || !$confirm){
             $result['message']  = "Одно или несколько полей пустые!";

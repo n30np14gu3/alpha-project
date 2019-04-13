@@ -1,4 +1,4 @@
-<div class="ui small form">
+<form class="ui small form">
     <div class="fields inline">
         <div class="four wide field">Промокод:</div>
         <div class="eleven wide field">
@@ -6,5 +6,20 @@
         </div>
     </div>
     <div class="field">
-        <button class="ui fluid orange button" id="form_promocodeactivate_button">Активировать</button> </div>
-</div>
+        <input type="submit" value="Активировать" class="ui fluid alpha button">
+    </div>
+</form>
+<br><br>
+<div class="bold">Активированные промокода</div>
+<div class="ui divider"></div>
+<table class="ui unstackable striped selectable table center aligned very compact small fluid">
+    <thead>
+    <tr>
+        <th>Промокод</th>
+        <th>Дата активации</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>

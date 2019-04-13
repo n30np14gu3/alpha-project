@@ -13,10 +13,12 @@ use \Illuminate\Http\Request;
 
 
 use App\Http\Helpers\CryptoHelper;
+use App\Http\Helpers\MailHelper;
 
 use App\Models\User;
 use App\Models\UserSettings;
 use App\Models\Balance;
+use App\Models\EmailConfirm;
 
 class UserHelper
 {
@@ -91,6 +93,18 @@ class UserHelper
         $user_balance->user_id = $user->id;
         $user_balance->save();
 
+        $confirm_data = new EmailConfirm();
+        $confirm_data->user_id = $user->id;
+        $confirm_data->ip = $_SERVER['REMOTE_ADDR'];
+        $confirm_data->request_time = time();
+        $confirm_data->code = strtoupper(hash("sha256", openssl_random_pseudo_bytes(64)));
+        $confirm_data->visited = 0;
+        $confirm_data->save();
+
+        $data = [
+          'link' => url('/')."/email/confirm/".$confirm_data->code
+        ];
+        MailHelper::SendMail('mail.types.reg_complete', $data, $user->email, 'Подтверждение регистрации :: '.url());
         return true;
     }
 }

@@ -22061,7 +22061,7 @@ ol.ui.horizontal.list li:before,
 
 .ui.menu .ui.dropdown .menu > .item:hover {
   background: rgba(51, 69, 81, 0.82) !important;
-  color: #555 !important;
+  color: #000 !important;
 }
 
 .ui.menu .ui.dropdown .menu > .selected.item {
@@ -24451,7 +24451,7 @@ Floated Menu / Item
 /* Error */
 
 .ui.error.message {
-  background-color: #CC0000;
+  background-color: #ee166c;
   color: #fff;
 }
 
