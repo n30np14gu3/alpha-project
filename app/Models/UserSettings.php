@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int user_id
+ * @property int status
+ * @property false|string reg_date
  * @property string nickname
  * @property string fist_name
  * @property string last_name
@@ -17,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserSettings extends Model
 {
     public $timestamps = false;
+    protected $primaryKey = 'user_id';
     protected $table = 'user_settings';
 
 }

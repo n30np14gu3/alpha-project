@@ -10,7 +10,8 @@
       "ext-json": "*",
       "ext-simplexml": "*",
         "ext-curl": "*",
-      "ext-openssl": "*"
+      "ext-openssl": "*",
+      "ext-libxml": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

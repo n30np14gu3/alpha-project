@@ -1,7 +1,17 @@
 @extends('mail.default')
 
 @section('mail-body')
-    <h1 style="text-align: center">Вас приветствует команда ALPHA CHEAT</h1>
-    <p>Вы успешно зарегестрировались на сайте <a href="{{url('/')}}">{{$_SERVER['HTTP_HOST']}}</a></p>
-    <p>Для завершения регистрации и подтверждения Вашего аккаунта, перейдите по <a href="{{@$link}}/">следующей ссылке</a></p>
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td>
+                <h3 style="text-align: center">Вас приветсвтует команда ALPHA CHEAT</h3>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 20px 0 30px 0;">
+                <p>Вы успешно зарегестрировались на <a href="{{url('/')}}" target="_blank" style="text-decoration: none; color: #ee166c">сайте</a>.</p>
+                <p>Для подтверждения Вашей учетной записи, перейдите по следующей <a href="" target="_blank" style="text-decoration: none; color: #ee166c; text-transform: uppercase;">ссылке</a>.</p>
+            </td>
+        </tr>
+    </table>
 @endsection

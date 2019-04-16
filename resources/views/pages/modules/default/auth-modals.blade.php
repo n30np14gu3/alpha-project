@@ -17,7 +17,7 @@
         <div class="field">
             <div class="ui checkbox">
                 <input type="checkbox" placeholder="" tabindex="0" class="hidden" name="confirm" required>
-                <label>Я принимаю условия <a href="" target="_blank">Пользовательского соглашения</a></label>
+                <label>Я принимаю условия <a href="/legal" target="_blank">Пользовательского соглашения</a></label>
             </div>
         </div>
         <div class="field">
@@ -33,18 +33,18 @@
 <div class="ui mini modal" id="auth-modal">
     <i class="close icon"></i>
     <div class="header">Авторизация</div>
-    <form class="ui form" style="padding: 30px;">
+    <form class="ui form" style="padding: 30px;" id="auth-form">
         <div class="field">
             <label>E-Mail:</label>
-            <input type="email" placeholder="example@alphacheat.com" required>
+            <input type="email" placeholder="example@alphacheat.com" name="email" required>
         </div>
         <div class="field">
             <label>Пароль</label>
-            <input type="password" placeholder="" maxlength="64" minlength="8" required>
+            <input type="password" placeholder="" maxlength="64" name="password" minlength="8" required>
         </div>
         <div class="field">
             <div class="ui checkbox">
-                <input type="checkbox" placeholder="" tabindex="0" class="hidden" required>
+                <input type="checkbox" placeholder="" tabindex="0" class="hidden" name="save">
                 <label>Запомнить меня</label>
             </div>
         </div>

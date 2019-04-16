@@ -1,17 +1,82 @@
-$('.ui.accordion').accordion({ exclusive: false });
-$('.tabular.menu .item').tab();
-$('.ui.checkbox').checkbox();
-$('.dropdown').dropdown({ maxSelections: 3 });
-$('.info-popup').popup();
-$('.ui.slider').slider();
-$('.message .close')
-    .on('click', function() {
-        $(this)
-            .closest('.message')
-            .transition('fade')
-        ;
-    })
-;
+$(document).ready(function () {
+    $('.ui.accordion').accordion({ exclusive: false });
+    $('.tabular.menu .item').tab();
+    $('.ui.checkbox').checkbox();
+    $('.dropdown').dropdown({ maxSelections: 3 });
+    $('.ui.slider').slider();
+    $('.message .close')
+        .on('click', function() {
+            $(this)
+                .closest('.message')
+                .transition('fade')
+            ;
+        });
+    $('.info-popup').popup();
+});
+function showToast(text, type, duration, icon) {
+    $('body')
+        .toast({
+            class: type.toString(),
+            showIcon: icon.toString(),
+            displayTime: duration,
+            closeIcon: true,
+            message: text
+        })
+    ;
+}
+
+function showAuthForm() {
+    $('#auth-modal').modal('show');
+}
+
+function showRegisterForm() {
+    $('#register-modal').modal('show');
+}
+
+function showRepassForm() {
+    $('#repass-modal').modal('show');
+}
+
+$('#register-form').submit(function (e) {
+    e.preventDefault();
+    $.ajax(
+        {
+            type: "POST",
+            url: "/register",
+            data: $("#register-form").serialize(),
+            success: function(data) {
+                data = JSON.parse(data);
+                if(data.status !== "OK"){
+                    showToast(data.message, 'error', 3000, 'microchip');
+                }
+                else
+                {
+                    showToast('Пользователь успешно зарегестрирован!<br>На почтовый ящик была отправлены дальнейшие инструкции', 'success', 5000, 'microchip');
+                    $('#register-form')[0].reset();
+                }
+            }
+        }
+    );
+});
+
+$('#auth-form').submit(function (e) {
+    e.preventDefault();
+    $.ajax(
+        {
+            type: "POST",
+            url: "/login",
+            data: $("#auth-form").serialize(),
+            success: function(data) {
+                data = JSON.parse(data);
+                if(data.status !== "OK"){
+                    showToast(data.message, 'error', 3000, 'microchip');
+                }
+                else
+                    location.replace('/dashboard');
+            }
+        }
+    );
+});
 
 $('#verify-account').click(function (e) {
     e.preventDefault();
@@ -43,47 +108,4 @@ $('#verify-account').click(function (e) {
             showToast('Ошибка запроса', 'error', 5000, 'steam');
         }
     });
-});
-
-function showToast(text, type, duration, icon) {
-    $('body')
-        .toast({
-            class: type.toString(),
-            showIcon: icon.toString(),
-            displayTime: duration,
-            closeIcon: true,
-            message: text
-        })
-    ;
-}
-
-function showAuthForm() {
-    $('#auth-modal').modal('show');
-}
-
-function showRegisterForm() {
-    $('#register-modal').modal('show');
-}
-
-function showRepassForm() {
-    $('#repass-modal').modal('show');
-}
-
-$('#register-form').submit(function (e) {
-    e.preventDefault();
-    $.ajax(
-        {
-            type: "POST",
-            url: "/action/register",
-            data: $("#register-form").serialize(),
-            success: function(data) {
-                data = JSON.parse(data);
-                if(data.status !== "OK"){
-                    showToast(data.message, 'error', 3000, 'microchip');
-                }
-                else
-                    showToast('Пользователь успешно зарегестрирован!<br>На почтовый ящик была отправлены дальнейшие инструкции', 'success', 5000, 'microchip');
-            }
-        }
-    );
 });

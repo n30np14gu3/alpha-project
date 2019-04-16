@@ -7,34 +7,34 @@
                 <div class="two fields">
                     <div class="field">
                         <label>Никнейм</label>
-                        <input type="text" name="account[nickname]" placeholder="Никнейм" required>
+                        <input type="text" name="account[nickname]" placeholder="Никнейм" required value="{{@$user_data['settings']->nickname}}">
                     </div>
                     <div class="field">
                         <label>Дата рождения</label>
-                        <input type="text" name="account[birthday]" placeholder="Дата рождения" required>
+                        <input type="text" name="account[birthday]" placeholder="Дата рождения" required value="{{@$user_data['settings']->birth_date}}">
                     </div>
                 </div>
                 <div class="two fields">
                     <div class="field">
                         <label>Имя</label>
-                        <input type="text" name="account[first-name]" placeholder="Имя" required>
+                        <input type="text" name="account[first-name]" placeholder="Имя" required value="{{@$user_data['settings']->first_name}}">
                     </div>
                     <div class="field">
-                        <label>Почтовый адрес</label>
-                        <input type="email" name="account[email]" placeholder="Почтовый адрес" required>
+                        <label>Фамилия</label>
+                        <input type="text" name="account[last-name]" placeholder="Фамилия" required value="{{@$user_data['settings']->last_name}}">
                     </div>
                 </div>
                 <div class="two fields">
                     <div class="field">
-                        <label>Фамилия</label>
-                        <input type="text" name="account[last-name]" placeholder="Фамилия" required>
+                        <label>Приглашен</label>
+                        <input type="text" placeholder="" required value="{{@$user_data['invitor']}}" disabled>
                     </div>
                     <div class="field">
                         <label>Пол</label>
                         <select class="ui fluid dropdown" required>
-                            <option value="">Пол</option>
-                            <option value="male">Мужской</option>
-                            <option value="female">Женский</option>
+                            <option value="{{@$user_data['settings']->sex}}">Пол</option>
+                            <option value="0">Мужской</option>
+                            <option value="1">Женский</option>
                         </select>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
             <div class="bold">Твоя ссылка</div>
             <div class="ui divider"></div>
             <div class="text container">
-                https://alpha-cheat.io/invite/code
+                {{url('/invite/'.@$user_data['base']->referral_code)}}
             </div>
         </div>
     </div>

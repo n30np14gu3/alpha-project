@@ -6,18 +6,20 @@ Route::group(['domain' => 'api.'.env('APP_DOMAIN')], function () {
     });
 });
 
-Route::any('/', ['uses' => 'lendingController@index', 'as' => 'index', 'middleware' => 'action']);
-Route::any('invite/{refId}', ['uses' => 'lendingController@referer', 'as' => 'referer']);
+Route::any('/', ['uses' => 'lendingController@index', 'as' => 'index']);
+Route::any('/invite/{refId}', ['uses' => 'lendingController@referer', 'as' => 'referer']);
 
-Route::get('lang/{lang}',  ['uses' => 'lendingController@stub', 'middleware' => 'langChanger']);
+Route::get('/lang/{lang}',  ['uses' => 'lendingController@changeLang']);
 
-Route::get('dashboard', ['uses' => 'dashboardController@index', 'as' => 'dashboard', 'middleware' => 'action']);
+Route::get('/dashboard', ['uses' => 'dashboardController@index', 'as' => 'dashboard', 'middleware' => 'action']);
 
+Route::get('/logout', ['uses' => 'actionController@logout', 'as' => 'logout']);
+Route::post('/register', ['uses' => 'actionController@register', 'as' => 'register']);
+Route::post('/login', ['uses' => 'actionController@login', 'as' => 'login']);
 
+Route::get('lol/{steam_id}', ['uses' => 'actionController@verifySteam']);
 Route::group(['prefix' => 'action', 'middleware' => 'action'], function (){
-    Route::post('register', ['uses' => 'actionController@register', 'as' => 'register']);
-    Route::post('login', ['uses' => 'actionController@login', 'as' => 'login']);
-    Route::get('logout', ['uses' => 'actionController@logout', 'as' => 'logout']);
+
 });
 
 Route::group(['prefix' => 'email'], function (){
@@ -25,5 +27,5 @@ Route::group(['prefix' => 'email'], function (){
 });
 
 Route::group(['prefix' => 'mail_test'], function (){
-    Route::get('registration', function (){return view('mail.types.reg_complete' ,['link' => '']);});
+    Route::get('registration', function (){return view('mail.types.reg_complete' ,['link' => '' , 'mail_title' => '1337']);});
 });

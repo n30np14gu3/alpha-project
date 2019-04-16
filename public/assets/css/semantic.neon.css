@@ -900,38 +900,38 @@ a:hover {
 /* Site */
 
 ::-webkit-selection {
-  background-color: #CCE2FF;
-  color: #888;
+  background-color: #374660;
+  color: #b20200;
 }
 
 ::-moz-selection {
-  background-color: #CCE2FF;
-  color: #888;
+  background-color: #374660;
+  color: #b20200;
 }
 
 ::selection {
-  background-color: #CCE2FF;
-  color: #888;
+  background-color: #374660;
+  color: #b20200;
 }
 
 /* Form */
 
 textarea::-webkit-selection,
 input::-webkit-selection {
-  background-color: rgba(100, 100, 100, 0.4);
-  color: #888;
+  background-color: rgba(55, 70, 96, 0.4);
+  color: #959595;
 }
 
 textarea::-moz-selection,
 input::-moz-selection {
-  background-color: rgba(100, 100, 100, 0.4);
-  color: #888;
+  background-color: rgba(55, 70, 96, 0.4);
+  color: #959595;
 }
 
 textarea::selection,
 input::selection {
-  background-color: rgba(100, 100, 100, 0.4);
-  color: #888;
+  background-color: rgba(55, 70, 96, 0.4);
+  color: #959595;
 }
 
 /* Force Simple Scrollbars */
@@ -6915,7 +6915,7 @@ i.flag.zimbabwe:before {
   border: none;
   margin: calc(2rem -  0.14285714em ) 0em 1rem;
   padding: 0em 0em;
-  font-family: "DIN Pro";
+  font-family: "BeauSans";
   font-weight: bold;
   line-height: 1.28571429em;
   text-transform: none;

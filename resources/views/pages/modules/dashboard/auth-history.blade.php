@@ -7,6 +7,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr><td>2019-03-29 16:35:23</td><td>95.55.16.221</td></tr> </tbody>
+        @foreach(@$user_data['login_history'] as $log)
+            <tr>
+                <td>{{date("d-m-Y H:i:s", strtotime($log->date))}}</td>
+                <td>{{$log->ip}}</td>
+            </tr>
+        @endforeach
+        </tbody>
     </table>
 </div>

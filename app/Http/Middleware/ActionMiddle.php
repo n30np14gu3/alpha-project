@@ -20,12 +20,9 @@ class ActionMiddle
      */
     public function handle($request, Closure $next)
     {
-        if($request->route()->getName() != 'logout')
-        {
-            if(!UserHelper::CheckAuth($request))
-                return redirect()->route('logout');
-        }
-
+        if(UserHelper::CheckAuth($request))
+            return redirect()->route('logout');
+        
         return $next($request);
     }
 }

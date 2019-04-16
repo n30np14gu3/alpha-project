@@ -337,7 +337,7 @@ canvas{
     background: transparent !important;
 }
 
-#main-logo{
+.main-logo{
     font-family: "GlacialIndifference", 'Helvetica Neue', Arial, Helvetica, sans-serif !important;
     font-weight: normal !important;
     padding: 0 0 4px 60px;

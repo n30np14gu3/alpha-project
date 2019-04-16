@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class EmailConfirm
  * @package App\Models
+ * @property int id
  * @property int user_id
  * @property int request_time
  * @property string ip

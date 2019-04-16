@@ -14,22 +14,11 @@ use App\Http\Helpers\Geolocation;
 
 class actionController extends Controller
 {
-    public function verifyAccount(){
-        $rsp = [
-            'status' => 'ERROR',
-        ];
-        $link = @$_POST['link'];
-        if(strpos($link, 'steamcommunity.com'))
-        {
-            $obj = simplexml_load_file($link."?xml=1", null, LIBXML_NOCDATA);
-            if(strpos($obj->steamID, env('APP_DOMAIN')))
-                $rsp['status'] = 'OK';
-            else
-                $rsp['status'] = 'ERROR';
-        }
-        return json_encode($rsp);
-    }
-
+    /**
+     * Non middleware
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function logout(Request $request){
         $request->session()->flush();
         if (isset($_SERVER['HTTP_COOKIE'])) {
@@ -43,7 +32,15 @@ class actionController extends Controller
         return redirect('/');
     }
 
+    /**
+     * Non middleware
+     * @param Request $request
+     * @return false|string
+     */
     public function login(Request $request){
+        if(UserHelper::CheckAuth($request) != 1)
+            return redirect()->route('logout');
+
         $result = [
           'status' => 'ERROR',
           'message' => 'UNKNOWN ERROR!'
@@ -66,7 +63,7 @@ class actionController extends Controller
         if($remember)
             setcookie('user_session', $user_session, time() + 60*60*24*7, '/');
 
-        unset($_COOKIE['referral']);
+        setcookie('referral', null, time() - 100, '/');
 
         $log = new LoginHistory();
         $log->user_id = $user->id;
@@ -75,10 +72,18 @@ class actionController extends Controller
         $log->info = Geolocation::getLocationInfo();
         $log->save();
         $request->session()->put('user_session', $user_session);
+        $result['status'] = "OK";
         return json_encode($result);
     }
 
+    /**
+     * Non middleware
+     * @param Request $request
+     * @return false|string
+     */
     public function register(Request $request){
+        if(UserHelper::CheckAuth($request) != 1)
+            return redirect()->route('logout');
         $result = [
             'status' => 'ERROR',
             'message' => 'UNKNOWN ERROR!'
@@ -117,4 +122,5 @@ class actionController extends Controller
         $result['status'] = "OK";
         return json_encode($result);
     }
+
 }

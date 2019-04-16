@@ -46,7 +46,6 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'action' => \App\Http\Middleware\ActionMiddle::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
-        'langChanger' => \App\Http\Middleware\langChanger::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,

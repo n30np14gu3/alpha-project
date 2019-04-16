@@ -2,7 +2,7 @@
 <div class="text container">
     Вы будете получать 10% от суммы с приглашенных Вами пользователей
     <br>
-    Ваша реферальная ссылка: <span id="ref-link">https://alpha-cheat.io/invite/code</span>
+    Ваша реферальная ссылка: <span id="ref-link">{{url('/invite/'.@$user_data['base']->referral_code)}}</span>
 </div>
 <br>
 
@@ -16,6 +16,11 @@
     </tr>
     </thead>
     <tbody>
-
+    <tr>
+        @foreach(@$user_data['referrals'] as $r)
+            <td>{{@$r->nickname ? @$r->nickname : "NONAME"}}</td>
+            <td>{{date("d-m-Y H:i:s", strtotime(@$r->reg_date))}}</td>
+        @endforeach
+    </tr>
     </tbody>
 </table>

@@ -2,10 +2,9 @@
     <a class="toc item">
         <i class="sidebar icon"></i>
     </a>
-    <a class="item" href="/"><h2 id="main-logo">ALPHA | CHEAT</h2></a>
+    <a class="item" href="/"><h2 class="main-logo">ALPHA | CHEAT</h2></a>
     <div class="right item main-menu">
-        <a class="item active" href="/">ГЛАВНАЯ</a>
-        <a class="item" href="/dashboard">АККАУНТ</a>
+        <a class="item @yield('main-active')" href="/">ГЛАВНАЯ</a>
         @if(env('BETA_SHOWLANG'))
             <div class="ui selection dropdown transparent item">
                 <div class="default text">{{strtoupper(App::getLocale())}} <i class="{{App::getLocale()}} flag" style="margin-left: 6px"></i></div>
@@ -15,8 +14,9 @@
                 </div>
             </div>
         @endif
-        @if(@$auth_complete)
-            <a class="act" href="/action/logout">ВЫХОД</a>
+        @if(@$logged)
+            <a class="item @yield('dashboard-active')" href="/dashboard">АККАУНТ</a>
+            <a class="act" href="/logout">ВЫХОД</a>
         @else
             <a class="act" id="login-button" onclick="showAuthForm()">ВХОД</a>
             <a class="act" onclick="showRegisterForm()">РЕГИСТРАЦИЯ</a>

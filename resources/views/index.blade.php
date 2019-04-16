@@ -28,10 +28,7 @@
                 ;
 
                 // create sidebar and attach to menu open
-                $('.ui.sidebar')
-                    .sidebar('attach events', '.toc.item')
-                ;
-
+                $('.ui.sidebar').sidebar('attach events', '.toc.item');
             });
 
         $.ajaxSetup({
@@ -57,37 +54,32 @@
     <div class="ui container">
         <div class="ui stackable inverted divided equal height stackable grid">
             <div class="three wide column">
-                <h4 class="ui inverted header">About</h4>
+                <h2 class="main-logo" style="padding: 0">ALPHA | CHEAT</h2>
                 <div class="ui inverted link list">
-                    <a href="#" class="item">Sitemap</a>
-                    <a href="#" class="item">Contact Us</a>
-                    <a href="#" class="item">Religious Ceremonies</a>
-                    <a href="#" class="item">Gazebo Plans</a>
+                    <a href="https://t.me/alphacheat" class="item" target="_blank"><i class="ui telegram icon"></i> Telegram</a>
+                    <a href="https://vk.com/alphacheat" class="item" target="_blank"><i class="ui vk icon"></i> VK</a>
                 </div>
             </div>
             <div class="three wide column">
-                <h4 class="ui inverted header">Services</h4>
+                <h4 class="ui inverted header">Сервис</h4>
                 <div class="ui inverted link list">
-                    <a href="#" class="item">Banana Pre-Order</a>
-                    <a href="#" class="item">DNA FAQ</a>
-                    <a href="#" class="item">How To Access</a>
-                    <a href="#" class="item">Favorite X-Men</a>
+                    <a href="/support" class="item" target="_blank">Тех. Поддержка</a>
+                    <a href="/legal" class="item" target="_blank">Пользовательское соглашение</a>
                 </div>
             </div>
             <div class="seven wide column">
-                <h4 class="ui inverted header">Footer Header</h4>
-                <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+                <p>Copyright © 2019. All Rights Reversed.</p>
             </div>
         </div>
     </div>
 </div>
-@if(!@$auth_complete)
+@if(!@$logged)
     @include('pages.modules.default.auth-modals')
 @endif
 <script src="{{url('/assets/js/semantic.min.js')}}"></script>
+<script src="{{url('/assets/js/vendor/popper.min.js')}}"></script>
 <script src="{{url('/assets/js/slider-semantic.js')}}"></script>
 <script src="{{url('/assets/js/toast.js')}}"></script>
-<script src="{{url('/assets/js/vendor/popper.min.js')}}"></script>
 <script src="{{url('/assets/js/TweenLite.min.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/js/particles.min.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/js/ajax.js')}}" type="text/javascript"></script>
