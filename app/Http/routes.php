@@ -24,8 +24,16 @@ Route::group(['prefix' => 'action', 'middleware' => 'action'], function (){
 
 Route::group(['prefix' => 'email'], function (){
    Route::get('confirm/{confirm_code}', ['uses' => 'mailController@confirm', 'as' => 'confirm']);
+   Route::get('reset_password/{reset_code}', ['uses' => 'mailController@resetPassword', 'as' => 'reset_password']);
 });
 
+Route::post('/payment', ['uses' => 'paymentController@prepare', 'as' => 'payment_prepare',  'middleware' => 'action']);
+
+Route::group(['prefix' => 'transfer', 'middleware' => 'action'], function (){
+   Route::post('callback', ['uses' => 'paymentController@callback', 'as' => 'payment_callback']);
+   Route::get('success', ['uses' => 'paymentController@success', 'as' => 'payment_success']);
+   Route::get('error', ['uses' => 'paymentController@error', 'as' => 'payment_error']);
+});
 Route::group(['prefix' => 'mail_test'], function (){
     Route::get('reg_complete', function (){return view('mail.types.reg_complete' ,['link' => '' , 'mail_title' => '1337']);});
     Route::get('new_password', function (){return view('mail.types.new_password' ,['link' => '' , 'mail_title' => '1337']);});

@@ -29211,7 +29211,7 @@ a.ui.card:hover,
 .ui.styled.accordion .accordion {
   border-radius: 0.28571429rem;
 
-  background: #373737;
+  background: #1a232e;
 }
 
 .ui.styled.accordion .title,
@@ -29262,13 +29262,13 @@ a.ui.card:hover,
 /* Active */
 
 .ui.styled.accordion .active.title {
-  background: #1f1f1f;
+  background: #15161b;
   color: #fff;
 }
 
 .ui.styled.accordion .accordion .active.title {
   background: transparent;
-  color: #555;
+  color: #c5c5c5;
 }
 
 /*******************************

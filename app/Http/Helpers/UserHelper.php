@@ -18,7 +18,6 @@ use App\Http\Helpers\MailHelper;
 use App\Models\User;
 use App\Models\UserSettings;
 use App\Models\Balance;
-use App\Models\EmailConfirm;
 
 class UserHelper
 {
@@ -39,6 +38,10 @@ class UserHelper
         return $user_data;
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public static function GetLocalUserInfo(Request $request){
         $user_session = @$_COOKIE['user_session'];
         if(!$user_session)
@@ -120,6 +123,15 @@ class UserHelper
         return true;
     }
 
+    public static function ResetPassword($user)
+    {
+        $data = [
+            'link' => url('/email/reset_password/'.MailHelper::NewPasswordRecoveryToken($user->id)),
+            'mail_title' => 'Восстановление пароля ALPHA CHEAT'
+        ];
+
+        MailHelper::SendMail('mail.types.password_reset', $data, $user->email, 'Восстановление пароля :: '.url('/'));
+    }
     public static function CheckSteamNick($steam_id){
         if($steam_id == 0)
             return false;
@@ -148,7 +160,7 @@ class UserHelper
 
         $newPass  = "";
         for($i = 0; $i < $length; $i++)
-            $newPass = $arr[rand(0, count($arr - 1))];
+            $newPass .= $arr[rand(0, count($arr) - 1)];
 
         return $newPass;
     }

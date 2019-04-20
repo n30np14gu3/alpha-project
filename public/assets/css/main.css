@@ -413,6 +413,13 @@ canvas{
     text-shadow: none;
 }
 
+.ui.alpha.button:active{
+    background-color: #1e5d7b;
+    border-color: #1b4c67;
+    color: #ffffff;
+    text-shadow: none;
+}
+
 .ui.alpha.button:focus{
     background-color: #1b4d68;
     border-color: #1f6786;
@@ -525,4 +532,8 @@ canvas{
 .ui.link.modals{
     cursor: pointer;
     margin-bottom: 7px;
+}
+
+.ui.alpha.table {
+    border-top: 0.2em solid #ee166c;
 }

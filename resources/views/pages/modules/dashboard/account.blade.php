@@ -11,7 +11,7 @@
                     </div>
                     <div class="field">
                         <label>Дата рождения</label>
-                        <input type="text" name="account[birthday]" placeholder="Дата рождения" required value="{{@$user_data['settings']->birth_date}}">
+                        <input type="text" name="account[birthday]" placeholder="Дата рождения" id="birthday-mask" required value="{{@$user_data['settings']->birth_date}}">
                     </div>
                 </div>
                 <div class="two fields">

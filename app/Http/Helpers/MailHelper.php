@@ -21,6 +21,7 @@ use App\Http\Helpers\CryptoHelper;
 use App\Http\Helpers\Geolocation;
 
 use App\Models\EmailConfirm;
+use App\Models\PasswordRecovery;
 
 class MailHelper
 {
@@ -49,5 +50,17 @@ class MailHelper
         $confirm_data->save();
 
         return $confirm_data->code;
+    }
+
+    public static function NewPasswordRecoveryToken($user_id){
+        $password_recovery = new PasswordRecovery();
+        $password_recovery->user_id = $user_id;
+        $password_recovery->request_time = time();
+        $password_recovery->visited = 0;
+        $password_recovery->code = strtoupper(hash("sha256", openssl_random_pseudo_bytes(64)));
+        $password_recovery->ip = $_SERVER['REMOTE_ADDR'];
+        $password_recovery->save();
+
+        return $password_recovery->code;
     }
 }

@@ -48,6 +48,7 @@
     @include('pages.modules.default.main-menu')
     <div class="ui container fluid">
         @yield('dashboard')
+        @yield('payment-form')
     </div>
 </div>
 <div class="ui inverted vertical footer segment">
@@ -83,6 +84,7 @@
 <script src="{{url('/assets/js/TweenLite.min.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/js/particles.min.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/js/ajax.js')}}" type="text/javascript"></script>
+<script src="{{url('/assets/js/vendor/jquery.maskedinput.min.js')}}"></script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>

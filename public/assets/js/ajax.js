@@ -12,6 +12,7 @@ $(document).ready(function () {
             ;
         });
     $('.info-popup').popup();
+    $("#birthday-mask").mask("99.99.9999", {placeholder: ""});
 });
 function showToast(text, type, duration, icon) {
     $('body')
@@ -132,3 +133,4 @@ $('#verify-account').click(function (e) {
         }
     });
 });
+

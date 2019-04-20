@@ -76,7 +76,7 @@ class actionController extends Controller
         $log = new LoginHistory();
         $log->user_id = $user->id;
         $log->ip = $user_data['ip'];
-        $log->date = date("Y-m-d H:i:s");
+        $log->date = time();
         $log->info = Geolocation::getLocationInfo();
         $log->save();
         $request->session()->put('user_session', $user_session);
@@ -158,7 +158,26 @@ class actionController extends Controller
             return json_encode($result);
         }
 
-        return $result;
+        $mail = @$_POST['email'];
+        if(!$mail){
+            $result['message'] = "Вы указали пустую почту";
+            return json_encode($result);
+        }
+
+        if(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
+            $result['message']  = "Формат почтового ящика неправильный";
+            return json_encode($result);
+        }
+
+        $user = User::where('email', $mail)->get()->first();
+        if(!$user){
+            $result['message']  = "Данный email не зарегестрирован в системе";
+            return json_encode($result);
+        }
+
+        UserHelper::ResetPassword($user);
+        $result['status'] = "OK";
+        return json_encode($result);
     }
 
     public function verifySteam(Request $request)
