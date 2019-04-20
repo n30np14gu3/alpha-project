@@ -10,7 +10,7 @@
         <tr>
             <td style="padding: 20px 0 30px 0;">
                 <p>Вы успешно зарегестрировались на <a href="{{url('/')}}" target="_blank" style="text-decoration: none; color: #ee166c">сайте</a>.</p>
-                <p>Для подтверждения Вашей учетной записи, перейдите по следующей <a href="" target="_blank" style="text-decoration: none; color: #ee166c; text-transform: uppercase;">ссылке</a>.</p>
+                <p>Для подтверждения Вашей учетной записи, перейдите по следующей <a href="{{$link}}" target="_blank" style="text-decoration: none; color: #ee166c; text-transform: uppercase;">ссылке</a>.</p>
             </td>
         </tr>
     </table>

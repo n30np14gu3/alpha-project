@@ -25,10 +25,14 @@ use App\Models\EmailConfirm;
 class MailHelper
 {
     public static function SendMail($view, $data, $email, $title){
-        Mail::send($view, $data, function ($message) use ($email, $title){
-            $message->from(env('MAIL_USERNAME'), 'ALPHA PROJECT NOREPLY');
-            $message->to($email)->subject($title);
-        });
+        try{
+            Mail::send($view, $data, function ($message) use ($email, $title){
+                $message->from(env('MAIL_USERNAME'), 'ALPHA PROJECT NOREPLY SERVICE');
+                $message->to($email)->subject($title);
+            });
+        }catch (\Swift_TransportException $ex){
+
+        }
     }
 
     /**

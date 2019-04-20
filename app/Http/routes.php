@@ -16,10 +16,10 @@ Route::get('/dashboard', ['uses' => 'dashboardController@index', 'as' => 'dashbo
 Route::get('/logout', ['uses' => 'actionController@logout', 'as' => 'logout']);
 Route::post('/register', ['uses' => 'actionController@register', 'as' => 'register']);
 Route::post('/login', ['uses' => 'actionController@login', 'as' => 'login']);
+Route::post('/reset_password', ['uses' => 'actionController@resetPassword', 'as' => 'reset_password']);
 
-Route::get('lol/{steam_id}', ['uses' => 'actionController@verifySteam']);
 Route::group(['prefix' => 'action', 'middleware' => 'action'], function (){
-
+    Route::post('verify_steam', ['uses' => 'actionController@verifySteam', 'as' => 'verify_steam']);
 });
 
 Route::group(['prefix' => 'email'], function (){
@@ -27,5 +27,7 @@ Route::group(['prefix' => 'email'], function (){
 });
 
 Route::group(['prefix' => 'mail_test'], function (){
-    Route::get('registration', function (){return view('mail.types.reg_complete' ,['link' => '' , 'mail_title' => '1337']);});
+    Route::get('reg_complete', function (){return view('mail.types.reg_complete' ,['link' => '' , 'mail_title' => '1337']);});
+    Route::get('new_password', function (){return view('mail.types.new_password' ,['link' => '' , 'mail_title' => '1337']);});
+    Route::get('password_reset', function (){return view('mail.types.password_reset' ,['link' => '' , 'mail_title' => '1337']);});
 });

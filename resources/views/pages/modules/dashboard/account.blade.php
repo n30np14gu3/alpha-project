@@ -42,10 +42,10 @@
                     <label>Steam</label>
                     <div class="fields">
                         <div class="twelve wide field">
-                            <input type="text" id="steam-link" placeholder="Ссылка на аккаунт Steam" required>
+                            <input type="text" id="steam-link" placeholder="Ссылка на аккаунт Steam" value="{{@$user_data['steam_link']}}" {{@$user_data['has_steam'] ? "disabled" : ''}}>
                         </div>
                         <div class="four wide field">
-                            <input class="ui fluid button alpha" type="button" id="verify-account" value="Подтвердить">
+                            <input class="ui fluid button alpha {{!@$user_data['has_steam'] ? 'info-popup' : ''}}" type="button" id="verify-account" value="Подтвердить" {{@$user_data['has_steam'] ? "disabled" : ''}} data-content='Ссылку на Steam НЕЛЬЗЯ будет изменить!' data-variation='large'>
                         </div>
                     </div>
                 </div>

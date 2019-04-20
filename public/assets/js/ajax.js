@@ -59,6 +59,28 @@ $('#register-form').submit(function (e) {
     );
 });
 
+$('#repass-form').submit(function (e) {
+    e.preventDefault();
+    $.ajax(
+        {
+            type: "POST",
+            url: "/reset_password",
+            data: $("#repass-form").serialize(),
+            success: function(data) {
+                data = JSON.parse(data);
+                if(data.status !== "OK"){
+                    showToast(data.message, 'error', 3000, 'microchip');
+                }
+                else
+                {
+                    showToast('Запрос на сброс пароля отправлен!<br>На почтовый ящик была отправлены дальнейшие инструкции', 'success', 5000, 'microchip');
+                    $('#repass-form')[0].reset();
+                }
+            }
+        }
+    );
+});
+
 $('#auth-form').submit(function (e) {
     e.preventDefault();
     $.ajax(
@@ -70,6 +92,7 @@ $('#auth-form').submit(function (e) {
                 data = JSON.parse(data);
                 if(data.status !== "OK"){
                     showToast(data.message, 'error', 3000, 'microchip');
+                    $('#auth-form')[0].reset();
                 }
                 else
                     location.replace('/dashboard');
@@ -101,7 +124,7 @@ $('#verify-account').click(function (e) {
 
             }
             else{
-                showToast('Ошибка в подтверждении аккаунта', 'error', 5000, 'steam');
+                showToast(data.message, 'error', 5000, 'steam');
             }
         },
         error: function (data) {

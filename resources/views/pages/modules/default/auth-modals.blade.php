@@ -20,6 +20,7 @@
                 <label>Я принимаю условия <a href="/legal" target="_blank">Пользовательского соглашения</a></label>
             </div>
         </div>
+        @include('pages.modules.default.recaptcha')
         <div class="field">
             <button class="ui alpha button" type="submit">Создать аккаунт</button>
         </div>
@@ -48,6 +49,7 @@
                 <label>Запомнить меня</label>
             </div>
         </div>
+        @include('pages.modules.default.recaptcha')
         <div class="field">
             <button class="ui alpha button" type="submit">Вход</button>
         </div>
@@ -61,11 +63,12 @@
 <div class="ui mini modal" id="repass-modal">
     <i class="close icon"></i>
     <div class="header">Сброс пароля</div>
-    <form class="ui form" style="padding: 30px;">
+    <form class="ui form" style="padding: 30px;" id="repass-form">
         <div class="field">
             <label>E-Mail:</label>
-            <input type="email" placeholder="example@alphacheat.com" required>
+            <input type="email" placeholder="example@alphacheat.com" name="email" required>
         </div>
+        @include('pages.modules.default.recaptcha')
         <div class="field">
             <button class="ui alpha button" type="submit">Сбросить пароль</button>
         </div>

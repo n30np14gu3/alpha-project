@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Helpers\UserHelper;
+use App\Http\Helpers\CostHelper;
 
 
 use App\Models\User;
@@ -24,17 +25,19 @@ class dashboardController extends Controller
 
         $settings = @UserSettings::where('user_id', $user->id)->get()->first();
         $balance = @Balance::where('user_id', $user->id)->get()->first();
+        $ref_nickname = @UserSettings::where('user_id', $settings->referral)->get()->first()->nickname;
         $data = [
             'logged' => true,
             'user_data' => [
                 'base' => $user,
                 'settings' => $settings,
-                'balance' => $balance,
-                'invitor' => @UserSettings::where('user_id', $settings->referral)->get()->first()->nickname,
+                'balance' => CostHelper::GetBalance($balance->balance, $request),
+                'invitor' => $ref_nickname ? $ref_nickname : "NONAME",
                 'login_history' => @LoginHistory::where('user_id', $user->id)->get(),
                 'referrals' => @UserSettings::where('referral', $user->id)->where('status', '>', 0)->get(),
                 'has_steam' => $settings->steam_id != 0,
-                'has_domain' => UserHelper::CheckSteamNick($settings->steam_id)
+                'has_domain' => UserHelper::CheckSteamNick($settings->steam_id),
+                'steam_link' => ($settings->steam_id != 0) ? 'http://steamcommunity.com/profiles/'.$settings->steam_id : ''
             ]
         ];
         return view('pages.dashboard', $data);

@@ -11,7 +11,8 @@
       "ext-simplexml": "*",
         "ext-curl": "*",
       "ext-openssl": "*",
-      "ext-libxml": "*"
+      "ext-libxml": "*",
+      "ext-intl": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -1,5 +1,5 @@
 <div style="padding: 0 15px">
-    <h1 id="balance">Ваш баланс: 1337$</h1>
+    <h1 id="balance">Ваш баланс: {{@$user_data['balance']}}</h1>
     <div class="ui stackable grid">
         <div class="row">
             <div class="ten wide column">
@@ -60,7 +60,7 @@
                 <div class="bold">Информация</div>
                 <div class="ui divider"></div>
                 <div class="text container">
-                    Пересчет всех средств происходит по курсу Евро
+                    Пересчет всех средств происходит по курсу Рубль/Евро
                 </div>
             </div>
         </div>

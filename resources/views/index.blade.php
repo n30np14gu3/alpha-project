@@ -83,5 +83,6 @@
 <script src="{{url('/assets/js/TweenLite.min.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/js/particles.min.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/js/ajax.js')}}" type="text/javascript"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>

@@ -27,15 +27,24 @@ class UserHelper
      * @param string $password
      * @return array
      */
-    public static function GetUserData($email, $password){
+    public static function CreateUserArray($id, $email, $password){
         $user_data = [
             'email' => @$email,
             'password' => @$password,
             'ip' => $_SERVER['REMOTE_ADDR'],
-            'salt' => hash("sha256", base64_encode(openssl_random_pseudo_bytes(64)))
+            'salt' => hash("sha256", base64_encode(openssl_random_pseudo_bytes(64))),
+            'id' => $id
         ];
 
         return $user_data;
+    }
+
+    public static function GetLocalUserInfo(Request $request){
+        $user_session = @$_COOKIE['user_session'];
+        if(!$user_session)
+            $user_session = @$request->session()->get('user_session');
+
+        return (array)json_decode(@CryptoHelper::DecryptResponse($user_session));
     }
 
 
@@ -103,7 +112,7 @@ class UserHelper
         $user_balance->save();
 
         $data = [
-            'link' => url('/email/confirm/').MailHelper::NewMailConfirmToken($user->id),
+            'link' => url('/email/confirm/'.MailHelper::NewMailConfirmToken($user->id)),
             'mail_title' => 'Регистрация на сайте ALPHA CHEAT'
         ];
 
@@ -112,7 +121,35 @@ class UserHelper
     }
 
     public static function CheckSteamNick($steam_id){
-        $user_data = simplexml_load_file("http://steamcommunity.com/profiles/$steam_id?xml=1", null, LIBXML_NOCDATA);
-        return strpos(@$user_data->steamID, 'alphacheat.com') !== false;
+        if($steam_id == 0)
+            return false;
+        try{
+            $user_data = simplexml_load_file("http://steamcommunity.com/profiles/$steam_id?xml=1", null, LIBXML_NOCDATA);
+            return strpos(@$user_data->steamID, 'alphacheat.com') !== false;
+        }catch(\ErrorException $ex){
+            return false;
+        }
+    }
+
+    public static function NewPassword($length){
+        if($length <= 0)
+            return "";
+        $arr = array(
+            'a','b','c','d','e','f',
+            'g','h','i','j','k','l',
+            'm','n','o','p','r','s',
+            't','u','v','x','y','z',
+            'A','B','C','D','E','F',
+            'G','H','I','J','K','L',
+            'M','N','O','P','R','S',
+            'T','U','V','X','Y','Z',
+            '1','2','3','4','5','6',
+            '7','8','9','0');
+
+        $newPass  = "";
+        for($i = 0; $i < $length; $i++)
+            $newPass = $arr[rand(0, count($arr - 1))];
+
+        return $newPass;
     }
 }

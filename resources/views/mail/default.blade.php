@@ -5,7 +5,7 @@
     <title>{{@$mail_title}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
-<body style="margin: 0; padding: 0; font-family: 'Microsoft JhengHei UI Light', Arial, sans-serif">
+<body style="margin: 0; padding: 0; font-family: Helvetica, Arial, sans-serif;">
 <table align="center" border="1" cellpadding="0" cellspacing="0" width="600" style="color: white">
     <tr>
         <td align="center" bgcolor="#02061c">
@@ -13,7 +13,7 @@
         </td>
     </tr>
     <tr>
-        <td bgcolor="#020731" style="padding: 20px 30px;">
+        <td bgcolor="#020731" style="padding: 20px 30px; color: white">
             @yield('mail-body')
         </td>
     </tr>

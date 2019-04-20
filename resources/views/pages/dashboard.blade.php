@@ -12,7 +12,7 @@
                     <div class="item">
                         <h2>
                             {{@$user_data['settings']->nickname ? @$user_data['settings']->nickname : "NONAME"}}
-                            <span class="info-popup verify-status active" id="account-status" data-content="Add users to your feed">あ</span>
+                            <span class="info-popup verify-status icon {{@$user_data['has_domain'] ? 'active' : ''}}" id="account-status" data-content="{{@$user_data['has_domain'] ? 'Аккаунт подтвержден' : 'Добавь свой Steam аккаунт и получи скидку 3%! (Скидка будет работать, если в вашем нике присутствет ссылка на наш сайт)'}}">あ</span>
                         </h2>
                     </div>
                     @if(@$user_data['settings']->status)

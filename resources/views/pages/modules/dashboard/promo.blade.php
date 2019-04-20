@@ -1,9 +1,7 @@
 <form class="ui small form">
     <div class="fields inline">
-        <div class="four wide field">Промокод:</div>
-        <div class="eleven wide field">
-            <input type="text" placeholder="XX-XXXX-XXXXXXXX" id="form_promocodeactivate_code" maxlength="16" minlength="16">
-        </div>
+        <label>Промокод:</label>
+        <input type="text"  placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX" maxlength="35" minlength="35">
     </div>
     <div class="field">
         <input type="submit" value="Активировать" class="ui fluid alpha button">

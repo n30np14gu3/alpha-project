@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\UserHelper;
+use App\Models\UserSettings;
 use Illuminate\Http\Request;
 
 
@@ -11,6 +12,7 @@ use App\Models\LoginHistory;
 
 use App\Http\Helpers\CryptoHelper;
 use App\Http\Helpers\Geolocation;
+use App\Http\Helpers\ReCaptcha;
 
 class actionController extends Controller
 {
@@ -51,13 +53,19 @@ class actionController extends Controller
         $password = hash("sha256", @$_POST['password']);
         $remember = @$_POST['save'];
 
+        if(!env('BETA_DISABLERECAPTCHA') && !ReCaptcha::Verify())
+        {
+            $result['message'] = "Ошибка ReCaptcha!";
+            return json_encode($result);
+        }
+
         $user = User::where('email', $email)->where('password', $password)->get()->first();
         if(!$user){
             $result['message'] = "Неверный логин или пароль!";
             return json_encode($result);
         }
 
-        $user_data = UserHelper::GetUserData($email, $password);
+        $user_data = UserHelper::CreateUserArray($user->id, $email, $password);
         $user_session = CryptoHelper::EncryptResponse(json_encode($user_data));
 
         if($remember)
@@ -93,6 +101,12 @@ class actionController extends Controller
             return json_encode($result);
         }
 
+        if(!env('BETA_DISABLERECAPTCHA') && !ReCaptcha::Verify())
+        {
+            $result['message'] = "Ошибка ReCaptcha!";
+            return json_encode($result);
+        }
+
         $email = @$_POST['email'];
         $password = @$_POST['password'];
         $password2 = @$_POST['password-2'];
@@ -123,4 +137,71 @@ class actionController extends Controller
         return json_encode($result);
     }
 
+
+    /**
+     * Non middleware
+     * @param Request $request
+     * @return array|\Illuminate\Http\RedirectResponse
+     */
+    public function resetPassword(Request $request)
+    {
+        if(UserHelper::CheckAuth($request) != 1)
+            return redirect()->route('logout');
+        $result = [
+            'status' => 'ERROR',
+            'message' => 'UNKNOWN ERROR!'
+        ];
+
+        if(!env('BETA_DISABLERECAPTCHA') && !ReCaptcha::Verify())
+        {
+            $result['message'] = "Ошибка ReCaptcha!";
+            return json_encode($result);
+        }
+
+        return $result;
+    }
+
+    public function verifySteam(Request $request)
+    {
+        $result = [
+            'status' => 'ERROR',
+            'message' => 'UNKNOWN ERROR'
+        ];
+
+        $link = @$_POST['link'];
+        if(!$link){
+            $result['message'] = 'Ссылка пустая!';
+            return json_encode($result);
+        }
+
+        if(strpos($link, 'https://steamcommunity.com') !== 0 || count(explode('/', $link)) != 5){
+            $result['message'] = 'Сссылка имеет неверный формат!';
+            return json_encode($result);
+        }
+
+        $user_data = simplexml_load_file("$link?xml=1", null, LIBXML_NOCDATA);
+        if(strpos(@$user_data->steamID, 'alphacheat.com') === false){
+            $result['message'] = 'Имя пользователя не содержит имени домена';
+            return json_encode($result);
+        }
+
+        $user_info = UserHelper::GetLocalUserInfo($request);
+        if(!@$user_info['id'])
+            return redirect()->route('logout');
+
+        $user = UserSettings::where('user_id', $user_info['id'])->get()->first();
+        if(@UserSettings::where('steam_id', $user_data->steamID64)->get()->first()->user_id != 0){
+            $result['message'] = 'Данный steam аккаунт уже привязан к другому пользователю.';
+            return json_encode($result);
+        }
+        if($user->steam_id){
+            $result['message'] = 'Аккаунт уже привязан к steam';
+            return json_encode($result);
+        }
+
+        $user->steam_id = $user_data->steamID64;
+        $user->save();
+        $result['status'] = "OK";
+        return json_encode($result);
+    }
 }
