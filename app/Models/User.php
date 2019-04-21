@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string email
  * @property string password
  * @property string referral_code
+ * @property int staff_status
  */
 class User extends Model
 {

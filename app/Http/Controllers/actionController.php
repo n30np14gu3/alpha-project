@@ -223,4 +223,61 @@ class actionController extends Controller
         $result['status'] = "OK";
         return json_encode($result);
     }
+
+    public function saveInfo(Request $request){
+        $result = [
+            'status' => 'ERROR',
+            'message' => 'UNKNOWN ERROR'
+        ];
+
+        $nickname = @$_POST['account']['nickname'];
+        $birthday = @$_POST['account']['birthday'];
+        $first_name = @$_POST['account']['first-name'];
+        $last_name = @$_POST['account']['last-name'];
+        $sex = abs((int)@$_POST['account']['sex']) % 3;
+
+        if(!$nickname || !$first_name || !$last_name || !$sex) {
+            $result['message'] = 'Не все поля заполнены!';
+            return json_encode($result);
+        }
+
+        if(!preg_match('/^[aA-zZ0-9]{1,25}$/', $nickname)) {
+            $result['message'] = 'Никнейм имеет неверный формат';
+            return json_encode($result);
+        }
+
+        if(!strtotime($birthday) && $birthday) {
+            $result['message'] = 'Дата рождения имеет неверный формат';
+            return json_encode($result);
+        }
+
+        if(time() - strtotime($birthday) < 60*60*24*365*14){
+            $result['message'] = 'Вам должно быть больше 14 лет!';
+            return json_encode($result);
+        }
+
+        if(!preg_match('/^[aA-zZ0-9aA-яЯ]{1,25}$/', $first_name)){
+            $result['message'] = 'Имя имеет неверный формат';
+            return json_encode($result);
+        }
+
+        if(!preg_match('/^[aA-zZ0-9aA-яЯ]{1,25}$/', $last_name)){
+            $result['message'] = 'Фамилия имеет неверный формат';
+            return json_encode($result);
+        }
+
+        $user_info = UserHelper::GetLocalUserInfo($request);
+        $user_settings = UserSettings::where('user_id', $user_info['id'])->get()->first();
+        $user_settings->nickname = $nickname;
+        if(!$user_settings->birth_date)
+            $user_settings->birth_date = date("Y-m-d H:i:s", strtotime($birthday));
+        $user_settings->first_name = $first_name;
+        $user_settings->last_name = $last_name;
+        $user_settings->sex = $sex;
+        $user_settings->save();
+
+
+        $result['status'] = "OK";
+        return json_encode($result);
+    }
 }

@@ -17,7 +17,6 @@ use App\Models\Ban;
 class paymentController extends Controller
 {
     public function prepare(Request $request){
-        dd(Balance::all('total_spend')->sum());
         $amount = @$_POST['amount'];
         $desc = @$_POST['desc'];
         $local_currency = @$_POST['local_currency'];

@@ -102,6 +102,29 @@ $('#auth-form').submit(function (e) {
     );
 });
 
+$('#account-data-form').submit(function (e) {
+    e.preventDefault();
+    $.ajax(
+        {
+            type: "POST",
+            url: "/action/save_info",
+            data: $("#account-data-form").serialize(),
+            success: function(data) {
+                data = JSON.parse(data);
+                if(data.status !== "OK"){
+                    showToast(data.message, 'error', 3000, 'microchip');
+                    $('#auth-form')[0].reset();
+                }
+                else
+                {
+                    showToast('Данные успешно сохранены!', 'success', 3000, 'microchip');
+                    $('#birthday-mask').attr('disabled', 'disabled');
+                }
+            }
+        }
+    );
+});
+
 $('#verify-account').click(function (e) {
     e.preventDefault();
     const link = $('#steam-link').val().toString();

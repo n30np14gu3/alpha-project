@@ -20,6 +20,7 @@ Route::post('/reset_password', ['uses' => 'actionController@resetPassword', 'as'
 
 Route::group(['prefix' => 'action', 'middleware' => 'action'], function (){
     Route::post('verify_steam', ['uses' => 'actionController@verifySteam', 'as' => 'verify_steam']);
+    Route::post('save_info', ['uses' => 'actionController@saveInfo', 'as' => 'save_info']);
 });
 
 Route::group(['prefix' => 'email'], function (){

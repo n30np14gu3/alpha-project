@@ -24,14 +24,15 @@ class dashboardController extends Controller
 
         $settings = @UserSettings::where('user_id', $user->id)->get()->first();
         $balance = @Balance::where('user_id', $user->id)->get()->first();
-        $ref_nickname = @UserSettings::where('user_id', $settings->referral)->get()->first()->nickname;
+        $ref_nickname = @UserSettings::where('user_id', $settings->referral)->get()->first();
+        $ref_nickname = $ref_nickname ? ($ref_nickname->nickname ? $ref_nickname->nickname : "NONAME") : "";
         $data = [
             'logged' => true,
             'user_data' => [
                 'base' => $user,
                 'settings' => $settings,
                 'balance' => CostHelper::GetBalance($balance->balance, $request),
-                'invitor' => $ref_nickname ? $ref_nickname : "NONAME",
+                'invitor' => $ref_nickname,
                 'login_history' => @LoginHistory::where('user_id', $user->id)->get(),
                 'referrals' => @UserSettings::where('referral', $user->id)->where('status', '>', 0)->get(),
                 'has_steam' => $settings->steam_id != 0,
@@ -47,21 +48,5 @@ class dashboardController extends Controller
             ]
         ];
         return view('pages.dashboard', $data);
-    }
-
-    public function verifyAccount(){
-        $rsp = [
-            'status' => 'ERROR',
-        ];
-        $link = @$_POST['link'];
-        if(strpos($link, 'steamcommunity.com'))
-        {
-            $obj = simplexml_load_file($link."?xml=1", null, LIBXML_NOCDATA);
-            if(strpos($obj->steamID, env('APP_DOMAIN')))
-                $rsp['status'] = 'OK';
-            else
-                $rsp['status'] = 'ERROR';
-        }
-        return json_encode($rsp);
     }
 }

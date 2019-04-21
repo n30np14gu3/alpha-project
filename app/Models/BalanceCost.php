@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class ProductFeature
+ * Class BalanceCost
  * @package App\Models
  * @property int id
- * @property int product_id
- * @property int moudle_id
+ * @property int amount
  */
-class ProductFeature extends Model
+class BalanceCost extends Model
 {
     public $timestamps = false;
-    protected $table = 'product_features';
+    protected $table = 'balance_costs';
 }

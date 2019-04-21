@@ -3,15 +3,15 @@
         <div class="row">
             <div class="bold">Данные профиля</div>
             <div class="ui divider"></div>
-            <form class="ui form" method="post">
+            <form class="ui form" id="account-data-form">
                 <div class="two fields">
                     <div class="field">
                         <label>Никнейм</label>
-                        <input type="text" name="account[nickname]" placeholder="Никнейм" required value="{{@$user_data['settings']->nickname}}">
+                        <input type="text" name="account[nickname]" placeholder="Никнейм" required value="{{@$user_data['settings']->nickname}}" minlength="1" maxlength="25">
                     </div>
                     <div class="field">
                         <label>Дата рождения</label>
-                        <input type="text" name="account[birthday]" placeholder="Дата рождения" id="birthday-mask" required value="{{@$user_data['settings']->birth_date}}">
+                        <input type="text" name="account[birthday]" placeholder="Дата рождения" id="birthday-mask" required value="{{@$user_data['settings']->birth_date ? date('d.m.Y', strtotime(@$user_data['settings']->birth_date)) : ''}}" {{@$user_data['settings']->birth_date ? 'disabled' : ''}}>
                     </div>
                 </div>
                 <div class="two fields">
@@ -31,11 +31,15 @@
                     </div>
                     <div class="field">
                         <label>Пол</label>
-                        <select class="ui fluid dropdown" required>
-                            <option value="{{@$user_data['settings']->sex}}">Пол</option>
-                            <option value="0">Мужской</option>
-                            <option value="1">Женский</option>
-                        </select>
+                        <div class="ui selection dropdown">
+                            <input type="hidden" name="account[sex]" required value="{{@$user_data['settings']->sex}}">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Пол</div>
+                            <div class="menu">
+                                <div class="item" data-value="1">Мужской</div>
+                                <div class="item" data-value="2">Женский</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="field">
