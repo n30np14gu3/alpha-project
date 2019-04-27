@@ -63,6 +63,7 @@ class mailController extends Controller
         $user_settings->status = 1;
         $mail->visited = 1;
 
+
         $user_settings->save();
         $mail->save();
 

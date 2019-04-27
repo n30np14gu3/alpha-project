@@ -21,6 +21,7 @@ Route::post('/reset_password', ['uses' => 'actionController@resetPassword', 'as'
 Route::group(['prefix' => 'action', 'middleware' => 'action'], function (){
     Route::post('verify_steam', ['uses' => 'actionController@verifySteam', 'as' => 'verify_steam']);
     Route::post('save_info', ['uses' => 'actionController@saveInfo', 'as' => 'save_info']);
+    Route::post('password_change', ['uses' => 'actionController@changePassword', 'as' => 'password_change']);
 });
 
 Route::group(['prefix' => 'email'], function (){
@@ -28,7 +29,7 @@ Route::group(['prefix' => 'email'], function (){
    Route::get('reset_password/{reset_code}', ['uses' => 'mailController@resetPassword', 'as' => 'reset_password']);
 });
 
-Route::post('/payment', ['uses' => 'paymentController@prepare', 'as' => 'payment_prepare',  'middleware' => 'action']);
+Route::get('/payment', ['uses' => 'paymentController@prepare', 'as' => 'payment_prepare',  'middleware' => 'action']);
 
 Route::group(['prefix' => 'transfer', 'middleware' => 'action'], function (){
    Route::post('callback', ['uses' => 'paymentController@callback', 'as' => 'payment_callback']);

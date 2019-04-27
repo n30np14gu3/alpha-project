@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserSettings extends Model
 {
     public $timestamps = false;
+    protected $primaryKey = 'user_id';
     protected $table = 'user_settings';
 
 }

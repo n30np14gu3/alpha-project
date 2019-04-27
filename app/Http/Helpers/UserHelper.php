@@ -50,6 +50,22 @@ class UserHelper
         return (array)json_decode(@CryptoHelper::DecryptResponse($user_session));
     }
 
+    /**
+     * @param Request $request
+     * @param string %newPassword
+     */
+    public static function UpdateUserPassword(Request $request, $newPassword){
+        $user_data = self::GetLocalUserInfo($request);
+        $user = User::where('id', $user_data['id'])->get()->first();
+        $user->password = hash("sha256", $newPassword);
+        $user_data['password'] = $user->password;
+        $user_data = CryptoHelper::EncryptResponse(json_encode($user_data));
+        $request->session()->put('user_session', $user_data);
+        if(@$_COOKIE['user_session'])
+            setcookie('user_session', $user_data, time() + 60*60*24*7, '/');
+
+        $user->save();
+    }
 
     /**
      * @param Request $request

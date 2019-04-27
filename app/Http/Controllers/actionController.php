@@ -123,6 +123,12 @@ class actionController extends Controller
             return json_encode($result);
         }
 
+
+        if(strlen($password) < 8 && strlen($password) > 30){
+            $result['message'] = 'Пароль имеет неверную длину';
+            return json_encode($result);
+        }
+
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
             $result['message']  = "Формат почтового ящика неправильный";
             return json_encode($result);
@@ -278,6 +284,37 @@ class actionController extends Controller
 
 
         $result['status'] = "OK";
+        return json_encode($result);
+    }
+
+    public function changePassword(Request $request){
+        $result = [
+            'status' => 'ERROR',
+            'message' => 'UNKNOWN ERROR'
+        ];
+
+        $old_password = @$_POST['old-password'];
+        $new_password = @$_POST['new-password'];
+        $new_password_2 = @$_POST['new-password-2'];
+
+        if(!$old_password || !$new_password || !$new_password_2){
+            $result['message'] = 'Не все поля заполнены!';
+            return json_encode($result);
+        }
+
+        if($new_password_2 != $new_password){
+            $result['message'] = 'Введенные пароли не совпадают!';
+            return json_encode($result);
+        }
+
+        $user_data = UserHelper::GetLocalUserInfo($request);
+        if($user_data['password'] != hash("sha256", $old_password)){
+            $result['message'] = 'Введен неверный старый пароль!';
+            return json_encode($result);
+        }
+
+        UserHelper::UpdateUserPassword($request, $new_password);
+        $result['status'] = 'OK';
         return json_encode($result);
     }
 }

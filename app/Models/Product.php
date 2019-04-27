@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int game_id
  * @property string title
  * @property int status
- * @property int increment
+ * @property int group_id
  */
 class Product extends Model
 {

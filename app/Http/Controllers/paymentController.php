@@ -17,9 +17,9 @@ use App\Models\Ban;
 class paymentController extends Controller
 {
     public function prepare(Request $request){
-        $amount = @$_POST['amount'];
-        $desc = @$_POST['desc'];
-        $local_currency = @$_POST['local_currency'];
+        $amount = 15;
+        $desc = 15;
+        $local_currency = 'RUB';
 
         if(!$amount || !$desc || !$local_currency)
             return redirect()->route('dashboard');

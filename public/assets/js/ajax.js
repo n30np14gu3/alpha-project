@@ -13,7 +13,20 @@ $(document).ready(function () {
         });
     $('.info-popup').popup();
     $("#birthday-mask").mask("99.99.9999", {placeholder: ""});
+    $('#products-context .menu .item').tab({
+        context: $('#products-context')
+    });
+
+    $('.products').on('click', '.item', function() {
+        $('.menu.products .item').removeClass('active');
+        if(!$(this).hasClass('dropdown')) {
+            $(this).addClass('active').siblings('.item').removeClass('active');
+            $('#cost-id').attr('value', $(this).attr('data-cost'));
+            $('#product-id').attr('value', $(this).attr('data-product'));
+        }
+    });
 });
+
 function showToast(text, type, duration, icon) {
     $('body')
         .toast({
@@ -36,6 +49,10 @@ function showRegisterForm() {
 
 function showRepassForm() {
     $('#repass-modal').modal('show');
+}
+
+function showProductsForm(){
+    $('#products-modal').modal('show');
 }
 
 $('#register-form').submit(function (e) {
@@ -123,6 +140,26 @@ $('#account-data-form').submit(function (e) {
             }
         }
     );
+});
+
+$('#password-form').submit(function (e) {
+    e.preventDefault();
+    $.ajax({
+       type: "POST",
+       url: "/action/password_change",
+       data: $('#password-form').serialize(),
+       success: function (data) {
+           data = JSON.parse(data);
+           if(data.status !== "OK"){
+               showToast(data.message, 'error', 3000, 'microchip');
+               document.getElementById('password-form').reset();
+           }
+           else
+           {
+               showToast('Пароль успешно сохранен!', 'success', 3000, 'microchip');
+           }
+       }
+    });
 });
 
 $('#verify-account').click(function (e) {

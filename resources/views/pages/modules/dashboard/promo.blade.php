@@ -6,11 +6,9 @@
     <div class="field">
         <input type="submit" value="Активировать" class="ui fluid alpha button">
     </div>
+    @include('pages.modules.default.recaptcha')
 </form>
-<br><br>
-<div class="bold">Активированные промокода</div>
-<div class="ui divider"></div>
-<table class="ui unstackable striped selectable table center aligned very compact small fluid">
+<table class="ui unstackable striped selectable table center aligned very compact small fluid" style="font-family: BeauSans">
     <thead>
     <tr>
         <th>Промокод</th>

@@ -6,7 +6,7 @@ return [
   'tab-security' => 'Безопасность',
   'tab-subscription' => 'Подписка',
   'tab-balance' => 'Баланс',
-  'tab-promo' => 'Пропокоды',
+  'tab-promo' => 'Промокоды',
   'tab-ref' => 'Реферальная система',
   'tab-shop-history' => 'История покупок',
   'tab-auth-history' => 'История входов',

@@ -85,6 +85,6 @@
 <script src="{{url('/assets/js/particles.min.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/js/ajax.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/js/vendor/jquery.maskedinput.min.js')}}"></script>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LfzXqAUAAAAAIWB9FHfXBZcj18Tyts-r8G-Du0-"></script>
 </body>
 </html>

@@ -388,8 +388,6 @@ canvas{
 }
 
 .bold{
-    letter-spacing: 8px;
-    font-weight: bold;
     font-size: 20px;
 }
 
@@ -444,7 +442,7 @@ canvas{
 
 .text.container{
     font-family: "BeauSans";
-    letter-spacing: 3px;
+    color: #888888;
     font-weight: lighter;
     font-size: 14px;
     word-break: break-word;
@@ -536,4 +534,17 @@ canvas{
 
 .ui.alpha.table {
     border-top: 0.2em solid #ee166c;
+}
+
+.ui.secondary.menu.transparent{
+    background-color: transparent !important;
+}
+
+.vertical.menu.products{
+    box-shadow: none;
+    background: #0c0e19;
+}
+
+.vertical.menu.products .item.active{
+    border: solid 2px #ee166c !important;
 }

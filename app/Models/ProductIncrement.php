@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Country
+ * Class ProductIncrement
  * @package App\Models
  * @property int id
- * @property string code
+ * @property  string title
+ * @property  int increment
  */
-class Country extends Model
+class ProductIncrement extends Model
 {
+    protected $table = 'increments';
     public $timestamps = false;
-    protected $table = 'countries';
-
 }

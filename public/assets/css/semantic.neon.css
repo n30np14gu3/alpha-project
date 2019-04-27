@@ -22717,7 +22717,7 @@ Floated Menu / Item
 .ui.secondary.menu .dropdown.item:hover,
 .ui.secondary.menu .link.item:hover,
 .ui.secondary.menu a.item:hover {
-  background: #282828;
+  background: rgba(25, 55, 80, 0.65);
   color: #fff;
 }
 
@@ -22726,7 +22726,7 @@ Floated Menu / Item
 .ui.secondary.menu .active.item {
   -webkit-box-shadow: none;
   box-shadow: none;
-  background: #282828;
+  background: #193750;
   color: #fff;
   border-radius: 0.28571429rem;
 }
@@ -22736,7 +22736,7 @@ Floated Menu / Item
 .ui.secondary.menu .active.item:hover {
   -webkit-box-shadow: none;
   box-shadow: none;
-  background: #282828;
+  background: #193750;
   color: #fff;
 }
 

@@ -85,4 +85,7 @@
             </div>
         </div>
     </div>
+    @if(@$user_data['settings']->status)
+        @include('pages.modules.dashboard.games')
+    @endif
 @endsection

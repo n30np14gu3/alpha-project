@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Model;
  * @package App\Models
  * @property int id
  * @property int product_id
- * @property int country_id
+ * @property int increment_id
+ * @property string country_code
  * @property int cost
  */
 class ProductCost extends Model
