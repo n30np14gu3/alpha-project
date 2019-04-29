@@ -37,6 +37,7 @@
             }
         });
     </script>
+    @yield('additional-css')
 </head>
 <body>
 <div id="particles-js"></div>
@@ -45,13 +46,11 @@
     <a class="item">@lang('menu.account')</a>
 </div>
 <div style="min-height: calc(100vh - 100px);">
-    @include('pages.modules.default.main-menu')
     <div class="ui container fluid">
-        @yield('dashboard')
-        @yield('payment-form')
+        @yield('main-container')
     </div>
 </div>
-<div class="ui inverted vertical footer segment">
+<div class="ui inverted vertical footer segment" style="padding: 50px 15px">
     <div class="ui container">
         <div class="ui stackable inverted divided equal height stackable grid">
             <div class="three wide column">
@@ -74,9 +73,7 @@
         </div>
     </div>
 </div>
-@if(!@$logged)
-    @include('pages.modules.default.auth-modals')
-@endif
+
 <script src="{{url('/assets/js/semantic.min.js')}}"></script>
 <script src="{{url('/assets/js/vendor/popper.min.js')}}"></script>
 <script src="{{url('/assets/js/slider-semantic.js')}}"></script>
@@ -85,6 +82,6 @@
 <script src="{{url('/assets/js/particles.min.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/js/ajax.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/js/vendor/jquery.maskedinput.min.js')}}"></script>
-<script src="https://www.google.com/recaptcha/api.js?render=6LfzXqAUAAAAAIWB9FHfXBZcj18Tyts-r8G-Du0-"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>

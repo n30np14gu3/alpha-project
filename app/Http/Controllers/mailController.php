@@ -18,47 +18,52 @@ class mailController extends Controller
 {
     public function confirm(Request $request, $confirm_code)
     {
+        $data = [
+            'style' => 'error',
+            'text' => '',
+            'logged' => false
+        ];
+
         $mail = EmailConfirm::where('code', $confirm_code)->get()->first();
         if(!$mail){
-            $reason = "Ссылка недействительна";
-            return "<b></b>$reason<br><a href='/'>На главную</a>";
+            $data['text'] = 'Ссылка недействительна';
+            return view('pages.mail', $data);
         }
+
         $user = UserHelper::CheckAuth($request, true);
         if(!@$user->id)
             $user = User::where('id', $mail->user_id)->get()->first();
 
         if($user->id != $mail->user_id){
-            $reason = "Ссылка принадлежит другому аккаунту";
-            return "<b></b>$reason<br><a href='/'>На главную</a>";
+            $data['text'] = 'Ссылка принадлежит другому аккаунту';
+            return view('pages.mail', $data);
         }
 
         $user_settings = UserSettings::where('user_id', $user->id)->get()->first();
 
         if($user_settings->status){
-            $reason = "Пользователь уже подтвердил свой аккаунт";
-            return "<b></b>$reason<br><a href='/'>На главную</a>";
+            $data['text'] = 'Пользователь уже подтвердил свой аккаунт';
+            return view('pages.mail', $data);
         }
         if($mail->visited){
-            $reason = "Ссылка уже посещена";
-            return "<b></b>$reason<br><a href='/'>На главную</a>";
+            $data['text'] = 'Ссылка уже посещена';
+            return view('pages.mail', $data);
         }
         if($mail->ip != $_SERVER['REMOTE_ADDR']){
-            $reason = "Ссылка привязана к другому IP";
-            return "<b></b>$reason<br><a href='/'>На главную</a>";
+            $data['text'] = 'Ссылка привязана к другому IP';
+            return view('pages.mail', $data);
         }
 
         if((time() - $mail->request_time) > 1200){
-            $reason = "Ссылка устарела! На ваш почтовый ящик отправлено новое письмо!";
 
             $data = [
                 'link' => url('/email/confirm/').MailHelper::NewMailConfirmToken($user->id),
                 'mail_title' => 'Регистрация на сайте ALPHA CHEAT'
             ];
 
-            MailHelper::SendMail('mail.types.reg_complete', $data, $user->email, 'Подтверждение регистрации :: '.url('/'));
-            return "<b></b>$reason<br><a href='/'>На главную</a>";
+            $data['text'] = 'Ссылка устарела! На ваш почтовый ящик отправлено новое письмо!';
+            return view('pages.mail', $data);
         }
-
 
         $user_settings->status = 1;
         $mail->visited = 1;
@@ -67,34 +72,48 @@ class mailController extends Controller
         $user_settings->save();
         $mail->save();
 
-        return redirect()->route('dashboard');
+        $data['text'] = 'Ваш аккаунт успешно подтвержден!';
+        $data['style'] = 'success';
+        $data['logged'] = (@$user->id != 0);
+        return view('pages.mail', $data);
     }
 
-    public function resetPassword($reset_code){
+    public function resetPassword(Request $request, $reset_code){
+        $data = [
+            'style' => 'error',
+            'text' => '',
+            'logged' => false
+        ];
+
         $mail = PasswordRecovery::where('code', $reset_code)->get()->first();
         if(!$mail){
-            $reason = "Ссылка недействительна";
-            return "<b></b>$reason<br><a href='/'>На главную</a>";
+            $data['text'] = 'Ссылка недействительна';
+            return view('pages.mail', $data);
         }
+
+        $user = UserHelper::CheckAuth($request, true);
+        if(!@$user->id)
+            return redirect()->route('logout');
+
         $user =  User::where('id', $mail->user_id)->get()->first();
 
 
         if($user->id != $mail->user_id){
-            $reason = "Ссылка принадлежит другому аккаунту";
-            return "<b></b>$reason<br><a href='/'>На главную</a>";
+            $data['text'] = 'Ссылка принадлежит другому аккаунту';
+            return view('pages.mail', $data);
         }
 
         if($mail->visited){
-            $reason = "Ссылка уже посещена";
-            return "<b></b>$reason<br><a href='/'>На главную</a>";
+            $data['text'] = 'Ссылка уже посещена';
+            return view('pages.mail', $data);
         }
+
         if($mail->ip != $_SERVER['REMOTE_ADDR']){
-            $reason = "Ссылка привязана к другому IP";
-            return "<b></b>$reason<br><a href='/'>На главную</a>";
+            $data['text'] = 'Ссылка привязана к другому IP';
+            return view('pages.mail', $data);
         }
 
         if((time() - $mail->request_time) > 1200){
-            $reason = "Ссылка устарела! На ваш почтовый ящик отправлено новое письмо!";
 
             $data = [
                 'link' => url('/email/reset_password/'.MailHelper::NewPasswordRecoveryToken($user->id)),
@@ -102,7 +121,9 @@ class mailController extends Controller
             ];
 
             MailHelper::SendMail('mail.types.password_reset', $data, $user->email, 'Восстановление пароля :: '.url('/'));
-            return "<b></b>$reason<br><a href='/'>На главную</a>";
+
+            $data['text'] = 'Ссылка устарела! На ваш почтовый ящик отправлено новое письмо!';
+            return view('pages.mail', $data);
         }
 
         $new_password = UserHelper::NewPassword(16);
@@ -120,7 +141,8 @@ class mailController extends Controller
 
         MailHelper::SendMail('mail.types.new_password', $data, $user->email, 'Новый данные от аккаунта :: '.url('/'));
 
-        $reason = "Новый данные были отправлены Вам на Ваш почтовый адрес!";
-        return "<b></b>$reason<br><a href='/'>На главную</a>";
+        $data['text'] = 'Новые данные были отправлены Вам на Ваш почтовый адрес!';
+        $data['style'] = 'success';
+        return view('pages.mail', $data);
     }
 }

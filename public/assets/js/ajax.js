@@ -39,22 +39,6 @@ function showToast(text, type, duration, icon) {
     ;
 }
 
-function showAuthForm() {
-    $('#auth-modal').modal('show');
-}
-
-function showRegisterForm() {
-    $('#register-modal').modal('show');
-}
-
-function showRepassForm() {
-    $('#repass-modal').modal('show');
-}
-
-function showProductsForm(){
-    $('#products-modal').modal('show');
-}
-
 $('#register-form').submit(function (e) {
     e.preventDefault();
     $.ajax(
@@ -72,6 +56,7 @@ $('#register-form').submit(function (e) {
                     showToast('Пользователь успешно зарегестрирован!<br>На почтовый ящик была отправлены дальнейшие инструкции', 'success', 5000, 'microchip');
                     $('#register-form')[0].reset();
                 }
+                grecaptcha.reset();
             }
         }
     );
@@ -94,6 +79,7 @@ $('#repass-form').submit(function (e) {
                     showToast('Запрос на сброс пароля отправлен!<br>На почтовый ящик была отправлены дальнейшие инструкции', 'success', 5000, 'microchip');
                     $('#repass-form')[0].reset();
                 }
+                grecaptcha.reset();
             }
         }
     );
@@ -111,6 +97,7 @@ $('#auth-form').submit(function (e) {
                 if(data.status !== "OK"){
                     showToast(data.message, 'error', 3000, 'microchip');
                     $('#auth-form')[0].reset();
+                    grecaptcha.reset();
                 }
                 else
                     location.replace('/dashboard');
@@ -136,6 +123,7 @@ $('#account-data-form').submit(function (e) {
                 {
                     showToast('Данные успешно сохранены!', 'success', 3000, 'microchip');
                     $('#birthday-mask').attr('disabled', 'disabled');
+                    $('#nickname').text($('#form-nickname')[0].value);
                 }
             }
         }
@@ -152,12 +140,11 @@ $('#password-form').submit(function (e) {
            data = JSON.parse(data);
            if(data.status !== "OK"){
                showToast(data.message, 'error', 3000, 'microchip');
-               document.getElementById('password-form').reset();
            }
-           else
-           {
+           else {
                showToast('Пароль успешно сохранен!', 'success', 3000, 'microchip');
            }
+           $('#password-form')[0].reset();
        }
     });
 });
@@ -193,4 +180,3 @@ $('#verify-account').click(function (e) {
         }
     });
 });
-

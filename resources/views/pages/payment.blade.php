@@ -1,6 +1,6 @@
 @extends('index')
 
-@section('payment-form')
+@section('main-container')
     <div style="padding: 30px 30%">
         <form class="ui large form" method="post" action="https://primepayer.com/payment">
             <div class="ui stacked segment">

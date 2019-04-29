@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 
-use App\Http\Helpers\Geolocation;
+
 use App\Models\Game;
+use App\Models\Country;
 use App\Models\GameModule;
 use App\Models\Product;
 use App\Models\ProductCost;
@@ -13,17 +15,17 @@ use App\Models\ProductFeature;
 use App\Models\ProductIncrement;
 use App\Models\Subscription;
 use App\Models\SubscriptionSettings;
-
-
-use App\Http\Helpers\UserHelper;
-use App\Http\Helpers\CostHelper;
-
-
 use App\Models\User;
 use App\Models\UserSettings;
 use App\Models\LoginHistory;
 use App\Models\Balance;
+use App\Models\BalanceFund;
 use App\Models\Ban;
+
+use App\Http\Helpers\Geolocation;
+use App\Http\Helpers\UserHelper;
+use App\Http\Helpers\CostHelper;
+
 
 class dashboardController extends Controller
 {
@@ -38,6 +40,8 @@ class dashboardController extends Controller
         $ref_nickname = @UserSettings::where('user_id', $settings->referral)->get()->first();
         $ref_nickname = $ref_nickname ? ($ref_nickname->nickname ? $ref_nickname->nickname : "NONAME") : "";
         $has_domain = UserHelper::CheckSteamNick($settings->steam_id);
+        $user_country = @json_decode(Geolocation::getLocationInfo())->geoplugin_countryCode;
+        $country_id = @Country::where('code', $user_country)->get()->first()->id;
 
         $subscriptions = [];
         $subscriptions_db = @Subscription::where('user_id', $user->id)->get();
@@ -76,7 +80,7 @@ class dashboardController extends Controller
                 'features' => []
             ];
 
-            $product_costs = ProductCost::where('product_id', $product->id)->where('country_code', @json_decode(Geolocation::getLocationInfo())->geoplugin_countryCode)->get();
+            $product_costs = ProductCost::where('product_id', $product->id)->where('country_id', $country_id)->get();
             foreach($product_costs as $costs){
                 $cost_module = [
                     'cid' => $costs->id,
@@ -94,6 +98,12 @@ class dashboardController extends Controller
             array_push($products, $product_module);
         }
 
+        $balance_funds = [];
+        $balance_funds_db = BalanceFund::where('country_id', $country_id)->get()->sortBy('amount');
+        foreach($balance_funds_db as $fund) {
+            array_push($balance_funds, CostHelper::Format($fund->amount));
+        }
+
         $data = [
             'logged' => true,
             'user_data' => [
@@ -108,8 +118,10 @@ class dashboardController extends Controller
                 'steam_link' => ($settings->steam_id != 0) ? 'http://steamcommunity.com/profiles/'.$settings->steam_id : '',
                 'subscriptions' => $subscriptions
             ],
+            'balance_funds' => $balance_funds,
             'products' => $products
         ];
+
         return view('pages.dashboard', $data);
     }
 }

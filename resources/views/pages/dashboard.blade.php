@@ -1,7 +1,22 @@
 @extends('index')
 @section('dashboard-active', 'active')
 
-@section('dashboard')
+@section('additional-css')
+    <style>
+        body{
+            min-width: 1200px;
+            overflow: initial !important;
+        }
+
+        body.preview{
+            min-width: 1200px;
+        }
+
+    </style>
+@endsection
+
+@section('main-container')
+    @include('pages.modules.default.main-menu')
     <div id="dashboard-content">
         <div class="ui stackable grid">
             <div class="four wide column">
@@ -11,7 +26,7 @@
                     </div>
                     <div class="item">
                         <h2>
-                            {{@$user_data['settings']->nickname ? @$user_data['settings']->nickname : "NONAME"}}
+                            <span id="nickname">{{@$user_data['settings']->nickname ? @$user_data['settings']->nickname : "NONAME"}}</span>
                             <span class="info-popup verify-status icon {{@$user_data['has_domain'] ? 'active' : ''}}" id="account-status" data-content="{{@$user_data['has_domain'] ? 'Аккаунт подтвержден' : 'Добавь свой Steam аккаунт и получи скидку 3%! (Скидка будет работать, если в вашем нике присутствет ссылка на наш сайт)'}}">あ</span>
                         </h2>
                     </div>

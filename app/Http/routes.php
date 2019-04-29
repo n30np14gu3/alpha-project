@@ -13,6 +13,12 @@ Route::get('/lang/{lang}',  ['uses' => 'lendingController@changeLang']);
 
 Route::get('/dashboard', ['uses' => 'dashboardController@index', 'as' => 'dashboard', 'middleware' => 'action']);
 
+Route::group(['prefix' => 'form', 'middleware' => 'form'], function (){
+    Route::get('login', ['uses' => 'formController@login', 'as' => 'show_login']);
+    Route::get('register', ['uses' => 'formController@register', 'as' => 'show_register']);
+    Route::get('reset_password', ['uses' => 'formController@resetPassword', 'as' => 'show_reset_password']);
+});
+
 Route::get('/logout', ['uses' => 'actionController@logout', 'as' => 'logout']);
 Route::post('/register', ['uses' => 'actionController@register', 'as' => 'register']);
 Route::post('/login', ['uses' => 'actionController@login', 'as' => 'login']);

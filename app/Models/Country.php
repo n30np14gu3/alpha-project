@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class BalanceCost
+ * Class County
  * @package App\Models
- * @property int id
- * @property int amount
+ * @property  int id
+ * @property  int code
  */
-class BalanceCost extends Model
+class Country extends Model
 {
     public $timestamps = false;
-    protected $table = 'balance_costs';
+    protected  $table = 'countries';
 }

@@ -16,10 +16,10 @@
             <td>
                 <table width="100%">
                     <tr>
-                        <td><b>E-mail: </b></td>
+                        <td style="color: white"><b style="color: white">E-mail: </b></td>
                         <td><b style="color: #EE166C">{{@$email}}</b></td>
                     </tr>
-                    <tr>
+                    <tr style="color:  white">
                         <td><b>Пароль: </b></td>
                         <td><b style="color: #EE166C">{{@$password}}</b></td>
                     </tr>

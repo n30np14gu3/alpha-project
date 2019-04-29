@@ -12,7 +12,8 @@ class lendingController extends Controller
 {
     public function index(Request $request){
         $data = [
-          'logged' => false
+            'lending' => true,
+            'logged' => false
         ];
 
         if(!UserHelper::CheckAuth($request)){

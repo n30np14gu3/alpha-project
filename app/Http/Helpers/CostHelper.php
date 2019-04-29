@@ -43,7 +43,6 @@ class CostHelper
             $locale = self::country2locale(strtolower($location_info->geoplugin_countryCode));
         $formatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
         $eur_info = $currencies['EUR'];
-        $formatted_cost = 0;
 
         if(!@$location_info->geoplugin_currencyCode)
             $location_info->geoplugin_currencyCode = "EUR";
@@ -67,6 +66,25 @@ class CostHelper
             round($formatted_cost, 1)
         ];
     }
+
+    /**
+     * @param $value
+     * @return array
+     */
+    public static function Format($value){
+        $location_info = json_decode(Geolocation::getLocationInfo());
+        $locale = 'en_US';
+
+        if($location_info->geoplugin_countryCode)
+            $locale = self::country2locale(strtolower($location_info->geoplugin_countryCode));
+        $formatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
+
+       return [
+           $value,
+           $formatter->formatCurrency($value, $location_info->geoplugin_currencyCode)
+       ];
+    }
+
     private static function get_currencies(Request $request)
     {
         if($request->session()->has('wallets'))

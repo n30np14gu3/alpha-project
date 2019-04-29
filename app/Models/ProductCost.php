@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int id
  * @property int product_id
  * @property int increment_id
- * @property string country_code
+ * @property string country_id
  * @property int cost
  */
 class ProductCost extends Model

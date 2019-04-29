@@ -7,7 +7,7 @@
                 <div class="two fields">
                     <div class="field">
                         <label>Никнейм</label>
-                        <input type="text" name="account[nickname]" placeholder="Никнейм" required value="{{@$user_data['settings']->nickname}}" minlength="1" maxlength="25">
+                        <input type="text" name="account[nickname]" id="form-nickname" placeholder="Никнейм" required value="{{@$user_data['settings']->nickname}}" minlength="1" maxlength="25">
                     </div>
                     <div class="field">
                         <label>Дата рождения</label>
