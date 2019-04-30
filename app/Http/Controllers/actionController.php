@@ -84,6 +84,42 @@ class actionController extends Controller
         return json_encode($result);
     }
 
+    function fastRegister(Request $request){
+        if(UserHelper::CheckAuth($request) != 1)
+            return redirect()->route('logout');
+
+        $result = [
+            'status' => 'ERROR',
+            'message' => 'UNKNOWN ERROR!'
+        ];
+
+        if($request->session()->has('user_session')){
+            return json_encode($result);
+        }
+
+        if(!env('BETA_DISABLERECAPTCHA') && !ReCaptcha::Verify())
+        {
+            $result['message'] = "Ошибка ReCaptcha!";
+            return json_encode($result);
+        }
+
+        $email = @$_POST['email'];
+        $referral = @$_COOKIE['referrer'];
+        $password =  UserHelper::NewPassword(16);
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            $result['message']  = "Формат почтового ящика неправильный";
+            return json_encode($result);
+        }
+
+        if(!UserHelper::CreateNewUser($email, $password, $referral, true)){
+            $result['message']  = "Данный email уже зарегестрирован в системе";
+            return json_encode($result);
+        }
+
+        $result['status'] = "OK";
+        return json_encode($result);
+    }
+
     /**
      * Non middleware
      * @param Request $request

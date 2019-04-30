@@ -18,10 +18,18 @@
             <div class="ui container fluid" style="margin: 120px 0 0 0;">
                 <div class="ui segment simple" style="padding: 0 0 0 100px">
                     <span id="lending-header">Лучший чит<br>для всех игроков</span>
-                    <br><br><br>
-                    <input type="email" class="material" id="" placeholder="Введите Ваш E-Mail" required="">
-                    <br>
-                    <button id="fast-sign-in-button">регистрация</button>
+                    @if(!@$logged)
+                        <br><br><br>
+                        <form id="fast-sign-up-form">
+                            <input type="email" class="material" name="email" placeholder="Введите Ваш E-Mail" required>
+                            @if(!env('BETA_DISABLERECAPTCHA'))
+                                <br>
+                                <div id="recaptcha-div"></div>
+                                <br>
+                            @endif
+                            <button id="fast-sign-in-button" onclick="fastRegistration()" type="button">регистрация</button>
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>

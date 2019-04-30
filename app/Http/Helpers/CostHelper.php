@@ -90,7 +90,7 @@ class CostHelper
         if($request->session()->has('wallets'))
             return (array)json_decode($request->session()->get('wallets'));
 
-        $xml = simplexml_load_file('http://cbr.ru/scripts/XML_daily.asp');
+        $xml = simplexml_load_file('https://cbr.ru/scripts/XML_daily.asp');
         $currencies = array();
         foreach ($xml->xpath('//Valute') as $val) {
             $currencies[(string)$val->CharCode] = (float)str_replace(',', '.', $val->Value);

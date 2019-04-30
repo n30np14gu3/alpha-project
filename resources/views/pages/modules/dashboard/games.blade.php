@@ -5,16 +5,16 @@
         <div id="products-context">
             <div class="ui secondary menu transparent categories">
                 @for($i = 0; $i < count(@$products); $i++)
-                    <div class="item @if($i == 0)  {{'active'}} @endif" data-tab="t-{{@$i}}">{{@$products[$i]['title']}}</div>
+                    <div class="item @if(@$i == 0)  active @endif " data-tab="t-{{@$i}}">{{@$products[$i]['title']}}</div>
                 @endfor
             </div>
             @for($i = 0; $i < count(@$products); $i++)
                 <div class="ui tab {{@$i == 0 ? 'active' : ''}}" data-tab="t-{{@$i}}">
                     <div class="ui vertical menu products fluid" style="background: transparent">
                         @foreach(@$products[$i]['costs'] as $cost)
-                            <div class="item" data-cost="{{@$cost['cid']}}" data-product="{{@$product[@$i]['id']}}">
+                            <div class="item" data-cost="{{@$cost['cid']}}" data-product="{{@$products[@$i]['id']}}">
                                 {{@$cost['increment']->title}}
-                                <div class="ui teal left pointing label">{{@$cost['cost']}}</div>
+                                <div class="ui teal left pointing label">{{@$cost['cost'][0]}}</div>
                             </div>
                         @endforeach
                     </div>
@@ -24,6 +24,7 @@
             <input id="product-id" name="pid" type="hidden" required>
         </div>
         @include('pages.modules.default.recaptcha')
+        <br>
         <div class="field">
             <button class="ui alpha button fluid" type="submit">Оплатить</button>
         </div>

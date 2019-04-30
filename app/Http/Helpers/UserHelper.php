@@ -101,9 +101,10 @@ class UserHelper
      * @param $email
      * @param $password
      * @param $referral
+     * @param $fast
      * @return bool
      */
-    public static function CreateNewUser($email, $password, $referral){
+    public static function CreateNewUser($email, $password, $referral, $fast = false){
         if(@User::where('email', $email)->get()->first())
             return false;
 
@@ -130,12 +131,26 @@ class UserHelper
         $user_balance->user_id = $user->id;
         $user_balance->save();
 
-        $data = [
-            'link' => url('/email/confirm/'.MailHelper::NewMailConfirmToken($user->id)),
-            'mail_title' => 'Регистрация на сайте ALPHA CHEAT'
-        ];
+        if($fast)
+        {
+            $data = [
+                'link' => url('/email/confirm/'.MailHelper::NewMailConfirmToken($user->id)),
+                'mail_title' => 'Регистрация на сайте ALPHA CHEAT',
+                'password' => $password
+            ];
 
-        MailHelper::SendMail('mail.types.reg_complete', $data, $user->email, 'Подтверждение регистрации :: '.url('/'));
+            MailHelper::SendMail('mail.types.registration_complete_fast', $data, $user->email, 'Быстрая регистрация :: '.url('/'));
+        }
+        else
+        {
+            $data = [
+                'link' => url('/email/confirm/'.MailHelper::NewMailConfirmToken($user->id)),
+                'mail_title' => 'Регистрация на сайте ALPHA CHEAT',
+            ];
+
+            MailHelper::SendMail('mail.types.reg_complete', $data, $user->email, 'Подтверждение регистрации :: '.url('/'));
+        }
+
         return true;
     }
 

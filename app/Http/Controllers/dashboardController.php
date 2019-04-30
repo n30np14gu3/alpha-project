@@ -84,13 +84,13 @@ class dashboardController extends Controller
             foreach($product_costs as $costs){
                 $cost_module = [
                     'cid' => $costs->id,
-                    'increment' => ProductIncrement::where('id', $costs->increment_id)->get()->first,
+                    'increment' => ProductIncrement::where('id', $costs->increment_id)->get()->first(),
                     'cost' => CostHelper::Convert($costs->cost, $request)
                 ];
                 array_push($product_module['costs'], $cost_module);
             }
 
-            $features = ProductFeature::where('product_id', $product->id);
+            $features = ProductFeature::where('product_id', $product->id)->get();
             foreach($features as $feature){
                 array_push($product_module['features'], $feature);
             }
@@ -121,7 +121,6 @@ class dashboardController extends Controller
             'balance_funds' => $balance_funds,
             'products' => $products
         ];
-
         return view('pages.dashboard', $data);
     }
 }

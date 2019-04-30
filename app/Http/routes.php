@@ -21,6 +21,7 @@ Route::group(['prefix' => 'form', 'middleware' => 'form'], function (){
 
 Route::get('/logout', ['uses' => 'actionController@logout', 'as' => 'logout']);
 Route::post('/register', ['uses' => 'actionController@register', 'as' => 'register']);
+Route::post('/fast_register', ['uses' => 'actionController@fastRegister', 'as' => 'fast_register']);
 Route::post('/login', ['uses' => 'actionController@login', 'as' => 'login']);
 Route::post('/reset_password', ['uses' => 'actionController@resetPassword', 'as' => 'reset_password']);
 

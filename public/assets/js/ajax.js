@@ -27,6 +27,44 @@ $(document).ready(function () {
     });
 });
 
+function fastRegistration() {
+    if(!$('#recaptcha-div').length)
+    {
+        fastRegistrationAjax();
+    }
+    else
+    {
+        grecaptcha.render('recaptcha-div', {
+            'sitekey' : '6Lcn36AUAAAAAODJO5kSQjRi2LE52aieDJBwJ_F-',
+            'callback': fastRegistrationAjax
+        });
+    }
+}
+
+function fastRegistrationAjax() {
+    var form = $('#fast-sign-up-form');
+    $.ajax({
+        type: "POST",
+        url: "/fast_register",
+        data: form.serialize(),
+        success: function(data) {
+            data = JSON.parse(data);
+            if(data.status !== "OK"){
+                showToast(data.message, 'error', 3000, 'microchip');
+            }
+            else
+            {
+                showToast('Пользователь успешно зарегестрирован!<br>На почтовый ящик была отправлены дальнейшие инструкции', 'success', 5000, 'microchip');
+                $('#register-form')[0].reset();
+            }
+            grecaptcha.reset();
+        },
+        error: function () {
+            grecaptcha.reset();
+        }
+    });
+    form[0].reset();
+}
 function showToast(text, type, duration, icon) {
     $('body')
         .toast({
@@ -37,6 +75,16 @@ function showToast(text, type, duration, icon) {
             message: text
         })
     ;
+}
+
+function showProductsForm(){
+    $('#products-modal').modal({
+        onHide: function () {
+            $('.menu.products .item').removeClass('active');
+            $('#cost-id').attr('value', 0);
+            $('#product-id').attr('value', 0);
+        }
+    }).modal('show');
 }
 
 $('#register-form').submit(function (e) {

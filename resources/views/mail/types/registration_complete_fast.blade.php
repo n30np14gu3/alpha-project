@@ -13,5 +13,20 @@
                 <p style="color: white">Для подтверждения Вашей учетной записи, перейдите по следующей <a href="{{$link}}" target="_blank" style="text-decoration: none; color: #ee166c; text-transform: uppercase;">ссылке</a>.</p>
             </td>
         </tr>
+        <tr>
+            <td>
+                <h4 style="text-align: center; color: white">Ваши данные от аккаунта</h4>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table width="100%">
+                    <tr style="color:  white; font-size: 20px">
+                        <td style="color: white"><b style="color: white">Пароль: </b></td>
+                        <td><b style="color: #EE166C">{{@$password}}</b></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
     </table>
 @endsection

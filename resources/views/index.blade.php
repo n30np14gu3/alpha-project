@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{url('/assets/css/slider.css')}}" type="text/css">
     <link rel="stylesheet" href="{{url('/assets/css/toast.css')}}" type="text/css">
     <script src="{{url('/assets/js/vendor/jquery-3.1.1.min.js')}}" type="text/javascript"></script>
+    <script src="https://www.google.com/recaptcha/api.js"async defer></script>
     <script>
         $(document)
             .ready(function() {
@@ -82,6 +83,5 @@
 <script src="{{url('/assets/js/particles.min.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/js/ajax.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/js/vendor/jquery.maskedinput.min.js')}}"></script>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>
