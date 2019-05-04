@@ -30,7 +30,9 @@
                             <span class="info-popup verify-status icon {{@$user_data['has_domain'] ? 'active' : ''}}" id="account-status" data-content="{{@$user_data['has_domain'] ? 'Аккаунт подтвержден' : 'Добавь свой Steam аккаунт и получи скидку 3%! (Скидка будет работать, если в вашем нике присутствет ссылка на наш сайт)'}}">あ</span>
                         </h2>
                     </div>
-                    @if(@$user_data['settings']->status)
+                    @if(@$user_data['bans']['exist'] || !@$user_data['settings']->status)
+                        <div class="item active" data-tab="t-bans">Блокировки и ограничения</div>
+                    @else
                         <div class="item active" data-tab="t-account">@lang('dashboard.tab-account')</div>
                         <div class="item" data-tab="t-security">@lang('dashboard.tab-security')</div>
                         <div class="item" data-tab="t-subscription">@lang('dashboard.tab-subscription')</div>
@@ -44,23 +46,12 @@
             </div>
 
             <div class="twelve wide stretched column">
-                <div class="ui tab active" data-tab="t-account">
-                    <div class="ui raised segment">
-                        @if(!@$user_data['settings']->status)
-                            <div class="ui error message">
-                                <div class="header">
-                                    Данный аккаунт имеет ограничения
-                                </div>
-                                <ul class="list">
-                                    <li>Вы должны подтвердить свой электронный адрес, чтобы пользоваться услугами проекта</li>
-                                </ul>
-                            </div>
-                        @else
-                            @include('pages.modules.dashboard.account')
-                        @endif
-                    </div>
-                </div>
                 @if(@$user_data['settings']->status)
+                    <div class="ui tab active" data-tab="t-account">
+                        <div class="ui raised segment">
+                            @include('pages.modules.dashboard.account')
+                        </div>
+                    </div>
                     <div class="ui tab" data-tab="t-security">
                         <div class="ui raised segment">
                             @include('pages.modules.dashboard.security')
@@ -96,11 +87,38 @@
                             @include('pages.modules.dashboard.ref')
                         </div>
                     </div>
+                @else
+                    <div class="ui active tab" data-tab="t-bans">
+                        <div class="ui raised segment">
+                            @if(!$user_data['settings']->status)
+                                <div class="ui error message">
+                                    <div class="header">
+                                       Даннный аккаунт не потвержден
+                                    </div>
+                                    <ul class="list">
+                                        <li>Подтвердите свой аккаунт, перейдя по ссылке, отправленной Вам на почту</li>
+                                    </ul>
+                                </div>
+                            @endif
+                            @include('pages.modules.dashboard.bans')
+                            <br>
+                        </div>
+                    </div>
                 @endif
             </div>
         </div>
     </div>
     @if(@$user_data['settings']->status)
+        @if(!@$user_data['settings']->status)
+            <div class="ui error message">
+                <div class="header">
+                    Данный аккаунт имеет ограничения
+                </div>
+                <ul class="list">
+                    <li>Вы должны подтвердить свой электронный адрес, чтобы пользоваться услугами проекта</li>
+                </ul>
+            </div>
+        @endif
         @include('pages.modules.dashboard.games')
     @endif
 @endsection

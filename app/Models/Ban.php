@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
  * Class Ban
  * @package App\Models
  * @property int user_id
+ * @property int staff_id
+ * @property int submit_date
  * @property int is_active
  * @property string reason
  * @property int is_permanent

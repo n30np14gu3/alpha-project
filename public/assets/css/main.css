@@ -665,7 +665,7 @@ input.material:focus::-webkit-input-placeholder, input:valid::-webkit-input-plac
     position: absolute;
 }
 
-#lending-logo-text{
+#lending-logo-text {
     font-family: "GlacialIndifference", 'Helvetica Neue', Arial, Helvetica, sans-serif !important;
     font-weight: normal !important;
     color: white !important;
@@ -675,4 +675,8 @@ input.material:focus::-webkit-input-placeholder, input:valid::-webkit-input-plac
     top: -30px;
     width: 300px;
     position: absolute;
+}
+
+.ui.alpha.message{
+    background-color: #a11651;
 }

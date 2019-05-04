@@ -20,9 +20,22 @@ class ActionMiddle
      */
     public function handle($request, Closure $next)
     {
-        if(UserHelper::CheckAuth($request))
+
+
+        $user = UserHelper::CheckAuth($request, true);
+        if(!@$user->id)
             return redirect()->route('logout');
-        
+
+        if(!UserHelper::CheckUserActivity($user) && $request->route()->getName() != 'dashboard') {
+            $response = [
+                'status' => 'ERROR',
+                'message' => ''
+            ];
+
+            $response['message'] = 'Аккаунт имеет ограничения!';
+            return json_encode($response);
+        }
+
         return $next($request);
     }
 }

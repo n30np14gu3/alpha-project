@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{url('/assets/css/main.css')}}" type="text/css">
     <link rel="stylesheet" href="{{url('/assets/css/slider.css')}}" type="text/css">
     <link rel="stylesheet" href="{{url('/assets/css/toast.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{url('/assets/css/tickets.css')}}" type="text/css">
     <script src="{{url('/assets/js/vendor/jquery-3.1.1.min.js')}}" type="text/javascript"></script>
     <script src="https://www.google.com/recaptcha/api.js"async defer></script>
     <script>
@@ -74,7 +75,7 @@
         </div>
     </div>
 </div>
-
+@include('pages.modules.default.modals')
 <script src="{{url('/assets/js/semantic.min.js')}}"></script>
 <script src="{{url('/assets/js/vendor/popper.min.js')}}"></script>
 <script src="{{url('/assets/js/slider-semantic.js')}}"></script>

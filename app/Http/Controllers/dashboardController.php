@@ -107,6 +107,25 @@ class dashboardController extends Controller
             array_push($balance_funds, CostHelper::Format($fund->amount));
         }
 
+        $bans = [
+            'exist' => false,
+            'data' => []
+        ];
+        $bans_db = Ban::where('user_id', $user->id)->where('is_active', 1)->whereRaw('is_permanent = 1 OR end_date > ?', [time()])->get();
+        if(count($bans_db) > 0){
+            foreach($bans_db as $ban){
+                $ban_module = [
+                    'submit_date' => date("d-m-Y H:i:s", $ban->submit_date),
+                    'end_date' => $ban->is_permanent ? 'Навсегда' : date("d-m-Y H:i:s", $ban->end_date),
+                    'staff_nickname' => UserSettings::where('user_id', $ban->staff_id)->get()->first()->nickname,
+                    'reason' => $ban->reason,
+                    'token' => $ban->token
+                ];
+                array_push($bans['data'], $ban_module);
+            }
+            $bans['exist'] = true;
+        }
+
         $data = [
             'logged' => true,
             'user_data' => [
@@ -120,7 +139,8 @@ class dashboardController extends Controller
                 'has_domain' =>$has_domain,
                 'steam_link' => ($settings->steam_id != 0) ? 'http://steamcommunity.com/profiles/'.$settings->steam_id : '',
                 'subscriptions' => $subscriptions,
-                'payment_history' => PaymentHistory::where('user_id', $user->id)->get()
+                'payment_history' => PaymentHistory::where('user_id', $user->id)->get(),
+                'bans' => $bans
             ],
             'balance_funds' => $balance_funds,
             'products' => $products

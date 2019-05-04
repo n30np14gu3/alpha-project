@@ -38,6 +38,18 @@ Route::group(['prefix' => 'transfer', 'middleware' => 'action'], function (){
    Route::get('error', ['uses' => 'paymentController@error', 'as' => 'payment_error']);
 });
 
+Route::group(['prefix' => 'support'], function (){
+
+    Route::get('/', ['uses' => 'supportController@allTickets', 'as' => 'support']);
+    Route::post('create_ticket', ['uses' => 'supportController@createTicket', 'as' => 'create_ticket']);
+
+    Route::group(['prefix' => 'ticket'], function (){
+       Route::get('{ticket_id}', ['uses' => 'supportController@showTicket', 'as' => 'show_ticket'])->where(['ticket_id' => '[0-9]+']);
+       Route::post('append', ['uses' => 'supportController@appendTicket', 'as' => 'append_ticket']);
+       Route::post('close', ['uses' => 'supportController@closeTicket', 'as' => 'close_ticket']);
+    });
+});
+
 Route::group(['prefix' => 'api'], function (){
     Route::post('login', ['uses' => 'apiController@login', 'as' => 'api_login']);
     Route::post('request_session', ['uses' => 'apiController@requestSession', 'as' => 'api_request_session']);

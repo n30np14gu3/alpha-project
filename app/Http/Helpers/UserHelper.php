@@ -9,6 +9,7 @@
 namespace App\Http\Helpers;
 
 
+use App\Models\Ban;
 use \Illuminate\Http\Request;
 
 
@@ -98,6 +99,16 @@ class UserHelper
     }
 
     /**
+     * @param User $user
+     * @return bool
+     */
+    public static function CheckUserActivity(User $user){
+        $bans_activity = count(Ban::where('user_id', $user->id)->where('is_active', 1)->whereRaw('is_permanent = 1 OR end_date > ?', [time()])->get()) == 0;
+        $status_activity = UserSettings::where('user_id', $user->id)->get()->first()->status > 0;
+        return $bans_activity && $status_activity;
+    }
+
+    /**
      * @param $email
      * @param $password
      * @param $referral
@@ -124,6 +135,7 @@ class UserHelper
         if($ref_id)
             $user_settings->referral = $ref_id;
         $user_settings->user_id = $user->id;
+        $user_settings->nickname = 'NONAME';
         $user_settings->save();
 
         $user_balance->balance = 0;

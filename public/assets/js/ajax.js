@@ -36,6 +36,7 @@ function fastRegistration() {
     {
         grecaptcha.render('recaptcha-div', {
             'sitekey' : '6Lcn36AUAAAAAODJO5kSQjRi2LE52aieDJBwJ_F-',
+            'theme': 'dark',
             'callback': fastRegistrationAjax
         });
     }
@@ -238,10 +239,10 @@ $('#products-form').submit(function (e) {
        success: function (data) {
            data = JSON.parse(data);
            if(data.status === "OK"){
-               showToast('Оплата произошла успешно! Обнов', 'success', 5000, 'steam');
+               showToast('Оплата произошла успешно!', 'success', 5000, 'microchip');
            }
            else{
-               showToast(data.message, 'error', 5000, 'steam');
+               showToast(data.message, 'error', 5000, 'microchip');
            }
 
            $('.menu.products .item').removeClass('active');
@@ -250,3 +251,72 @@ $('#products-form').submit(function (e) {
        }
     });
 });
+
+function showTicketModal() {
+    $('#ticket-modal').modal('show');
+}
+
+function openTicket(id) {
+    window.location.replace('/support/ticket/' + id);
+}
+
+$('#ticket-form').submit(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: "/support/create_ticket",
+        data: $('#ticket-form').serialize(),
+        success: function (data) {
+            data = JSON.parse(data);
+            if(data.status === "OK"){
+                showToast('Ваш запрос в службу поддержки успешно отправлен!', 'success', 5000, 'microchip');
+                $('#ticket-form')[0].reset();
+            }
+            else{
+                showToast(data.message, 'error', 5000, 'microchip');
+            }
+
+        }
+    });
+    grecaptcha.reset();
+});
+
+$('#ticket-append-form').submit(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: "/support/ticket/append",
+        data: $('#ticket-append-form').serialize(),
+        success: function (data) {
+            data = JSON.parse(data);
+            if(data.status === "OK"){
+                window.location.reload();
+            }
+            else{
+                showToast(data.message, 'error', 5000, 'microchip');
+            }
+            $('#ticket-append-form')[0].reset();
+        }
+    });
+    grecaptcha.reset();
+});
+
+function closeTicket(ticketId) {
+    if(confirm("Вы уверены? Это действие нельзя будет отменить.")){
+        $.ajax({
+            type: "POST",
+            url: "/support/ticket/close",
+            data: {'ticket_id': ticketId},
+            success: function (data) {
+                data = JSON.parse(data);
+                if(data.status === "OK"){
+                    window.location.reload();
+                }
+                else{
+                    showToast(data.message, 'error', 5000, 'microchip');
+                }
+                $('#ticket-append-form')[0].reset();
+            }
+        });
+    }
+}

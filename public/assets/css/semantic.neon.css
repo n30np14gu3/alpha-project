@@ -18718,11 +18718,11 @@ ol.ui.horizontal.list li:before,
 
 .ui.form textarea:focus {
   color: #ffffff;
-  border-color: #2d2d2d;
+  border-color: #112531;
   border-radius: 0.28571429rem;
-  background: #2a2a2a;
-  -webkit-box-shadow: 0px 0em 0em 0em rgba(34, 36, 38, 0.35) inset;
-  box-shadow: 0px 0em 0em 0em rgba(34, 36, 38, 0.35) inset;
+  background: #222c39;
+  -webkit-box-shadow: 0px 0em 0em 0em rgba(17, 37, 49, 0.35) inset;
+  box-shadow: 0px 0em 0em 0em rgba(17, 37, 49, 0.35) inset;
   -webkit-appearance: none;
 }
 

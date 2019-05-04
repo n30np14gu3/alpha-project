@@ -16,11 +16,7 @@
             <form class="ui form" id="@yield('form-id')">
                 <div class="ui segment">
                     @yield('inputs')
-                    @if(!env('BETA_DISABLERECAPTCHA'))
-                        <div class="field">
-                            <div class="g-recaptcha dark" data-sitekey="6Lcn36AUAAAAAODJO5kSQjRi2LE52aieDJBwJ_F-"></div>
-                        </div>
-                    @endif
+                    @include('pages.modules.default.recaptcha_standalone')
                     <div class="field">
                         <button class="ui fluid alpha button" type="submit">@yield('submit-text')</button>
                     </div>
