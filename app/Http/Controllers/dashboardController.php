@@ -39,7 +39,7 @@ class dashboardController extends Controller
         $settings = @UserSettings::where('user_id', $user->id)->get()->first();
         $balance = @Balance::where('user_id', $user->id)->get()->first();
         $ref_nickname = @UserSettings::where('user_id', $settings->referral)->get()->first();
-        $ref_nickname = $ref_nickname ? ($ref_nickname->nickname ? $ref_nickname->nickname : "NONAME") : "";
+        $ref_nickname = $ref_nickname->nickname;
         $has_domain = UserHelper::CheckSteamNick($settings->steam_id);
         $user_country = @json_decode(Geolocation::getLocationInfo())->geoplugin_countryCode;
         $country_id = @Country::where('code', $user_country)->get()->first()->id;

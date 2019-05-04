@@ -18,7 +18,7 @@
     <tbody>
     <tr>
         @foreach(@$user_data['referrals'] as $r)
-            <td>{{@$r->nickname ? @$r->nickname : "NONAME"}}</td>
+            <td>{{@$r->nickname}}</td>
             <td>{{date("d-m-Y H:i:s", strtotime(@$r->reg_date))}}</td>
         @endforeach
     </tr>
