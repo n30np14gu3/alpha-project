@@ -83,5 +83,8 @@
 <script src="{{url('/assets/js/particles.min.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/js/ajax.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/js/vendor/jquery.maskedinput.min.js')}}"></script>
+@if(@$user_data['base']->staff_status)
+    <script src="{{url('/assets/js/ajax_admin.js')}}" type="text/javascript"></script>
+@endif
 </body>
 </html>

@@ -5,7 +5,7 @@
                 <div class="ui styled accordion" style="font-size: 16px; width: 100%">
                     <div class="active title">
                         <i class="steam icon"></i>
-                        Подписка на {{@$subscription['game']}}
+                        Подписка на {{@$subscription['game']->name}}
                     </div>
                     <div class="active content" style="padding: 0">
                         <table class="ui unstackable table striped center aligned alpha">
@@ -22,12 +22,12 @@
                             @foreach(@$subscription['modules'] as $subscription_module)
                                 <tr>
                                     <td>{{@$subscription_module['name']}}</td>
-                                    <td><{{date("d-m-Y H:i:s", @$subscription_module['end_date'])}}/td>
+                                    <td>{{$subscription_module['end_date']}}</td>
                                 </tr>
                             @endforeach
                             <tr>
                                 <td colspan="2" style="padding: 0">
-                                    <div class="ui fluid alpha button">Продлить компоненты</div>
+                                    <div class="ui fluid alpha button" onclick="showProductsForm()">Продлить компоненты</div>
                                 </td>
                             </tr>
                             </tbody>

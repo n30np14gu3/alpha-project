@@ -14,7 +14,9 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        'transfer/callback',
-        'transfer/callback/*',
+        '/transfer/callback',
+        '/transfer/callback/*',
+        '/api',
+        '/api/*'
     ];
 }

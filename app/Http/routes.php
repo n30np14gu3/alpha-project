@@ -1,16 +1,9 @@
 <?php
 
-Route::group(['domain' => 'api.'.env('APP_DOMAIN')], function () {
-    Route::get('{category}/{method}', function () {
-        dd("API IN DEV");
-    });
-});
-
 Route::any('/', ['uses' => 'lendingController@index', 'as' => 'index']);
 Route::any('/invite/{refId}', ['uses' => 'lendingController@referer', 'as' => 'referer']);
 
 Route::get('/lang/{lang}',  ['uses' => 'lendingController@changeLang']);
-
 Route::get('/dashboard', ['uses' => 'dashboardController@index', 'as' => 'dashboard', 'middleware' => 'action']);
 
 Route::group(['prefix' => 'form', 'middleware' => 'form'], function (){
@@ -29,6 +22,7 @@ Route::group(['prefix' => 'action', 'middleware' => 'action'], function (){
     Route::post('verify_steam', ['uses' => 'actionController@verifySteam', 'as' => 'verify_steam']);
     Route::post('save_info', ['uses' => 'actionController@saveInfo', 'as' => 'save_info']);
     Route::post('password_change', ['uses' => 'actionController@changePassword', 'as' => 'password_change']);
+    Route::post('purchase', ['uses' => 'actionController@purchase', 'as' => 'purchase']);
 });
 
 Route::group(['prefix' => 'email'], function (){
@@ -43,8 +37,8 @@ Route::group(['prefix' => 'transfer', 'middleware' => 'action'], function (){
    Route::get('success', ['uses' => 'paymentController@success', 'as' => 'payment_success']);
    Route::get('error', ['uses' => 'paymentController@error', 'as' => 'payment_error']);
 });
-Route::group(['prefix' => 'mail_test'], function (){
-    Route::get('reg_complete', function (){return view('mail.types.reg_complete' ,['link' => '' , 'mail_title' => '1337']);});
-    Route::get('new_password', function (){return view('mail.types.new_password' ,['link' => '' , 'mail_title' => '1337']);});
-    Route::get('password_reset', function (){return view('mail.types.password_reset' ,['link' => '' , 'mail_title' => '1337']);});
+
+Route::group(['prefix' => 'api'], function (){
+    Route::post('login', ['uses' => 'apiController@login', 'as' => 'api_login']);
+    Route::post('request_session', ['uses' => 'apiController@requestSession', 'as' => 'api_request_session']);
 });

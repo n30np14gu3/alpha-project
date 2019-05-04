@@ -20,11 +20,9 @@
                     </div>
                 </div>
             @endfor
-            <input id="cost-id" name="cid" type="hidden" required>
-            <input id="product-id" name="pid" type="hidden" required>
         </div>
-        @include('pages.modules.default.recaptcha')
-        <br>
+        <input id="cost-id" name="cid" type="hidden" required>
+        <input id="product-id" name="pid" type="hidden" required>
         <div class="field">
             <button class="ui alpha button fluid" type="submit">Оплатить</button>
         </div>

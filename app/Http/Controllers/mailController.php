@@ -74,7 +74,7 @@ class mailController extends Controller
 
         $data['text'] = 'Ваш аккаунт успешно подтвержден!';
         $data['style'] = 'success';
-        $data['logged'] = (@$user->id != 0);
+        $data['logged'] = UserHelper::CheckAuth($request) == 0;
         return view('pages.mail', $data);
     }
 
@@ -92,11 +92,11 @@ class mailController extends Controller
         }
 
         $user = UserHelper::CheckAuth($request, true);
-        if(!@$user->id)
+
+        if(@$user->id)
             return redirect()->route('logout');
 
         $user =  User::where('id', $mail->user_id)->get()->first();
-
 
         if($user->id != $mail->user_id){
             $data['text'] = 'Ссылка принадлежит другому аккаунту';

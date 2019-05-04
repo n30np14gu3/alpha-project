@@ -228,3 +228,25 @@ $('#verify-account').click(function (e) {
         }
     });
 });
+
+$('#products-form').submit(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: "/action/purchase",
+        data: $('#products-form').serialize(),
+       success: function (data) {
+           data = JSON.parse(data);
+           if(data.status === "OK"){
+               showToast('Оплата произошла успешно! Обнов', 'success', 5000, 'steam');
+           }
+           else{
+               showToast(data.message, 'error', 5000, 'steam');
+           }
+
+           $('.menu.products .item').removeClass('active');
+           $('#cost-id').attr('value', 0);
+           $('#product-id').attr('value', 0);
+       }
+    });
+});

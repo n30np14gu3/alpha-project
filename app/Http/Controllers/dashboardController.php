@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\PaymentHistory;
 use Illuminate\Http\Request;
 
 
@@ -42,6 +43,8 @@ class dashboardController extends Controller
         $has_domain = UserHelper::CheckSteamNick($settings->steam_id);
         $user_country = @json_decode(Geolocation::getLocationInfo())->geoplugin_countryCode;
         $country_id = @Country::where('code', $user_country)->get()->first()->id;
+        if(!$country_id)
+            $country_id = 1;
 
         $subscriptions = [];
         $subscriptions_db = @Subscription::where('user_id', $user->id)->get();
@@ -116,7 +119,8 @@ class dashboardController extends Controller
                 'has_steam' => $settings->steam_id != 0,
                 'has_domain' =>$has_domain,
                 'steam_link' => ($settings->steam_id != 0) ? 'http://steamcommunity.com/profiles/'.$settings->steam_id : '',
-                'subscriptions' => $subscriptions
+                'subscriptions' => $subscriptions,
+                'payment_history' => PaymentHistory::where('user_id', $user->id)->get()
             ],
             'balance_funds' => $balance_funds,
             'products' => $products

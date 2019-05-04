@@ -3,7 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\UserHelper;
+use App\Models\Balance;
+use App\Models\Game;
+use App\Models\PaymentHistory;
+use App\Models\Product;
+use App\Models\ProductCost;
+use App\Models\ProductFeature;
+use App\Models\ProductIncrement;
+use App\Models\Subscription;
+use App\Models\SubscriptionSettings;
 use App\Models\UserSettings;
+use App\Models\Country;
 use Illuminate\Http\Request;
 
 
@@ -350,6 +360,112 @@ class actionController extends Controller
         }
 
         UserHelper::UpdateUserPassword($request, $new_password);
+        $result['status'] = 'OK';
+        return json_encode($result);
+    }
+
+    public function purchase(Request $request){
+        $result = [
+            'status' => 'ERROR',
+            'message' => 'UNKNOWN ERROR'
+        ];
+
+        $cost_id = @$_POST['cid'];
+        $product_id = @$_POST['pid'];
+
+        if(!$cost_id || !$product_id){
+            $result['message'] = 'Не все поля заполнены!';
+            return json_encode($result);
+        }
+
+        $product = @Product::where('id', $product_id)->get()->first();
+        if(!$product){
+            $result['message'] = 'Данного продукта не существует';
+            return json_encode($result);
+        }
+
+        $product_cost = @ProductCost::where('id', $cost_id)->get()->first();
+        if(!$product_cost){
+            $result['message'] = 'Такой цены не существует';
+            return json_encode($result);
+        }
+
+        if($product_cost->product_id != $product_id){
+            $result['message'] = 'Цена принадлежит другому продукту';
+            return json_encode($result);
+        }
+
+        $user_country = @json_decode(Geolocation::getLocationInfo())->geoplugin_countryCode;
+        $country_id = @Country::where('code', $user_country)->get()->first()->id;
+        if(!$country_id)
+            $country_id = 1;
+
+        if($product_cost->country_id != $country_id){
+            $result['message'] = 'Данный продукт не доступен в Вашем регионе';
+            return json_encode($result);
+        }
+
+        $user_info = UserHelper::GetLocalUserInfo($request);
+        $user_balance = Balance::where('user_id', $user_info['id'])->get()->first();
+        if($user_balance->balance < $product_cost->cost){
+            $result['message'] = 'На счету недостаточно средств!';
+            return json_encode($result);
+        }
+
+        $product_increment = @ProductIncrement::where('id', $product_cost->increment_id)->get()->first();
+
+        $user_subscription = @Subscription::where('user_id', $user_info['id'])->get()->first();
+        $product_features = @ProductFeature::where('product_id', $product_id)->get();
+        $product_game = @Game::where('id', $product->game_id)->get()->first();
+        $current_time = time();
+
+        if(!$user_subscription){
+            $user_subscription = new Subscription();
+            $user_subscription->game_id = $product->game_id;
+            $user_subscription->user_id = $user_info['id'];
+            $user_subscription->status = 1;
+            $user_subscription->activation_date = date("Y-m-d H:i:s");
+            $user_subscription->save();
+
+            foreach($product_features as $feature){
+                $subscription_setting = new SubscriptionSettings();
+                $subscription_setting->subscription_id = $user_subscription->id;
+                $subscription_setting->module_id = $feature->module_id;
+                $subscription_setting->end_date = $current_time + $product_increment->increment;
+                $subscription_setting->save();
+            }
+        }
+        else{
+            foreach($product_features as $feature){
+                $subscription_setting = SubscriptionSettings::where('subscription_id', $user_subscription->id)->where('module_id', $feature->module_id)->get()->first();
+                if(!@$subscription_setting){
+                    $subscription_setting = new SubscriptionSettings();
+                    $subscription_setting->subscription_id = $user_subscription->id;
+                    $subscription_setting->module_id = $feature->module_id;
+                    $subscription_setting->end_date = $current_time + $product_increment->increment;
+                }
+                else{
+                    $subscription_setting->end_date =
+                        $subscription_setting->end_date < $current_time ?
+                            $current_time + $product_increment->increment :
+                            $subscription_setting->end_date + $product_increment->increment;
+                }
+                $subscription_setting->save();
+            }
+        }
+
+        $user_balance->balance -= $product_cost->cost;
+        $user_balance->total_spend += $product_cost->cost;
+        $user_balance->save();
+
+        $payment_log = new PaymentHistory();
+        $payment_log->user_id = $user_info['id'];
+        $payment_log->amount = $product_cost->cost;
+        $payment_log->date = $current_time;
+        $payment_log->description = "[$product_game->name] :: $product->title ($product_increment->title)";
+        $payment_log->sign = hash("sha256","$payment_log->description :: ".base64_encode(openssl_random_pseudo_bytes(64)).time());
+        $payment_log->save();
+
         $result['status'] = 'OK';
         return json_encode($result);
     }

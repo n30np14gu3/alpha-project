@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int id
  * @property string email
  * @property string password
+ * @property string hwid
  * @property string referral_code
  * @property int staff_status
  */

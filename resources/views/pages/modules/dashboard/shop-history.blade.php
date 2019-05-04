@@ -8,6 +8,13 @@
         </tr>
         </thead>
         <tbody>
+        @foreach(@$user_data['payment_history'] as $history)
+            <tr>
+                <td>{{@$history->description}}</td>
+                <td>{{date("d-m-Y H:i:s", @$history->date)}}</td>
+                <td>{{@$history->sign}}</td>
+            </tr>
+        @endforeach
         </tbody>
     </table>
 </div>

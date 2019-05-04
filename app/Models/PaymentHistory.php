@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int amount
  * @property string description
  * @property int date
+ * @property int product_id
+ * @property int cost_id
  * @property string sign
  */
 class PaymentHistory extends Model
