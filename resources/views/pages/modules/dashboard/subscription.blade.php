@@ -29,6 +29,9 @@
                                 <td colspan="2" style="padding: 0">
                                     <div class="ui fluid alpha button" onclick="showProductsForm()">Продлить компоненты</div>
                                 </td>
+                                <td colspan="2" style="padding: 0">
+                                    <a class="ui fluid alpha button" href="/download/{{@$subscription['game']->id}}">Скачать лоадер</a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
