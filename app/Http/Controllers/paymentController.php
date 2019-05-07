@@ -108,7 +108,7 @@ class paymentController extends Controller
             return redirect()->route('dashboard');
         }
 
-        $shop_password = env('SHOP_TESTMODE') ? env('SHOP_TEST_PASSWORD_2') : env('SHOP_WORK_PASSWORD_2');
+        $shop_password = env('SHOP_TESTMODE') ? env('SHOP_TEST_PASSWORD_1') : env('SHOP_WORK_PASSWORD_1');
         $sign = strtoupper(hash("sha256", $out_sum.':'.$inv_id.':'.$shop_password.':shp_uid='.$user_id));
         if($crc != $sign){
             $data['text'] = 'Неверная подпись платежа!';
