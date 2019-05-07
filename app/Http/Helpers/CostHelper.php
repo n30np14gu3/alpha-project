@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 
 class CostHelper
 {
-    public static function GetBalance($balance, Request $request)
+
+    public static function Convert($cost, Request $request)
     {
         $location_info = json_decode(Geolocation::getLocationInfo());
         $currencies = self::get_currencies($request);
@@ -15,55 +16,20 @@ class CostHelper
         if($location_info->geoplugin_countryCode)
             $locale = self::country2locale(strtolower($location_info->geoplugin_countryCode));
         $formatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
-        $eur_info = $currencies['EUR'];
 
-        if(!@$location_info->geoplugin_currencyCode)
-            $location_info->geoplugin_currencyCode = "EUR";
-
-        if($location_info->geoplugin_currencyCode == "RUB")
-            $balance *= $eur_info;
-        else
+        if(@$location_info->geoplugin_currencyCode != 'RUB')
         {
             if(!$currencies[$location_info->geoplugin_currencyCode])
                 $self_info = $currencies['EUR'];
             else
                 $self_info = $currencies[$location_info->geoplugin_currencyCode];
 
-            $balance = ($balance * $eur_info) / $self_info;
+            $cost *=  $self_info;
         }
-        return $formatter->formatCurrency($balance, $location_info->geoplugin_currencyCode);
-    }
 
-    public static function Convert($cost, Request $request){
-        $location_info = json_decode(Geolocation::getLocationInfo());
-        $currencies = self::get_currencies($request);
-        $locale = 'en_US';
-
-        if($location_info->geoplugin_countryCode)
-            $locale = self::country2locale(strtolower($location_info->geoplugin_countryCode));
-        $formatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
-        $eur_info = $currencies['EUR'];
-
-        if(!@$location_info->geoplugin_currencyCode)
-            $location_info->geoplugin_currencyCode = "EUR";
-
-        if($location_info->geoplugin_currencyCode == "RUB"){
-            $cost *= $eur_info;
-            $formatted_cost = $cost;
-        }
-        else
-        {
-            if(!$currencies[$location_info->geoplugin_currencyCode])
-                $self_info = $currencies['EUR'];
-            else
-                $self_info = $currencies[$location_info->geoplugin_currencyCode];
-
-            $cost = ($cost * $eur_info) / $self_info;
-            $formatted_cost = $cost * $eur_info;
-        }
         return [
-            $formatter->formatCurrency(round($cost, 1), $location_info->geoplugin_currencyCode),
-            round($formatted_cost, 1)
+            $formatter->formatCurrency(round($cost, 2), $location_info->geoplugin_currencyCode),
+            round($cost, 2)
         ];
     }
 

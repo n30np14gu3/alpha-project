@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string birth_date
  * @property int steam_id
  * @property string referral
+ * @property int temp_invoice_id
  */
 class UserSettings extends Model
 {

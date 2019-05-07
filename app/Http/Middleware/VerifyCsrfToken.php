@@ -16,6 +16,10 @@ class VerifyCsrfToken extends BaseVerifier
     protected $except = [
         '/transfer/callback',
         '/transfer/callback/*',
+        '/transfer/success/*',
+        '/transfer/success/',
+        '/transfer/fail/',
+        '/transfer/fail/*',
         '/api',
         '/api/*'
     ];

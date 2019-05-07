@@ -1,5 +1,5 @@
 <div style="padding: 0 15px">
-    <h1 id="balance">Ваш баланс: {{@$user_data['balance']}}</h1>
+    <h1 id="balance">Ваш баланс: {{@$user_data['balance'][0]}}</h1>
     <div class="ui stackable grid">
         <div class="row">
             <div class="column">
@@ -8,7 +8,7 @@
                         <label>Введите сумму</label>
                         <div class="fields">
                             <div class="twelve wide field">
-                                <input type="number" name="amount" placeholder="1337">
+                                <input type="number" name="payment[amount]" placeholder="1337">
                             </div>
                             <div class="four wide field">
                                 <button class="ui fluid button alpha" type="submit">Пополнить</button>

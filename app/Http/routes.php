@@ -30,12 +30,12 @@ Route::group(['prefix' => 'email'], function (){
    Route::get('reset_password/{reset_code}', ['uses' => 'mailController@resetPassword', 'as' => 'reset_password']);
 });
 
-Route::get('/payment', ['uses' => 'paymentController@prepare', 'as' => 'payment_prepare',  'middleware' => 'action']);
+Route::post('/payment', ['uses' => 'paymentController@prepare', 'as' => 'payment_prepare',  'middleware' => 'action']);
 
 Route::group(['prefix' => 'transfer', 'middleware' => 'action'], function (){
    Route::post('callback', ['uses' => 'paymentController@callback', 'as' => 'payment_callback']);
-   Route::get('success', ['uses' => 'paymentController@success', 'as' => 'payment_success']);
-   Route::get('error', ['uses' => 'paymentController@error', 'as' => 'payment_error']);
+   Route::post('success', ['uses' => 'paymentController@success', 'as' => 'payment_success']);
+   Route::post('fail', ['uses' => 'paymentController@fail', 'as' => 'payment_fail']);
 });
 
 Route::group(['prefix' => 'support'], function (){
