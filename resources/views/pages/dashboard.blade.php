@@ -1,6 +1,6 @@
 @extends('index')
 @section('dashboard-active', 'active')
-
+@section('title', ':: Личный кабинет')
 @section('additional-css')
     <style>
         body{

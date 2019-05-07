@@ -20,7 +20,9 @@
                 <input type="hidden" name="SignatureValue" value="{{@$form_data['sign']}}">
                 <input type="hidden" name="shp_uid" value="{{@$form_data['user_id']}}">
                 <input type="hidden" name="Email" value="{{@$form_data['email']}}">
-                <input type="hidden" name="IsTest" value="1">
+                @if(env('SHOP_TESTMODE'))
+                    <input type="hidden" name="IsTest" value="1">
+                @endif
                 <div class="two fields">
                     <div class="field">
                         <input type="submit" value="Оплатить" class="ui fluid alpha submit button">

@@ -1,4 +1,5 @@
 @extends('pages.forms')
+@section('title', ':: Восстановление доступа')
 
 @section('inputs')
     <div class="field">

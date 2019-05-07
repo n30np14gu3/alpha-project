@@ -1,6 +1,6 @@
 @extends('index')
 @section('main-active', 'active')
-
+@section('title', '- Лучший провайдер читов')
 
 @section('additional-css')
     <style>
@@ -52,7 +52,7 @@
                                 Выберите комплект, который соответствует Вашим требованиям и не платите за ненужные Вам функции.
                             </p>
                             <h3 class="ui header">Гибко настраивайте конфигурацию</h3>
-                            <p>Хотите сменить конфигурацию DLC? В <a href="/dashboard" style="color: #bf1660">личном кабинете</a><br>
+                            <p>Хотите сменить свою конфигурацию? В <a href="/dashboard" style="color: #bf1660">личном кабинете</a><br>
                                 Вы можете быстро сменить пакет функций
                                 <span style="color: #bf1660; text-transform: uppercase">без потери старых</span>
                             </p>

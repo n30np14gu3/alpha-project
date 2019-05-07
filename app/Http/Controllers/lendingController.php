@@ -42,4 +42,12 @@ class lendingController extends Controller
                 break;
         }
     }
+
+    public function legal(Request $request){
+        $data = [
+            'logged' => !UserHelper::CheckAuth($request)
+        ];
+
+        return view('pages.legal', $data);
+    }
 }

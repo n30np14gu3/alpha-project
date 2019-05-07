@@ -90,6 +90,8 @@ class dashboardController extends Controller
                     'increment' => ProductIncrement::where('id', $costs->increment_id)->get()->first(),
                     'cost' => CostHelper::Convert($costs->cost, $request)
                 ];
+                if($has_domain)
+                    $cost_module['cost'] *= 0.97;
                 array_push($product_module['costs'], $cost_module);
             }
 

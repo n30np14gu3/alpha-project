@@ -6,6 +6,8 @@ Route::any('/invite/{refId}', ['uses' => 'lendingController@referer', 'as' => 'r
 Route::get('/lang/{lang}',  ['uses' => 'lendingController@changeLang']);
 Route::get('/dashboard', ['uses' => 'dashboardController@index', 'as' => 'dashboard', 'middleware' => 'action']);
 
+Route::get('/legal', ['uses' => 'lendingController@legal', 'as' => 'legal']);
+
 Route::group(['prefix' => 'form', 'middleware' => 'form'], function (){
     Route::get('login', ['uses' => 'formController@login', 'as' => 'show_login']);
     Route::get('register', ['uses' => 'formController@register', 'as' => 'show_register']);
@@ -32,10 +34,10 @@ Route::group(['prefix' => 'email'], function (){
 
 Route::post('/payment', ['uses' => 'paymentController@prepare', 'as' => 'payment_prepare',  'middleware' => 'action']);
 
-Route::group(['prefix' => 'transfer', 'middleware' => 'action'], function (){
-   Route::post('callback', ['uses' => 'paymentController@callback', 'as' => 'payment_callback']);
-   Route::post('success', ['uses' => 'paymentController@success', 'as' => 'payment_success']);
-   Route::post('fail', ['uses' => 'paymentController@fail', 'as' => 'payment_fail']);
+Route::group(['prefix' => 'transfer'], function (){
+   Route::get('callback', ['uses' => 'paymentController@callback', 'as' => 'payment_callback']);
+   Route::post('success', ['uses' => 'paymentController@success', 'as' => 'payment_success', 'middleware' => 'action']);
+   Route::post('fail', ['uses' => 'paymentController@fail', 'as' => 'payment_fail', 'middleware' => 'action']);
 });
 
 Route::group(['prefix' => 'support'], function (){

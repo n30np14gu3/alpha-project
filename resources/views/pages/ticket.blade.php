@@ -1,4 +1,5 @@
 @extends('index')
+@section('title', ':: Служба поддержки')
 
 @section('main-container')
     @include('pages.modules.default.main-menu')

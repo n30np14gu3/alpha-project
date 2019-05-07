@@ -58,30 +58,24 @@ class paymentController extends Controller
         $user_id = @$request["shp_uid"];
         $crc = strtoupper(@$request["SignatureValue"]);
         if(!$out_sum || !$inv_id || !$user_id || !$crc){
-            echo "Empty Parameters";
-            exit();
+            return "Empty Parameters";
         }
 
         $shop_password = env('SHOP_TESTMODE') ? env('SHOP_TEST_PASSWORD_2') : env('SHOP_WORK_PASSWORD_2');
         $sign = strtoupper(hash("sha256", $out_sum.':'.$inv_id.':'.$shop_password.':shp_uid='.$user_id));
 
         if($sign != $crc){
-            echo "Bad sign";
-            exit();
+            return "bad sign";
         }
 
         $user = @User::where('id', $user_id)->get()->first();
         if(!$user){
-            echo "User not found!";
-            exit();
+            return "user not found!";
         }
 
         if(!UserHelper::CheckUserActivity($user)){
-            echo "User's ability is limited";
-            exit();
+            return "user's ability is limited";
         }
-
-        echo "OK$inv_id\n";
 
         $user_invoice = new UserInvoice();
         $user_invoice->user_id = $user_id;
@@ -89,6 +83,8 @@ class paymentController extends Controller
         $user_invoice->token = $inv_id;
         $user_invoice->active = 1;
         $user_invoice->save();
+
+        return "OK$inv_id\n";
     }
 
     public function success(Request $request){
@@ -100,11 +96,10 @@ class paymentController extends Controller
 
         $out_sum = @$request["OutSum"];
         $inv_id = @$request["InvId"];
-        $shp_item = @$request["Shp_item"];
         $crc = strtoupper(@$request["SignatureValue"]);
         $user_id = @$request["shp_uid"];
 
-        if(!$out_sum || !$inv_id || !$shp_item || !$crc){
+        if(!$out_sum || !$inv_id || !$crc || !$user_id){
             return redirect()->route('dashboard');
         }
 

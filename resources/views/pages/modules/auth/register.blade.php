@@ -1,5 +1,5 @@
 @extends('pages.forms')
-
+@section('title', ':: Регистрация')
 @section('inputs')
     <div class="field">
         <div class="ui left icon input">
