@@ -10,6 +10,7 @@ namespace App\Http\Helpers;
 
 
 use App\Models\Ban;
+use App\Models\SubscriptionSettings;
 use \Illuminate\Http\Request;
 
 
@@ -186,6 +187,14 @@ class UserHelper
         }
     }
 
+    public static function SubscriptionActive($subscription_id){
+        $current_time = time();
+        $subscription_settings = @SubscriptionSettings::where('subscription_id', $subscription_id)->where('end_date', '>', $current_time)->get();
+        if(!count($subscription_settings))
+            return false;
+
+        return true;
+    }
     public static function NewPassword($length){
         if($length <= 0)
             return "";

@@ -8,7 +8,7 @@
                         <label>Введите сумму</label>
                         <div class="fields">
                             <div class="twelve wide field">
-                                <input type="number" name="payment[amount]" placeholder="1337">
+                                <input type="text" name="payment[amount]" placeholder="1337">
                             </div>
                             <div class="four wide field">
                                 <button class="ui fluid button alpha" type="submit">Пополнить</button>

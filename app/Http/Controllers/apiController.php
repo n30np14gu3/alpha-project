@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\CryptoHelper;
+use App\Http\Helpers\UserHelper;
 use App\Models\ApiRequest;
 use App\Models\Ban;
 use App\Models\GameModule;
@@ -25,41 +26,47 @@ class apiController extends Controller
         $email = @$_POST['email'];
         $password = @$_POST['password'];
         $hwid = @$_POST['hwid'];
+
+        if(!$email || !$password || !$hwid){
+            http_response_code(403);
+            die();
+        }
+
         $user_ip = $_SERVER['REMOTE_ADDR'];
         $current_time = time();
 
         $user = @User::where('email', $email)->where('password', $password)->get()->first();
         if(!$user){
             $response['code'] = env('API_CODE_USER_NOT_FOUND');
-            return json_encode($response);
+            return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
         }
 
-        $user_bans = @Ban::where('user_id', $user->id)->get()->first();
         $user_settings = UserSettings::where('user_id', $user->id)->get()->first();
-        if($user_bans || !$user_settings->status){
+        if(!UserHelper::CheckUserActivity($user)){
             $response['code'] = env('API_CODE_USER_BLOCKED');
-            return json_encode($response);
+            return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
         }
 
-        if($user->hwid && $user->hwid != $hwid){
-            $response['code'] = env('API_CODE_HWID_ERROR');
-            return json_encode($response);
-        }
-
-        if(!$user->hwid){
-            $user->hwid = $hwid;
-        }
 
         $user_subscription = @Subscription::where('user_id', $user->id)->get()->first();
         if(!$user_subscription){
             $response['code'] = env('API_CODE_SUBSCRIPTION_EXPIRY');
-            return json_encode($response);
+            return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
+        }
+
+        if($user_subscription->hwid && $user_subscription->hwid != $hwid){
+            $response['code'] = env('API_CODE_HWID_ERROR');
+            return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
+        }
+
+        if(!$user_subscription->hwid){
+            $user_subscription->hwid = $hwid;
         }
 
         $subscription_modules = @SubscriptionSettings::where('subscription_id', $user_subscription->id)->where('end_date', '>', $current_time)->get();
         if(!count($subscription_modules)){
             $response['code'] = env('API_CODE_SUBSCRIPTION_EXPIRY');
-            return json_encode($response);
+            return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
         }
 
         $response['code'] = env('API_CODE_OK');
@@ -81,6 +88,9 @@ class apiController extends Controller
             array_push($response['data']['subscription_modules'], $subscription_module);
         }
 
+        $user_subscription->activation_date = date("Y-m-d H:i:s");
+        $user_subscription->save();
+
         $api_request = new ApiRequest();
         $api_request->user_id = $user->id;
         $api_request->session_ip = $user_ip;
@@ -90,7 +100,7 @@ class apiController extends Controller
 
         $response['data']['access_token'] = $api_request->token;
 
-        return json_encode($response);
+        return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
     }
 
     public function requestSession(){

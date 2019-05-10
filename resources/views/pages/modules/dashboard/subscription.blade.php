@@ -1,5 +1,5 @@
 <div class="ui stackable grid">
-    <div class="column">
+    <div class="nine wide column">
         <div class="row">
             @foreach(@$user_data['subscriptions'] as $subscription)
                 <div class="ui styled accordion" style="font-size: 16px; width: 100%">
@@ -40,6 +40,11 @@
             @endforeach
             <br>
             <button type="button" class="ui fluid alpha button" onclick="showProductsForm()">Купить подписку</button>
+        </div>
+    </div>
+    <div class="seven wide column">
+        <div class="row">
+            @include('pages.modules.dashboard.balance')
         </div>
     </div>
 </div>

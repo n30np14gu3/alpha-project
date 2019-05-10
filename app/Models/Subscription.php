@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int user_id
  * @property int status
  * @property string activation_date
+ * @property string hwid
  */
 class Subscription extends Model
 {

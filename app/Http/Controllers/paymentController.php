@@ -18,7 +18,7 @@ class paymentController extends Controller
 {
     public function prepare(Request $request)
     {
-        $amount = @$_POST['payment']['amount'];
+        $amount = round((double)@$_POST['payment']['amount'], 2);
         if(!$amount)
             return redirect()->route('dashboard');
 
@@ -48,7 +48,6 @@ class paymentController extends Controller
 
          $sign = hash("sha256", $data['form_data']['shop_id'].':'.$data['form_data']['amount'].':'.$user_settings->temp_invoice_id.':'.$shop_password.':shp_uid='.$data['form_data']['user_id']);
          $data['form_data']['sign'] = $sign;
-
          return view('pages.payment', $data);
     }
 
@@ -61,7 +60,7 @@ class paymentController extends Controller
             return "Empty Parameters";
         }
 
-        $shop_password = env('SHOP_TESTMODE') ? env('SHOP_TEST_PASSWORD_2') : env('SHOP_WORK_PASSWORD_2');
+        $shop_password = env('SHOP_TESTMODE') ? env('SHOP_TEST_PASSWORD_1') : env('SHOP_WORK_PASSWORD_1');
         $sign = strtoupper(hash("sha256", $out_sum.':'.$inv_id.':'.$shop_password.':shp_uid='.$user_id));
 
         if($sign != $crc){
@@ -82,6 +81,7 @@ class paymentController extends Controller
         $user_invoice->amount = $out_sum;
         $user_invoice->token = $inv_id;
         $user_invoice->active = 1;
+        $user_invoice->time = time();
         $user_invoice->save();
 
         return "OK$inv_id\n";
@@ -112,6 +112,7 @@ class paymentController extends Controller
 
         $user = @User::where('id', $user_id)->get()->first();
         $user_info = UserHelper::GetLocalUserInfo($request);
+        $request->flush();
 
         if(!$user){
             $data['text'] = 'Пользователь не найден с подобным ID';

@@ -76,6 +76,7 @@
     </div>
 </div>
 @include('pages.modules.default.modals')
+@include('pages.modules.default.analytics')
 <script src="{{url('/assets/js/semantic.min.js')}}"></script>
 <script src="{{url('/assets/js/vendor/popper.min.js')}}"></script>
 <script src="{{url('/assets/js/slider-semantic.js')}}"></script>

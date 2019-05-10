@@ -680,3 +680,7 @@ input.material:focus::-webkit-input-placeholder, input:valid::-webkit-input-plac
 .ui.alpha.message{
     background-color: #a11651;
 }
+
+input{
+    color: #a11651; !important;
+}

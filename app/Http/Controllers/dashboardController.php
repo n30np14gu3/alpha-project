@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\PaymentHistory;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 
 
@@ -26,6 +27,7 @@ use App\Models\Ban;
 use App\Http\Helpers\Geolocation;
 use App\Http\Helpers\UserHelper;
 use App\Http\Helpers\CostHelper;
+
 
 
 class dashboardController extends Controller
@@ -128,6 +130,38 @@ class dashboardController extends Controller
             $bans['exist'] = true;
         }
 
+        $staff_data = [
+            'support_tickets' => [],
+
+            'users' => [],
+            'user_settings' => [],
+            'bans' => [],
+
+            'games' => [],
+            'game_modules' => [],
+
+            'products' => [],
+            'product_modules' => [],
+
+        ];
+        if($user->staff_status >=1){
+            $staff_data['support_tickets'] = Ticket::all();
+
+            if($user->staff_status >= 2){
+                $staff_data['users'] = User::all();
+                $staff_data['user_settings'] = UserSettings::all();
+                $staff_data['bans'] = Ban::all();
+            }
+
+            if($user->staff_status == 3){
+                $staff_data['games'] = Game::all();
+                $staff_data['games_modules'] = GameModule::all();
+
+                $staff_data['products'] = Product::all();
+                $staff_data['product_modules'] = ProductFeature::all();
+            }
+
+        }
         $data = [
             'logged' => true,
             'user_data' => [
@@ -139,14 +173,38 @@ class dashboardController extends Controller
                 'referrals' => @UserSettings::where('referral', $user->id)->where('status', '>', 0)->get(),
                 'has_steam' => $settings->steam_id != 0,
                 'has_domain' =>$has_domain,
-                'steam_link' => ($settings->steam_id != 0) ? 'http://steamcommunity.com/profiles/'.$settings->steam_id : '',
+                'steam_link' => ($settings->steam_id != 0) ? 'https://steamcommunity.com/profiles/'.$settings->steam_id : '',
                 'subscriptions' => $subscriptions,
                 'payment_history' => PaymentHistory::where('user_id', $user->id)->get(),
                 'bans' => $bans
             ],
             'balance_funds' => $balance_funds,
-            'products' => $products
+            'products' => $products,
+            'staff_data' => $staff_data
         ];
         return view('pages.dashboard', $data);
+    }
+
+    public function downloadLoader(Request $request, $game_id){
+        $headers = [
+            'Content-Type: application/zip, application/octet-stream'
+        ];
+
+        $game = @Game::where('id', $game_id)->get()->first();
+        if(!$game)
+            return redirect()->route('dashboard');
+
+        $user = UserHelper::CheckAuth($request, true);
+        if(!UserHelper::CheckUserActivity($user))
+            return redirect()->route('dashboard');
+
+        $user_subscription = @Subscription::where('user_id', $user->id)->where('game_id', $game_id)->get()->first();
+        if(!$user_subscription)
+            return redirect()->route('dashboard');
+
+        if(!UserHelper::SubscriptionActive($user_subscription->id))
+            return redirect()->route('dashboard');
+
+        return response()->download($game->loader_path, 'loader.7zip', $headers);
     }
 }

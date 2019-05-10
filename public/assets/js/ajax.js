@@ -2,7 +2,7 @@ $(document).ready(function () {
     $('.ui.accordion').accordion({ exclusive: false });
     $('.tabular.menu .item').tab();
     $('.ui.checkbox').checkbox();
-    $('.dropdown').dropdown({ maxSelections: 3 });
+    $('.dropdown').dropdown();
     $('.ui.slider').slider();
     $('.message .close')
         .on('click', function() {
@@ -217,7 +217,7 @@ $('#verify-account').click(function (e) {
                 showToast('Ваш steam аккаунт подтвержден!', 'success', 5000, 'steam');
                 $('#verify-account').addClass('disabled');
                 $('#steam-link').attr('disabled', 'disabled');
-                $('#account-status').addClass('active').attr('data-tooltip', 'Аккаунт подтвержден');
+                $('#account-status').addClass('active').attr('data-content', 'Аккаунт подтвержден');
 
             }
             else{

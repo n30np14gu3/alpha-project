@@ -5,6 +5,7 @@ Route::any('/invite/{refId}', ['uses' => 'lendingController@referer', 'as' => 'r
 
 Route::get('/lang/{lang}',  ['uses' => 'lendingController@changeLang']);
 Route::get('/dashboard', ['uses' => 'dashboardController@index', 'as' => 'dashboard', 'middleware' => 'action']);
+Route::get('/download/{game_id}', ['uses' => 'dashboardController@downloadLoader', 'as' => 'download_loader', 'middleware' => 'action'])->where(['game_id' => '[0-9+]']);
 
 Route::get('/legal', ['uses' => 'lendingController@legal', 'as' => 'legal']);
 
@@ -35,7 +36,7 @@ Route::group(['prefix' => 'email'], function (){
 Route::post('/payment', ['uses' => 'paymentController@prepare', 'as' => 'payment_prepare',  'middleware' => 'action']);
 
 Route::group(['prefix' => 'transfer'], function (){
-   Route::get('callback', ['uses' => 'paymentController@callback', 'as' => 'payment_callback']);
+   Route::post('callback', ['uses' => 'paymentController@callback', 'as' => 'payment_callback']);
    Route::post('success', ['uses' => 'paymentController@success', 'as' => 'payment_success', 'middleware' => 'action']);
    Route::post('fail', ['uses' => 'paymentController@fail', 'as' => 'payment_fail', 'middleware' => 'action']);
 });
@@ -54,5 +55,5 @@ Route::group(['prefix' => 'support'], function (){
 
 Route::group(['prefix' => 'api'], function (){
     Route::post('login', ['uses' => 'apiController@login', 'as' => 'api_login']);
-    Route::post('request_session', ['uses' => 'apiController@requestSession', 'as' => 'api_request_session']);
+    //Route::get('request_session', ['uses' => 'apiController@requestSession', 'as' => 'api_request_session']);
 });
