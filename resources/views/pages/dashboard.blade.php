@@ -33,10 +33,9 @@
                     @if(@$user_data['bans']['exist'] || !@$user_data['settings']->status)
                         <div class="item active" data-tab="t-bans">Блокировки и ограничения</div>
                     @else
-                        <div class="item active" data-tab="t-account">@lang('dashboard.tab-account')</div>
+                        <div class="item active" data-tab="t-account">Аккаунт</div>
                         <div class="item" data-tab="t-security">@lang('dashboard.tab-security')</div>
                         <div class="item" data-tab="t-subscription">@lang('dashboard.tab-subscription')</div>
-                        <div class="item" data-tab="t-promo">@lang('dashboard.tab-promo')</div>
                         <div class="item" data-tab="t-ref">@lang('dashboard.tab-ref')</div>
                         <div class="item" data-tab="t-shop-history">@lang('dashboard.tab-shop-history')</div>
                         <div class="item" data-tab="t-auth-history">@lang('dashboard.tab-auth-history')</div>
@@ -70,11 +69,6 @@
                     <div class="ui tab" data-tab="t-subscription">
                         <div class="ui raised segment">
                             @include('pages.modules.dashboard.subscription')
-                        </div>
-                    </div>
-                    <div class="ui tab" data-tab="t-promo">
-                        <div class="ui raised segment">
-                            @include('pages.modules.dashboard.promo')
                         </div>
                     </div>
                     <div class="ui tab" data-tab="t-shop-history">
