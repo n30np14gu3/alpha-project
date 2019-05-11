@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{url('/assets/css/semantic.neon.css')}}" type="text/css">
     <link rel="stylesheet" href="{{url('/assets/css/adaptive-menu.css')}}" type="text/css">
     <link rel="stylesheet" href="{{url('/assets/css/main.css')}}" type="text/css">
-    <link rel="stylesheet" href="{{url('/assets/css/slider.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{url('/assets/css/calendar.css')}}" type="text/css">
     <link rel="stylesheet" href="{{url('/assets/css/toast.css')}}" type="text/css">
     <link rel="stylesheet" href="{{url('/assets/css/tickets.css')}}" type="text/css">
     <script src="{{url('/assets/js/vendor/jquery-3.1.1.min.js')}}" type="text/javascript"></script>
@@ -78,11 +78,9 @@
 @include('pages.modules.default.modals')
 @include('pages.modules.default.analytics')
 <script src="{{url('/assets/js/semantic.min.js')}}"></script>
-<script src="{{url('/assets/js/vendor/popper.min.js')}}"></script>
-<script src="{{url('/assets/js/slider-semantic.js')}}"></script>
+<script src="{{url('/assets/js/vendor/popper.min.js')}}"></script>t>
+<script src="{{url('/assets/js/calendar.js')}}"></script>
 <script src="{{url('/assets/js/toast.js')}}"></script>
-<script src="{{url('/assets/js/TweenLite.min.js')}}" type="text/javascript"></script>
-<script src="{{url('/assets/js/particles.min.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/js/ajax.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/js/vendor/jquery.maskedinput.min.js')}}"></script>
 @if(@$user_data['base']->staff_status)

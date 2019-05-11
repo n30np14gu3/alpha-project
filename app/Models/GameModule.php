@@ -16,4 +16,5 @@ class GameModule extends Model
 {
     public $timestamps = false;
     protected $table = 'game_modules';
+    protected $fillable = ['game_id'];
 }

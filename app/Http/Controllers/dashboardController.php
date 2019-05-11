@@ -45,8 +45,6 @@ class dashboardController extends Controller
         $has_domain = UserHelper::CheckSteamNick($settings->steam_id);
         $user_country = @json_decode(Geolocation::getLocationInfo())->geoplugin_countryCode;
         $country_id = @Country::where('code', $user_country)->get()->first()->id;
-        if(!$country_id)
-            $country_id = 1;
 
         $subscriptions = [];
         $subscriptions_db = @Subscription::where('user_id', $user->id)->get();
@@ -85,7 +83,11 @@ class dashboardController extends Controller
                 'features' => []
             ];
 
-            $product_costs = ProductCost::where('product_id', $product->id)->where('country_id', $country_id)->get();
+            $product_costs = ProductCost::where('country_id', $country_id)->get();
+            if(!count($product_costs)){
+                $usa = Country::where('code', 'us')->get()->first();
+                $product_costs = ProductCost::where('country_id', $usa->id)->where('product_id', $product->id)->get();
+            }
             foreach($product_costs as $costs){
                 $cost_module = [
                     'cid' => $costs->id,
@@ -143,9 +145,19 @@ class dashboardController extends Controller
             'products' => [],
             'product_modules' => [],
 
+            'countries' => [],
+
         ];
         if($user->staff_status >=1){
-            $staff_data['support_tickets'] = Ticket::all();
+            $tickets = Ticket::where('completed', 0)->get();
+            foreach($tickets as $ticket){
+                array_push($staff_data['support_tickets'], [
+                    'base' => $ticket,
+                    'user' => User::where('id', $ticket->user_id)->get()->first(),
+                    'is_empty' => $ticket->staff_id == null,
+                    'is_my' => $ticket->staff_id == $user->id
+                ]);
+            }
 
             if($user->staff_status >= 2){
                 $staff_data['users'] = User::all();
@@ -153,12 +165,14 @@ class dashboardController extends Controller
                 $staff_data['bans'] = Ban::all();
             }
 
-            if($user->staff_status == 3){
+            if($user->staff_status >= 3){
                 $staff_data['games'] = Game::all();
-                $staff_data['games_modules'] = GameModule::all();
+                $staff_data['game_modules'] = GameModule::where('game_id', null)->get();
 
                 $staff_data['products'] = Product::all();
                 $staff_data['product_modules'] = ProductFeature::all();
+
+                $staff_data['countries'] = Country::all();
             }
 
         }

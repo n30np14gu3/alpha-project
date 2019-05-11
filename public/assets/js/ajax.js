@@ -3,7 +3,6 @@ $(document).ready(function () {
     $('.tabular.menu .item').tab();
     $('.ui.checkbox').checkbox();
     $('.dropdown').dropdown();
-    $('.ui.slider').slider();
     $('.message .close')
         .on('click', function() {
             $(this)

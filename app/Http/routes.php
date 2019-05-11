@@ -1,9 +1,18 @@
 <?php
+/**
+ * FULL ROUTES
+ */
 
+//INDEX ROUTE
 Route::any('/', ['uses' => 'lendingController@index', 'as' => 'index']);
+
+//INVITE USER ROUTE
 Route::any('/invite/{refId}', ['uses' => 'lendingController@referer', 'as' => 'referer']);
 
+//CHANGE LANG ROUTE
 Route::get('/lang/{lang}',  ['uses' => 'lendingController@changeLang']);
+
+//
 Route::get('/dashboard', ['uses' => 'dashboardController@index', 'as' => 'dashboard', 'middleware' => 'action']);
 Route::get('/download/{game_id}', ['uses' => 'dashboardController@downloadLoader', 'as' => 'download_loader', 'middleware' => 'action'])->where(['game_id' => '[0-9+]']);
 
@@ -26,6 +35,18 @@ Route::group(['prefix' => 'action', 'middleware' => 'action'], function (){
     Route::post('save_info', ['uses' => 'actionController@saveInfo', 'as' => 'save_info']);
     Route::post('password_change', ['uses' => 'actionController@changePassword', 'as' => 'password_change']);
     Route::post('purchase', ['uses' => 'actionController@purchase', 'as' => 'purchase']);
+
+    Route::group(['prefix' => 'admin', 'middleware' => 'admin_action'], function (){
+       Route::post('create_module', ['uses' => 'adminActionController@createModule', 'as' => 'module_create']);
+       Route::post('create_game', ['uses' => 'adminActionController@createGame', 'as' => 'create_game']);
+
+       Route::post('get_game_data', ['uses' => 'adminActionController@getGameData', 'as' => 'get_game_data']);
+
+       Route::post('update_game', ['uses' => 'adminActionController@updateGame', 'as' => 'update_game']);
+
+       Route::get('add_all_countries', ['uses' => 'adminActionController@addAllCountries', 'as' => 'all_countries']);
+       Route::post('create_country', ['uses' => 'adminActionController@createCountry', 'as' => 'create_country']);
+    });
 });
 
 Route::group(['prefix' => 'email'], function (){
@@ -41,7 +62,7 @@ Route::group(['prefix' => 'transfer'], function (){
    Route::post('fail', ['uses' => 'paymentController@fail', 'as' => 'payment_fail', 'middleware' => 'action']);
 });
 
-Route::group(['prefix' => 'support'], function (){
+Route::group(['prefix' => 'support', 'middleware' => 'support'], function (){
 
     Route::get('/', ['uses' => 'supportController@allTickets', 'as' => 'support']);
     Route::post('create_ticket', ['uses' => 'supportController@createTicket', 'as' => 'create_ticket']);
@@ -50,6 +71,15 @@ Route::group(['prefix' => 'support'], function (){
        Route::get('{ticket_id}', ['uses' => 'supportController@showTicket', 'as' => 'show_ticket'])->where(['ticket_id' => '[0-9]+']);
        Route::post('append', ['uses' => 'supportController@appendTicket', 'as' => 'append_ticket']);
        Route::post('close', ['uses' => 'supportController@closeTicket', 'as' => 'close_ticket']);
+    });
+
+    Route::group(['prefix' => 'admin', 'middleware' => 'admin_action'], function (){
+        Route::post('accept', ['uses' => 'supportController@acceptTicket', 'as' => 'accept_ticket']);
+        Route::group(['prefix' => 'ticket'], function (){
+            Route::get('{ticket_id}', ['uses' => 'supportController@showTicketAdmin', 'as' => 'show_ticket_admin'])->where(['ticket_id' => '[0-9]+']);
+            Route::post('append', ['uses' => 'supportController@appendTicketAdmin', 'as' => 'append_ticket_admin']);
+            Route::post('close', ['uses' => 'supportController@closeTicketAdmin', 'as' => 'close_ticket_admin']);
+        });
     });
 });
 

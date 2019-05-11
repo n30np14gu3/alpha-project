@@ -41,17 +41,14 @@
                         <div class="item" data-tab="t-shop-history">@lang('dashboard.tab-shop-history')</div>
                         <div class="item" data-tab="t-auth-history">@lang('dashboard.tab-auth-history')</div>
                         @if(@$user_data['base']->staff_status >= 1)
-                            <div class="item" data-tab="t-admin-support">Запросы в службу поддержки</div>
+                            <div class="item" data-tab="t-support-requests">Запросы в службу поддержки</div>
                             @if(@$user_data['base']->staff_status >= 2)
-                                <div class="item" data-tab="t-admin-users">Управление пользователями</div>
+
                             @endif
-                            @if(@$user_data['base']->staff_status == 3)
+                            @if(@$user_data['base']->staff_status >= 3)
                                 <div class="item" data-tab="t-admin-games">Управление играми</div>
-                                <div class="item" data-tab="t-admin-subscriptions">Управление подписками</div>
                                 <div class="item" data-tab="t-admin-products">Управление товарами</div>
-                                <div class="item" data-tab="t-admin-costs">Управление ценами</div>
                                 <div class="item" data-tab="t-admin-countries">Управление странами</div>
-                                <div class="item" data-tab="t-admin-increments">Управление инкрементами</div>
                             @endif
                         @endif
                     @endif
@@ -95,11 +92,29 @@
                             @include('pages.modules.dashboard.ref')
                         </div>
                     </div>
-                    <div class="ui tab" data-tab="t-admin-games">
-                        <div class="ui raised segment">
-                            @include('pages.modules.admin.game-management')
+                    @if(@$user_data['base']->staff_status >= 1)
+                        <div class="ui tab" data-tab="t-support-requests">
+                            <div class="ui raised segment">
+                                @include('pages.modules.admin.support-requests')
+                            </div>
                         </div>
-                    </div>
+                        @if(@$user_data['base']->staff_status >= 2)
+
+                        @endif
+                        @if(@$user_data['base']->staff_status >= 3)
+                            <div class="ui tab" data-tab="t-admin-countries">
+                                <div class="ui raised segment">
+                                    @include('pages.modules.admin.countries')
+                                </div>
+                            </div>
+
+                            <div class="ui tab" data-tab="t-admin-games">
+                                <div class="ui raised segment">
+                                    @include('pages.modules.admin.game-management')
+                                </div>
+                            </div>
+                        @endif
+                    @endif
                 @else
                     <div class="ui active tab" data-tab="t-bans">
                         <div class="ui raised segment">

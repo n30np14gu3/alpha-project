@@ -301,21 +301,6 @@ canvas{
     color: white;!important;
 }
 
-.ui.warning.button {
-    border-radius: 40px;
-    background: rgb(82, 79, 0);
-    background: radial-gradient(rgba(29,29,29,1) 74%, rgba(171, 96, 8, 0.6));
-    box-shadow: inset 0px 0 20px #eba502;
-    transition-duration: 100ms;
-}
-
-.ui.warning.button:hover{
-    background: rgb(82, 79, 0);
-    background: radial-gradient(rgba(29,29,29,1) 74%, rgba(255, 157, 0, 0.6));
-    box-shadow: inset 0px 0 20px #eba502;
-    transition-duration: 100ms;
-}
-
 .grid-shadow{
     background-color: rgba(28, 116, 122, 0.17);
     box-shadow: 0 0 10px rgba(0,0,0,1);
