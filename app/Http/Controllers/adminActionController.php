@@ -49,8 +49,10 @@ class adminActionController extends Controller
         $game_name = @$request['game']['name'];
         $game_modules = explode(',', @$request['game']['modules']);
         $loader = @$request->file('game-loader');
+        $libs = @$request->file('game-dll');
         $start_count = count($game_modules);
-        if(!$game_name || !$start_count || !$loader){
+
+        if(!$game_name || !$start_count || !$loader || !$libs){
             $result['message'] = 'Не все поля заполнены!';
             return json_encode($result);
         }
@@ -63,20 +65,34 @@ class adminActionController extends Controller
         }
 
         if(@$loader->getClientMimeType() != "application/x-zip-compressed"){
-            $result['message'] = 'Надо загружать архив!';
+            $result['message'] = 'Лоадер должен быть в видео архива!';
+            return json_encode($result);
+        }
+
+        if(@$libs->getClientMimeType() != "application/x-zip-compressed"){
+            $result['message'] = 'Библиотеки должны быть в ZIP архиве!';
             return json_encode($result);
         }
 
         $loader_name = hash("sha256", openssl_random_pseudo_bytes(64).time()).".zip";
+        $dll_name = hash("sha256", openssl_random_pseudo_bytes(64).(time() + 64)).".zip";
+
         if(!$loader->move(storage_path('app/loaders'), $loader_name)){
-            $result['message'] = 'Не удалось загрузить файл на сервер!';
+            $result['message'] = 'Не удалось загрузить лоадер на сервер!';
             return json_encode($result);
         }
+
+        if(!$libs->move(storage_path('app/libs'), $dll_name)){
+            $result['message'] = 'Не удалось загрузить библиотеки на сервер!';
+            return json_encode($result);
+        }
+
 
         $game = new Game();
         $game->name = $game_name;
         $game->last_update = time();
         $game->status = 1;
+        $game->dll_path = $dll_name;
         $game->loader_path = $loader_name;
         $game->save();
 
@@ -135,6 +151,7 @@ class adminActionController extends Controller
         $game_name = @$request['game']['name'];
         $game_modules = explode(',', @$request['game']['modules']);
         $game_loader = $request->file('game-loader');
+        $game_dll = @$request->file('game-dll');
         $game_id = @$request['game']['id'];
 
         $game = @Game::where('id', $game_id)->get()->first();
@@ -148,15 +165,30 @@ class adminActionController extends Controller
 
         if($game_loader){
             if(@$game_loader->getClientMimeType() != "application/x-zip-compressed"){
-                $result['message'] = 'Надо загружать архив!';
+                $result['message'] = 'Лоадер должен быть в видео архива!';
                 return json_encode($result);
             }
 
             if(!$game_loader->move(storage_path('app/loaders'), $game->loader_path)){
-                $result['message'] = 'Не удалось загрузить файл на сервер!';
+                $result['message'] = 'Не удалось загрузить лоадер на сервер!';
                 return json_encode($result);
             }
             $game->last_update = time();
+        }
+
+        if($game_dll){
+            if(@$game_dll->getClientMimeType() != "application/x-zip-compressed"){
+                $result['message'] = 'Библиотеки должны быть в ZIP архиве!';
+                return json_encode($result);
+            }
+
+            if(!$game_dll->move(storage_path('app/libs'), $game->dll_path)){
+                $result['message'] = 'Не удалось загрузить библиотеки на сервер!';
+                return json_encode($result);
+            }
+
+            if(@$request['game']['force-update'])
+                $game->last_update = time();
         }
 
         GameModule::where('game_id', $game_id)->update(['game_id' => null]);

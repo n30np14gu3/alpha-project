@@ -22,6 +22,10 @@
                                 <input type="file" name="game-loader" required>
                             </div>
                             <div class="field">
+                                <label>ZIP Архив с DLL модулями</label>
+                                <input type="file" name="game-dll" required>
+                            </div>
+                            <div class="field">
                                 <label>Модули</label>
                                 <div class="ui fluid multiple search selection dropdown">
                                     <input type="hidden" name="game[modules]" required>
@@ -91,6 +95,14 @@
                             <div class="field">
                                 <label>Лоадер чита</label>
                                 <input type="file" name="game-loader">
+                            </div>
+                            <div class="field">
+                                <label>ZIP Архив с DLL модулями</label>
+                                <input type="file" name="game-dll">
+                            </div>
+                            <div class="ui checkbox">
+                                <input type="checkbox" placeholder="" tabindex="0" class="hidden" name="game[force-update]">
+                                <label>Обновить дату при загрузке DLL</label>
                             </div>
                             <div class="field">
                                 <label>Модули</label>
