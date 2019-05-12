@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\ApiHelper;
 use App\Http\Helpers\CryptoHelper;
 use App\Http\Helpers\UserHelper;
 use App\Models\ApiRequest;
@@ -15,6 +16,8 @@ use App\Models\UserSettings;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Storage;
+use \ZipArchive;
 
 class apiController extends Controller
 {
@@ -29,6 +32,7 @@ class apiController extends Controller
         $email = @$_POST['email'];
         $password = @$_POST['password'];
         $hwid = @$_POST['hwid'];
+        $game_id = @$_POST['game_id'];
 
         if(!$email || !$password || !$hwid){
             http_response_code(403);
@@ -50,8 +54,13 @@ class apiController extends Controller
             return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
         }
 
+        $game = @Game::where('id', $game_id)->get()->first();
+        if(!$game){
+            $response['code'] = env('API_CODE_GAME_NOT_FOUND');
+            return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
+        }
 
-        $user_subscription = @Subscription::where('user_id', $user->id)->get()->first();
+        $user_subscription = @Subscription::where('user_id', $user->id)->where('game_id', $game_id)->get()->first();
         if(!$user_subscription){
             $response['code'] = env('API_CODE_SUBSCRIPTION_EXPIRY');
             return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
@@ -145,5 +154,62 @@ class apiController extends Controller
             'last_update' => date("d-m-Y H:i:s", $game->last_update)
         ];
         return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
+    }
+
+    public function requestDll(Request $request){
+        $access_token = @$request['access_token'];
+        $game_id = @$request['game_id'];
+        $headers = [
+            'Content-Type: application/zip, application/octet-stream'
+        ];
+
+        if(!ApiHelper::CheckToken($access_token, $game_id))
+            return "";
+
+        $game = @Game::where('id', $game_id)->get()->first();
+        $zip = new \ZipArchive();
+
+        if(!$zip->open(storage_path("/libs/$game->dll_path")))
+            return "";
+
+        $tmp_dir = "libs/tmp/$access_token";
+        $tmp_file = hash("sha1", openssl_random_pseudo_bytes(64)).".zip";
+        mkdir(storage_path($tmp_dir));
+        $zip->extractTo(storage_path($tmp_dir));
+        $zip->close();
+
+        if(!$zip->open(storage_path("$tmp_dir/$tmp_file"), \ZipArchive::CREATE))
+            return "";
+
+        $files = Storage::files($tmp_dir);
+
+        $api_request = @ApiRequest::where('token', $access_token)->get()->first();
+        $user = @User::where('id', $api_request->user_id)->get()->first();
+        $password = hash("sha256", "$access_token.$user->password");
+
+        foreach($files as $file){
+            $zip->addFile("$file");
+            Storage::delete("$tmp_dir/$file");
+            $zip->setEncryptionName("$file", ZipArchive::EM_AES_256, $password);
+        }
+
+        $zip->close();
+
+        return response()->download(storage_path("$tmp_dir/$tmp_file"), time().".zip", $headers)->deleteFileAfterSend(true);
+    }
+
+    public function testDownload(){
+        $headers = [
+            'Content-Type: application/zip, application/octet-stream'
+        ];
+
+        $zip = new \ZipArchive();
+        if(!$zip->open("1337.zip", \ZipArchive::CREATE | ZipArchive::OVERWRITE))
+            return "";
+
+        $zip->addFile("assets/css/adaptive-menu.css");
+        $zip->setEncryptionName("assets/css/adaptive-menu.css", ZipArchive::EM_AES_256, "1337");
+        $zip->close();
+        return response()->download("1337.zip", "1337.zip", $headers)->deleteFileAfterSend(true);
     }
 }
