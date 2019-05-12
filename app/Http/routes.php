@@ -90,5 +90,5 @@ Route::group(['prefix' => 'support', 'middleware' => 'support'], function (){
 
 Route::group(['prefix' => 'api'], function (){
     Route::post('login', ['uses' => 'apiController@login', 'as' => 'api_login']);
-    //Route::get('request_session', ['uses' => 'apiController@requestSession', 'as' => 'api_request_session']);
+    Route::post('request_updates', ['uses' => 'apiController@requestUpdates', 'as' => 'api_request_updates']);
 });

@@ -6,6 +6,7 @@ use App\Http\Helpers\CryptoHelper;
 use App\Http\Helpers\UserHelper;
 use App\Models\ApiRequest;
 use App\Models\Ban;
+use App\Models\Game;
 use App\Models\GameModule;
 use App\Models\Subscription;
 use App\Models\SubscriptionSettings;
@@ -17,10 +18,12 @@ use App\Http\Requests;
 
 class apiController extends Controller
 {
+
     public function login(){
         $response = [
             'code' => env('API_CODE_UNKNOWN_ERROR'),
-            'data' => null
+            'data' => null,
+            'salt'=> base64_encode(openssl_random_pseudo_bytes(64).time())
         ];
 
         $email = @$_POST['email'];
@@ -107,7 +110,40 @@ class apiController extends Controller
         return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
     }
 
-    public function requestSession(){
+    public function requestUpdates(Request $request){
+        $response = [
+            'code' => env('API_CODE_UNKNOWN_ERROR'),
+            'data' => null,
+            'salt'=> base64_encode(openssl_random_pseudo_bytes(64).time())
+        ];
 
+        $game_id = @$request['game_id'];
+        if(!$game_id){
+            $response['code'] = env('API_CODE_GAME_NOT_FOUND');
+            return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
+        }
+
+        $game = @Game::where('id', $game_id)->get()->first();
+        $game_id = @$request['game_id'];
+        if(!$game_id){
+            $response['code'] = env('API_CODE_GAME_NOT_FOUND');
+            return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
+        }
+
+        if(!$game){
+            $response['code'] = env('API_CODE_GAME_NOT_FOUND');
+            return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
+        }
+
+        if($game->status != 1){
+            $response['code'] = env('API_CODE_GAME_DISABLED');
+            return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
+        }
+
+        $response['code'] = env('API_CODE_GAME_DISABLED');
+        $response['data'] = [
+            'last_update' => date("d-m-Y H:i:s", $game->last_update)
+        ];
+        return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
     }
 }
