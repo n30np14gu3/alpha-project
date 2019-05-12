@@ -23,6 +23,7 @@
         </div>
         <input id="cost-id" name="cid" type="hidden" required>
         <input id="product-id" name="pid" type="hidden" required>
+        <br>
         <div class="field">
             <button class="ui alpha button fluid" type="submit">Оплатить</button>
         </div>

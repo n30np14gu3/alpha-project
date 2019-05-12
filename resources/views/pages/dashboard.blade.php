@@ -34,11 +34,11 @@
                         <div class="item active" data-tab="t-bans">Блокировки и ограничения</div>
                     @else
                         <div class="item active" data-tab="t-account">Аккаунт</div>
-                        <div class="item" data-tab="t-security">@lang('dashboard.tab-security')</div>
-                        <div class="item" data-tab="t-subscription">@lang('dashboard.tab-subscription')</div>
-                        <div class="item" data-tab="t-ref">@lang('dashboard.tab-ref')</div>
-                        <div class="item" data-tab="t-shop-history">@lang('dashboard.tab-shop-history')</div>
-                        <div class="item" data-tab="t-auth-history">@lang('dashboard.tab-auth-history')</div>
+                        <div class="item" data-tab="t-security">Безопасность</div>
+                        <div class="item" data-tab="t-subscription">Подписка</div>
+                        <div class="item" data-tab="t-ref">Реферальная система</div>
+                        <div class="item" data-tab="t-shop-history">История покупок</div>
+                        <div class="item" data-tab="t-auth-history">История входов</div>
                         @if(@$user_data['base']->staff_status >= 1)
                             <div class="item" data-tab="t-support-requests">Запросы в службу поддержки</div>
                             @if(@$user_data['base']->staff_status >= 2)
@@ -105,6 +105,12 @@
                             <div class="ui tab" data-tab="t-admin-games">
                                 <div class="ui raised segment">
                                     @include('pages.modules.admin.game-management')
+                                </div>
+                            </div>
+
+                            <div class="ui tab" data-tab="t-admin-products">
+                                <div class="ui raised segment">
+                                    @include('pages.modules.admin.products')
                                 </div>
                             </div>
                         @endif

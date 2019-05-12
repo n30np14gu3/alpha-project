@@ -37,6 +37,10 @@ class AdminActionMiddle
             case 'create_game':
             case 'get_game_data':
             case 'update_game':
+            case 'create_increment':
+            case 'create_cost':
+            case 'create_product_feature':
+            case 'create_product':
                 if($user->staff_status < 3){
                     return json_encode([
                         'status' => 'ERROR',

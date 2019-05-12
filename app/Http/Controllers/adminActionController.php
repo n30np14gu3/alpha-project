@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Country;
 use App\Models\Game;
 use App\Models\GameModule;
+use App\Models\Product;
+use App\Models\ProductCost;
+use App\Models\ProductFeature;
+use App\Models\ProductIncrement;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -192,19 +196,154 @@ class adminActionController extends Controller
         return json_encode($result);
     }
 
-    public function addAllCountries(){
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        Country::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+    public function createIncrement(Request $request){
+        $result = [
+            'status' => 'ERROR',
+            'message' => 'Недостаточно прав для выполнения запроса!'
+        ];
 
-        $countries = json_decode(file_get_contents(storage_path('/app/support_files/countries.json')));
-        foreach($countries as $country){
-            $c = new Country();
-            $c->code = strtolower(trim($country->cca2));
-            $c->title = trim($country->name->official);
-            $c->save();
+        $title = @$request['increment']['title'];
+        $increment = (int)@$request['increment']['increment'];
+
+        if(!$title || !$increment){
+            $result['message'] = 'Не все поля заполнены!';
+            return json_encode($result);
         }
 
-        dd("OK");
+        $inc = @ProductIncrement::where('increment', $increment)->get()->first();
+        if($inc){
+            $result['message'] = 'Инкремент с таким значением уже существует';
+            return json_encode($result);
+        }
+
+        $inc = new ProductIncrement();
+        $inc->increment = $increment;
+        $inc->title = $title;
+        $inc->save();
+
+        $result['status'] = 'OK';
+        return json_encode($result);
+    }
+
+    public function createCost(Request $request){
+        $result = [
+            'status' => 'ERROR',
+            'message' => 'Недостаточно прав для выполнения запроса!'
+        ];
+
+        $amount = (double)@$request['cost']['amount'];
+        $country = @$request['cost']['country'];
+        $increment = @$request['cost']['increment'];
+
+        if(!$amount || !$country || !$increment){
+            $result['message'] = 'Не все поля заполнены!';
+            return json_encode($result);
+        }
+
+        $increment = @ProductIncrement::where('id', $increment)->get()->first();
+        if(!$increment){
+            $result['message'] = 'Такой инкремент не найден!';
+            return json_encode($result);
+        }
+
+        $country = @Country::where('id', $country)->get()->first();
+        if(!$country){
+            $result['message'] = 'Такой страны не найдено!';
+            return json_encode($result);
+        }
+
+        $cost = new ProductCost();
+        $cost->cost = $amount;
+        $cost->country_id = $country->id;
+        $cost->increment_id = $increment->id;
+        $cost->save();
+
+        $result['status'] = 'OK';
+        return json_encode($result);
+    }
+
+    public function createProductFeature(Request $request){
+        $result = [
+            'status' => 'ERROR',
+            'message' => 'Недостаточно прав для выполнения запроса!'
+        ];
+
+
+        $module = @$request['product']['features'];
+        if(!$module){
+            $result['message'] = 'Не все поля заполнены!';
+            return json_encode($result);
+        }
+
+        $module = @GameModule::where('id', $module)->get()->first();
+        if(!$module){
+            $result['message'] = 'Такого модуля не найдено';
+        }
+
+        if(count(ProductFeature::where('module_id', $module->id)->get())){
+            $result['message'] = 'Этот модуль уже используется';
+            return json_encode($result);
+        }
+
+        $feature = new ProductFeature();
+        $feature->module_id = $module->id;
+        $feature->save();
+
+        $result['status'] = 'OK';
+        return json_encode($result);
+    }
+
+    public function createProduct(Request $request){
+        $result = [
+            'status' => 'ERROR',
+            'message' => 'Недостаточно прав для выполнения запроса!'
+        ];
+
+        $title = @$request['product']['title'];
+        $game = @$request['product']['game'];
+        $costs = explode(',', @$request['product']['costs']);
+        $features = explode(',', @$request['product']['features']);
+        $costs_count = count($costs);
+        $features_count = count($features);
+
+        if(!$title || !$game || !$costs_count || !$features_count){
+            $result['message'] = 'Не все поля заполнены!';
+            return json_encode($result);
+        }
+
+        $costs = ProductCost::whereIn('id', $costs)->where('product_id', null)->get();
+        if(count($costs) < $costs_count){
+            $result['message'] = 'Некоторые цены принадлежат другим продуктам!';
+            return json_encode($result);
+        }
+
+        $features = ProductFeature::whereIn('id', $features)->where('product_id', null)->get();
+        if(count($features) < $features_count){
+            $result['message'] = 'Некоторые компоненты продуктов уже заняты';
+            return json_encode($result);
+        }
+
+        $game = @Game::where('id', $game)->get()->first();
+        if(!$game){
+            $result['message'] = 'Игры с таким id не найдено';
+            return json_encode($result);
+        }
+
+        $product = new Product();
+        $product->game_id = $game->id;
+        $product->status = 1;
+        $product->title = $title;
+        $product->save();
+
+        $costs->each(function ($item) use($product){
+            $item->update(['product_id' => $product->id]);
+        });
+
+        $features->each(function ($iteam) use($product){
+           $iteam->update(['product_id', $product->id]);
+        });
+
+        $result['status'] = 'OK';
+        return json_encode($result);
     }
 }

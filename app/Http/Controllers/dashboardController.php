@@ -147,6 +147,9 @@ class dashboardController extends Controller
 
             'countries' => [],
 
+            'costs' => [],
+            'increments' => []
+
         ];
         if($user->staff_status >=1){
             $tickets = Ticket::where('completed', 0)->get();
@@ -170,7 +173,25 @@ class dashboardController extends Controller
                 $staff_data['game_modules'] = GameModule::where('game_id', null)->get();
 
                 $staff_data['products'] = Product::all();
-                $staff_data['product_modules'] = ProductFeature::all();
+
+                $product_features = ProductFeature::where('product_id', null)->get();
+                foreach($product_features as $feature){
+                    array_push($staff_data['product_modules'],  [
+                        'id' => $feature->id,
+                        'module_title' => GameModule::where('id', $feature->module_id)->get()->first()->name
+                    ]);
+                }
+                $staff_data['increments'] = ProductIncrement::all();
+
+                $product_costs = ProductCost::where('product_id', null)->get();
+                foreach($product_costs as $cost){
+                    array_push($staff_data['costs'], [
+                       'base' => $cost,
+                        'increment_title' => ProductIncrement::where('id', $cost->increment_id)->get()->first()->title
+                    ]);
+                }
+
+                $staff_data['product_game_modules'] = GameModule::all();
 
                 $staff_data['countries'] = Country::all();
             }

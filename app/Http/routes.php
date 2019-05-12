@@ -44,8 +44,13 @@ Route::group(['prefix' => 'action', 'middleware' => 'action'], function (){
 
        Route::post('update_game', ['uses' => 'adminActionController@updateGame', 'as' => 'update_game']);
 
-       Route::get('add_all_countries', ['uses' => 'adminActionController@addAllCountries', 'as' => 'all_countries']);
        Route::post('create_country', ['uses' => 'adminActionController@createCountry', 'as' => 'create_country']);
+
+
+       Route::post('create_increment', ['uses' => 'adminActionController@createIncrement', 'as' => 'create_increment']);
+       Route::post('create_cost', ['uses' => 'adminActionController@createCost', 'as' => 'create_cost']);
+       Route::post('create_product_feature', ['uses' => 'adminActionController@createProductFeature', 'as' => 'create_product_feature']);
+       Route::post('create_product', ['uses' => 'adminActionController@createProduct', 'as' => 'create_product']);
     });
 });
 

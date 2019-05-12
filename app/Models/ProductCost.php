@@ -17,4 +17,5 @@ class ProductCost extends Model
 {
     public $timestamps = false;
     protected $table = 'product_costs';
+    protected $fillable = ['product_id'];
 }

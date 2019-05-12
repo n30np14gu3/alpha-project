@@ -187,3 +187,75 @@ function closeTicketStaff(ticket_id) {
         }
     });
 }
+
+$('#create-increment-form').submit(function (e) {
+    e.preventDefault();
+    $.ajax({
+        method: "POST",
+        url: "/action/admin/create_increment",
+        data: $('#create-increment-form').serialize(),
+        success: function (data) {
+            data = JSON.parse(data);
+            if(data.status !== "OK"){
+                showToast(data.message, 'error', 3000, 'microchip');
+            }
+            else {
+                window.location.reload();
+            }
+        }
+    })
+});
+
+$('#create-cost-form').submit(function (e) {
+    e.preventDefault();
+    $.ajax({
+        method: "POST",
+        url: "/action/admin/create_cost",
+        data: $('#create-cost-form').serialize(),
+        success: function (data) {
+            data = JSON.parse(data);
+            if(data.status !== "OK"){
+                showToast(data.message, 'error', 3000, 'microchip');
+            }
+            else {
+                window.location.reload();
+            }
+        }
+    })
+});
+
+$('#create-product-feature-form').submit(function (e) {
+    e.preventDefault();
+    $.ajax({
+        method: "POST",
+        url: "/action/admin/create_product_feature",
+        data: $('#create-product-feature-form').serialize(),
+        success: function (data) {
+            data = JSON.parse(data);
+            if(data.status !== "OK"){
+                showToast(data.message, 'error', 3000, 'microchip');
+            }
+            else {
+                window.location.reload();
+            }
+        }
+    })
+});
+
+$('#create-product-form').submit(function (e) {
+    e.preventDefault();
+    $.ajax({
+        method: "POST",
+        url: "/action/admin/create_product",
+        data: $('#create-product-form').serialize(),
+        success: function (data) {
+            data = JSON.parse(data);
+            if(data.status !== "OK"){
+                showToast(data.message, 'error', 3000, 'microchip');
+            }
+            else {
+                window.location.reload();
+            }
+        }
+    })
+});
