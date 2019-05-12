@@ -60,6 +60,10 @@ class apiController extends Controller
         }
 
         if(!$user_subscription->hwid){
+            if(count(Subscription::where('game_id', $user_subscription->game_id)->where('hwid', $hwid)->get()) >= 1){
+                $response['code'] = env('API_CODE_SUBSCRIPTION_DUPLICATE');
+                return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
+            }
             $user_subscription->hwid = $hwid;
         }
 
