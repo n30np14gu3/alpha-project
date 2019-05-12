@@ -78,7 +78,7 @@
 @include('pages.modules.default.modals')
 @include('pages.modules.default.analytics')
 <script src="{{url('/assets/js/semantic.min.js')}}"></script>
-<script src="{{url('/assets/js/vendor/popper.min.js')}}"></script>t>
+<script src="{{url('/assets/js/vendor/popper.min.js')}}"></script>
 <script src="{{url('/assets/js/calendar.js')}}"></script>
 <script src="{{url('/assets/js/toast.js')}}"></script>
 <script src="{{url('/assets/js/ajax.js')}}" type="text/javascript"></script>

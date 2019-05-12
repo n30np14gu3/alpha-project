@@ -407,6 +407,11 @@ class actionController extends Controller
 
         $user_info = UserHelper::GetLocalUserInfo($request);
         $user_balance = Balance::where('user_id', $user_info['id'])->get()->first();
+
+        $user_settings = UserSettings::where('user_id', $user_info['id'])->get()->first();
+        if(UserHelper::CheckSteamNick($user_settings->steam_id))
+            $product_cost->cost *= 0.97;
+
         if($user_balance->balance < $product_cost->cost){
             $result['message'] = 'На счету недостаточно средств!';
             return json_encode($result);
