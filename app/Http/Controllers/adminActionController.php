@@ -371,8 +371,8 @@ class adminActionController extends Controller
             $item->update(['product_id' => $product->id]);
         });
 
-        $features->each(function ($iteam) use($product){
-           $iteam->update(['product_id', $product->id]);
+        $features->each(function ($item) use($product){
+            $item->update(['product_id' => $product->id]);
         });
 
         $result['status'] = 'OK';

@@ -60,7 +60,7 @@ class paymentController extends Controller
             return "Empty Parameters";
         }
 
-        $shop_password = env('SHOP_TESTMODE') ? env('SHOP_TEST_PASSWORD_1') : env('SHOP_WORK_PASSWORD_1');
+        $shop_password = env('SHOP_TESTMODE') ? env('SHOP_TEST_PASSWORD_2') : env('SHOP_WORK_PASSWORD_2');
         $sign = strtoupper(hash("sha256", $out_sum.':'.$inv_id.':'.$shop_password.':shp_uid='.$user_id));
 
         if($sign != $crc){

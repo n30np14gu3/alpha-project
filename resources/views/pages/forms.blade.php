@@ -10,7 +10,7 @@
 
 @section('main-container')
     @include('pages.modules.default.main-menu')
-    <div class="ui middle aligned center aligned grid" style="margin-top: 100px">
+    <div class="ui middle aligned center aligned grid" style="padding: 10% 0">
         <div class="column">
             <h2>@yield('header-text')</h2>
             <form class="ui form" id="@yield('form-id')">
