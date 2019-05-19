@@ -1,5 +1,10 @@
 <div class="ui stackable grid">
-    <div class="nine wide column">
+    <div class="sixteen wide column">
+        <div class="row">
+            @include('pages.modules.dashboard.balance')
+        </div>
+    </div>
+    <div class="sixteen wide column">
         <div class="row">
             @foreach(@$user_data['subscriptions'] as $subscription)
                 <div class="ui styled accordion" style="font-size: 16px; width: 100%">
@@ -39,12 +44,48 @@
                 </div>
             @endforeach
             <br>
-            <button type="button" class="ui fluid alpha button" onclick="showProductsForm()">Купить подписку</button>
         </div>
     </div>
-    <div class="seven wide column">
+    <div class="sixteen wide column">
         <div class="row">
-            @include('pages.modules.dashboard.balance')
+            <div class="ui card">
+                <div class="content alpha">
+                    <h3 style="text-align: center">Оплата подписки</h3>
+                </div>
+                <div class="content">
+                    <form class="ui huge form">
+                        <div class="grouped fields">
+                            <div class="field">
+                                <div class="ui radio checkbox checked">
+                                    <input type="radio" name="fruit2" checked="" tabindex="0" class="hidden">
+                                    <label>Apples</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="fruit2" tabindex="0" class="hidden">
+                                    <label>Oranges</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="fruit2" tabindex="0" class="hidden">
+                                    <label>Pears</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="fruit2" tabindex="0" class="hidden">
+                                    <label>Grapefruit</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="extra content action">
+                    <button class="ui button subscription-pay">1337</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

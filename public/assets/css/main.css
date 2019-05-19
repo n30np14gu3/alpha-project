@@ -669,3 +669,34 @@ input.material:focus::-webkit-input-placeholder, input:valid::-webkit-input-plac
 input{
     color: #a11651; !important;
 }
+
+.card .content.alpha{
+    background-color: #a11651;
+    color: white;
+}
+
+.card .extra.content.action{
+    padding: 0 !important;
+    margin:  0 !important;
+}
+
+.subscription-pay.ui.button{
+    background-color: #a11651;
+    color: white;
+    border: none;
+    border-radius: 0;
+    width: 100%;
+}
+
+.subscription-pay.ui.button:hover{
+    background-color: #b41762;
+}
+
+.subscription-pay.ui.button:focus{
+    background-color: #b41762;
+    border: solid 1px #be1869;
+}
+
+.subscription-pay.ui.button:active{
+    background-color: #881845;
+}

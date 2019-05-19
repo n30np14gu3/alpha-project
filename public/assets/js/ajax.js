@@ -24,6 +24,13 @@ $(document).ready(function () {
             $('#product-id').attr('value', $(this).attr('data-product'));
         }
     });
+
+    $('.slider').glide({
+        autoplay: false,
+        arrowsWrapperClass: 'slider-arrows',
+        arrowRightText: '',
+        arrowLeftText: ''
+    });
 });
 
 function fastRegistration() {

@@ -43,12 +43,12 @@
                             <h3 class="ui header">Платите только за то, что Вам нужно</h3>
                             <p>
                                 Наш продукт имеет несколько конфигураций.
-                                <span style="color: #bf1660">Wallhack only</span>,
-                                <span style="color: #bf1660">Changer only</span>,
-                                <span style="color: #bf1660">Legit pack</span>,
-                                <span style="color: #bf1660">Rage pack</span>,
-                                <span style="color: #bf1660">Steamer pack</span>,
-                                <span style="color: #bf1660">Full pack</span>.<br>
+                                <span style="color: #bf1660"><b>Wallhack only</b></span>,
+                                <span style="color: #bf1660"><b>Changer only</b></span>,
+                                <span style="color: #bf1660"><b>Legit pack</b></span>,
+                                <span style="color: #bf1660"><b>Rage pack</b></span>,
+                                <span style="color: #bf1660"><b>Steamer pack</b></span>,
+                                <span style="color: #bf1660"><b>Full pack</b></span><br>
                                 Выберите комплект, который соответствует Вашим требованиям и не платите за ненужные Вам функции.
                             </p>
                             <h3 class="ui header">Гибко настраивайте конфигурацию</h3>
@@ -71,16 +71,16 @@
                                 <h3 style="text-align: center">Защита от античитов</h3>
                                 <div class="ui center aligned list">
                                     <div class="item" style="text-align: center; font-size: 20px; margin-bottom: 5px">
-                                        <i class="ui checkmark green icon"></i>VAC (Valve Anti Cheat)
+                                        <b><i class="ui checkmark green icon"></i>VAC (Valve Anti Cheat)</b>
                                     </div>
                                     <div class="item" style="text-align: center; font-size: 20px; margin-bottom: 5px">
-                                        <i class="ui checkmark green icon"></i>SMAC (Source Mode Anti Cheat)
+                                        <b><i class="ui checkmark green icon"></i>SMAC (Source Mode Anti Cheat)</b>
                                     </div>
                                     <div class="item" style="text-align: center; font-size: 20px; margin-bottom: 5px">
-                                        <i class="ui checkmark green icon"></i>Matchmaking
+                                        <b><i class="ui checkmark green icon"></i>Matchmaking</b>
                                     </div>
                                     <div class="item" style="text-align: center; font-size: 20px; margin-bottom: 5px">
-                                        <i class="ui checkmark green icon"></i>Faceit (no client)
+                                        <b><i class="ui checkmark green icon"></i>Faceit (no client)</b>
                                     </div>
                                 </div>
                             </div>
