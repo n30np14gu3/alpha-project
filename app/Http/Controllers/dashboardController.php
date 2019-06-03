@@ -17,7 +17,6 @@ use App\Models\ProductFeature;
 use App\Models\ProductIncrement;
 use App\Models\Subscription;
 use App\Models\SubscriptionSettings;
-use App\Models\User;
 use App\Models\UserSettings;
 use App\Models\LoginHistory;
 use App\Models\Balance;
@@ -132,71 +131,6 @@ class dashboardController extends Controller
             $bans['exist'] = true;
         }
 
-        $staff_data = [
-            'support_tickets' => [],
-
-            'users' => [],
-            'user_settings' => [],
-            'bans' => [],
-
-            'games' => [],
-            'game_modules' => [],
-
-            'products' => [],
-            'product_modules' => [],
-
-            'countries' => [],
-
-            'costs' => [],
-            'increments' => []
-
-        ];
-        if($user->staff_status >=1){
-            $tickets = Ticket::where('completed', 0)->get();
-            foreach($tickets as $ticket){
-                array_push($staff_data['support_tickets'], [
-                    'base' => $ticket,
-                    'user' => User::where('id', $ticket->user_id)->get()->first(),
-                    'is_empty' => $ticket->staff_id == null,
-                    'is_my' => $ticket->staff_id == $user->id
-                ]);
-            }
-
-            if($user->staff_status >= 2){
-                $staff_data['users'] = User::all();
-                $staff_data['user_settings'] = UserSettings::all();
-                $staff_data['bans'] = Ban::all();
-            }
-
-            if($user->staff_status >= 3){
-                $staff_data['games'] = Game::all();
-                $staff_data['game_modules'] = GameModule::where('game_id', null)->get();
-
-                $staff_data['products'] = Product::all();
-
-                $product_features = ProductFeature::where('product_id', null)->get();
-                foreach($product_features as $feature){
-                    array_push($staff_data['product_modules'],  [
-                        'id' => $feature->id,
-                        'module_title' => GameModule::where('id', $feature->module_id)->get()->first()->name
-                    ]);
-                }
-                $staff_data['increments'] = ProductIncrement::all();
-
-                $product_costs = ProductCost::where('product_id', null)->get();
-                foreach($product_costs as $cost){
-                    array_push($staff_data['costs'], [
-                       'base' => $cost,
-                        'increment_title' => ProductIncrement::where('id', $cost->increment_id)->get()->first()->title
-                    ]);
-                }
-
-                $staff_data['product_game_modules'] = GameModule::all();
-
-                $staff_data['countries'] = Country::all();
-            }
-
-        }
         $data = [
             'logged' => true,
             'user_data' => [
@@ -215,7 +149,6 @@ class dashboardController extends Controller
             ],
             'balance_funds' => $balance_funds,
             'products' => $products,
-            'staff_data' => $staff_data
         ];
         return view('pages.dashboard', $data);
     }

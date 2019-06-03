@@ -47,44 +47,79 @@
         </div>
     </div>
     <div class="sixteen wide column">
-        <div class="row">
-            <div class="ui card">
-                <div class="content alpha">
-                    <h3 style="text-align: center">Оплата подписки</h3>
-                </div>
-                <div class="content">
-                    <form class="ui huge form">
-                        <div class="grouped fields">
-                            <div class="field">
-                                <div class="ui radio checkbox checked">
-                                    <input type="radio" name="fruit2" checked="" tabindex="0" class="hidden">
-                                    <label>Apples</label>
+        <div class="slides">
+            <i class="left angle icon"></i>
+            <i class="right angle icon"></i>
+            <div class="faded slide active">
+                <div class="ui equal width stackable grid">
+                    <div class="column">
+                        <div class="product-container">
+                            <div class="ui card">
+                                <div class="content">
+                                    <div class="ui stackable grid equal width">
+                                        <div class="column" style="padding: 0">
+                                            <div class="row" style="padding: 0">
+                                                <div class="increment-val" style="margin-left: 29px; margin-top: 17px">14</div>
+                                            </div>
+                                        </div>
+                                        <div class="column" style="padding: 0">
+                                            <div class="row" style="padding: 0">
+                                                <div class="increment-title" style="margin-top: 13px; margin-right: 16px">
+                                                    <i class="clock icon"></i><br>
+                                                    Дней
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui radio checkbox">
-                                    <input type="radio" name="fruit2" tabindex="0" class="hidden">
-                                    <label>Oranges</label>
+                                <div class="ui divider alpha" style="margin: 1rem 15px"></div>
+                                <div class="content">
+                                    <form class="ui huge form">
+                                        <div class="grouped fields">
+                                            <div class="field">
+                                                <div class="ui radio checkbox checked">
+                                                    <input type="radio" name="fruit2" checked="" tabindex="0" class="hidden" placeholder="">
+                                                    <label>Apples</label>
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <div class="ui radio checkbox">
+                                                    <input type="radio" name="fruit2" tabindex="0" class="hidden" placeholder="">
+                                                    <label>Oranges</label>
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <div class="ui radio checkbox">
+                                                    <input type="radio" name="fruit2" tabindex="0" class="hidden" placeholder="">
+                                                    <label>Pears</label>
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <div class="ui radio checkbox">
+                                                    <input type="radio" name="fruit2" tabindex="0" class="hidden" placeholder="">
+                                                    <label>Grapefruit</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui radio checkbox">
-                                    <input type="radio" name="fruit2" tabindex="0" class="hidden">
-                                    <label>Pears</label>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui radio checkbox">
-                                    <input type="radio" name="fruit2" tabindex="0" class="hidden">
-                                    <label>Grapefruit</label>
+                                <div class="extra content action">
+                                    <button class="ui button subscription-pay">Оплатить</button>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
-                <div class="extra content action">
-                    <button class="ui button subscription-pay">1337</button>
-                </div>
+            </div>
+            <div class="faded slide">
+                <h1>Slide two</h1>
+                <p>Background image using <code>.inverted</code>, <code>.shadow</code>, and <code>.blurred</code>:</p>
+                <p><code>class="inverted shadow blurred image slide"</code></p>
+            </div>
+            <div class="faded slide">
+                <h1>Slide three</h1>
+                <p>Background color using <code>.inverted</code>, <code>.salmon</code>, and <code>.faded</code>:</p>
+                <p><code>class="inverted faded salmon slide"</code></p>
             </div>
         </div>
     </div>

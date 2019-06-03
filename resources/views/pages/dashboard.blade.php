@@ -40,15 +40,7 @@
                         <div class="item" data-tab="t-shop-history">История покупок</div>
                         <div class="item" data-tab="t-auth-history">История входов</div>
                         @if(@$user_data['base']->staff_status >= 1)
-                            <div class="item" data-tab="t-support-requests">Запросы в службу поддержки</div>
-                            @if(@$user_data['base']->staff_status >= 2)
-
-                            @endif
-                            @if(@$user_data['base']->staff_status >= 3)
-                                <div class="item" data-tab="t-admin-games">Управление играми</div>
-                                <div class="item" data-tab="t-admin-products">Управление товарами</div>
-                                <div class="item" data-tab="t-admin-countries">Управление странами</div>
-                            @endif
+                            <a class="item"  href="/webmaster" target="_blank">Панель управления</a>
                         @endif
                     @endif
                 </div>
@@ -86,35 +78,6 @@
                             @include('pages.modules.dashboard.ref')
                         </div>
                     </div>
-                    @if(@$user_data['base']->staff_status >= 1)
-                        <div class="ui tab" data-tab="t-support-requests">
-                            <div class="ui raised segment">
-                                @include('pages.modules.admin.support-requests')
-                            </div>
-                        </div>
-                        @if(@$user_data['base']->staff_status >= 2)
-
-                        @endif
-                        @if(@$user_data['base']->staff_status >= 3)
-                            <div class="ui tab" data-tab="t-admin-countries">
-                                <div class="ui raised segment">
-                                    @include('pages.modules.admin.countries')
-                                </div>
-                            </div>
-
-                            <div class="ui tab" data-tab="t-admin-games">
-                                <div class="ui raised segment">
-                                    @include('pages.modules.admin.game-management')
-                                </div>
-                            </div>
-
-                            <div class="ui tab" data-tab="t-admin-products">
-                                <div class="ui raised segment">
-                                    @include('pages.modules.admin.products')
-                                </div>
-                            </div>
-                        @endif
-                    @endif
                 @else
                     <div class="ui active tab" data-tab="t-bans">
                         <div class="ui raised segment">
@@ -136,17 +99,4 @@
             </div>
         </div>
     </div>
-    @if(@$user_data['settings']->status)
-        @if(!@$user_data['settings']->status)
-            <div class="ui error message">
-                <div class="header">
-                    Данный аккаунт имеет ограничения
-                </div>
-                <ul class="list">
-                    <li>Вы должны подтвердить свой электронный адрес, чтобы пользоваться услугами проекта</li>
-                </ul>
-            </div>
-        @endif
-        @include('pages.modules.dashboard.games')
-    @endif
 @endsection

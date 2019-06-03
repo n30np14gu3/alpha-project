@@ -16,6 +16,8 @@ Route::get('/lang/{lang}',  ['uses' => 'lendingController@changeLang']);
 Route::get('/dashboard', ['uses' => 'dashboardController@index', 'as' => 'dashboard', 'middleware' => 'action']);
 Route::get('/download/{game_id}', ['uses' => 'dashboardController@downloadLoader', 'as' => 'download_loader', 'middleware' => 'action'])->where(['game_id' => '[0-9+]']);
 
+Route::get('/webmaster', ['uses' => 'adminController@index', 'as' => 'webmaster_panel', 'middleware' => 'webmaster_panel']);
+
 Route::get('/legal', ['uses' => 'lendingController@legal', 'as' => 'legal']);
 
 Route::group(['prefix' => 'form', 'middleware' => 'form'], function (){

@@ -3,7 +3,7 @@
 <head>
     <title>ALPHA CHEAT @yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{csrf_token()}}">
     <link rel="stylesheet" href="{{url('/assets/css/semantic.neon.css')}}" type="text/css">
     <link rel="stylesheet" href="{{url('/assets/css/adaptive-menu.css')}}" type="text/css">
     <link rel="stylesheet" href="{{url('/assets/css/main.css')}}" type="text/css">
@@ -12,10 +12,9 @@
     <link rel="stylesheet" href="{{url('/assets/css/tickets.css')}}" type="text/css">
     <link rel="stylesheet" href="{{url('/assets/css/jeffry.in.slider.css')}}" type="text/css">
     <script src="{{url('/assets/js/vendor/jquery-3.1.1.min.js')}}" type="text/javascript"></script>
-    <script src="https://www.google.com/recaptcha/api.js"async defer></script>
-    <meta name="shortcut icon" href="{{url('/favicon.ico')}}" type="image/x-icon">
-    <meta name="description" content="AlphaCheat – это приватный чит на кс го контр страйк глобал офенсиф, undetected private cheat cs go counter strike global offensive. Multihack, мультихак, whallhack, волхак, legit, легит, rage рейдж, aim, аим. AlphaCheat – это читы на CS GO, Warface, Dota 2, RUST, PUBG, APEX, Fotnite, Battlefield" />
-    <meta name="keywords" content="cs, csgo, cs go,  cs:go, counter, strike, global, offensive, counter strike, global offensive, counter strike global, counter strike global offensive, cs global offensive, counter strike go, cheat, cheats, hack, multihack, whall, wh, whallhack, legit, legitbot, rage, ragebot, changer, changerbot, visual, visualbot, filter, aim, aimbot, anti, antiaim, anti-aim, smartaim, aimware, trigger, triggerbot, hit, hitbox, accurency, speedhack, fakelag,  GUI, ESP, glow, bunny, hop, bunnyhop, autobunnyhop, undetected, кс, ксго, кс го,  кс:го, контр, контра, кска, ксовский, страйк, глобал, офенсив, контер страйк, глобал офенсив, контер страйк глобал, контер страйк глобал офенсив, кс глобал офенсив, контер страйк го, чит, читы, хак, мульти, мультихак, приват, приватный, вх, валхак, волхак, валлхак, воллхак, легит, легитбот, рейдж, рейж, рэйдж, рэйж, рейджбот, рейжбот, рэйджбот, рэйжбот, ченджер, чэнджер, ченжер, чэнжер, ченджэр, чэнджэр, ченжэр, чэнжэр, ченджербот, чэнджербот, ченжербот, чэнжербот, ченджэрбот, чэнджэрбот, ченжэрбот, чэнжэрбот, визуал, визуалбот, скин, скинбот, фильтер, аим, аимбот, анти, антиаим, анти-аим, смарт, смартаим, аимвере, аимваре, аимвер, аимвар, тригер, триггер, триггербот, тригербот, хит, хитбокс, сх, спидхак, фейк, лаг, фейклаг,  гуи, есп, бани, банни, хоп, хоуп, банихоп, баннихоп, банихоуп, баннихоуп, радар, радархак, вак, приватный чит на кс го, приватный чит на кс го без vac вак бана,  приватные читы на кс го глобал офенсив, читы на кс го, читы на кс го без бана,  читы на кс го глобал офенсив, читы cs go, читы cs go без бана, приватный чит cs go, private cheat, private cheat counter strike global offensive,  private cheat cs go, undetected multihack, undetected cheat " />
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <link rel="icon" href="{{url('/favicon.ico')}}">
+
     <script>
         $(document)
             .ready(function() {
@@ -85,8 +84,8 @@
 <script src="{{url('/assets/js/vendor/popper.min.js')}}"></script>
 <script src="{{url('/assets/js/slider.js')}}"></script>
 <script src="{{url('/assets/js/toast.js')}}"></script>
-<script src="{{url('/assets/js/ajax.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/js/vendor/jquery.maskedinput.min.js')}}"></script>
+<script src="{{url('/assets/js/ajax.js')}}" type="text/javascript"></script>
 @if(@$user_data['base']->staff_status)
     <script src="{{url('/assets/js/ajax_admin.js')}}" type="text/javascript"></script>
 @endif

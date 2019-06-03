@@ -36,9 +36,9 @@ $(document).ready(function () {
         }
     });
 
-    $('#game-last-update').calendar({
+    /*$('#game-last-update').calendar({
         maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)
-    });
+    });*/
 });
 
 $('#create-module-form').submit(function (e) {

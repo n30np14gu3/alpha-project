@@ -41,7 +41,7 @@
             animationTimingFunc: "cubic-bezier(0.165, 0.840, 0.440, 1.000)",
             arrows: !0,
             arrowsWrapperClass: "slider-arrows",
-            arrowMainClass: "slider-arrow ui icon angle black",
+            arrowMainClass: "slider-arrow ui icon angle white",
             arrowRightClass: "slider-arrow--right right",
             arrowRightText: "next",
             arrowLeftClass: "slider-arrow--left left",

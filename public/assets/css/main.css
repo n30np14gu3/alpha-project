@@ -700,3 +700,118 @@ input{
 .subscription-pay.ui.button:active{
     background-color: #881845;
 }
+
+.ui.divider.alpha{
+    border-top: 1px solid #404f55 !important;
+}
+
+.increment-val{
+    display: inline-block;
+    line-height: 1;
+    vertical-align: baseline;
+    margin: 0em 0.14285714em;
+    background-color: #193750;
+    background-image: none;
+    padding: 0.5833em;
+    font-size: 30px;
+    color: #fff;
+    text-transform: none;
+    font-weight: normal;
+    border: 0px solid transparent;
+    border-radius: 0.28571429rem;
+    -webkit-transition: background 0.1s ease;
+    transition: background 0.1s ease;
+}
+
+.increment-val:first-child {
+    margin-left: 0;
+}
+
+.increment-val:last-child {
+    margin-right: 0;
+}
+
+.increment-title{
+    text-align: center;
+    font-size: 18px;
+    padding-top: 15px;
+    font-weight: normal;
+}
+
+.slides {
+    height: 20rem;
+    width: 100%;
+    overflow: hidden;
+}
+
+.slides .angle {
+    color: lightblue;
+    cursor: pointer;
+    position: relative;
+    top: calc(50% - 20px);
+    transform: scale(1);
+    transition: all .2s ease-in-out;
+    z-index: 10;
+}
+
+.slides .angle:hover {
+    transform: scale(1.7);
+}
+
+.slides .angle.right {
+    color: lightblue;
+    float: right;
+    margin-right: 1rem;
+}
+
+.slides .angle.left {
+    color: lightblue;
+    float: left;
+    margin-left: 1rem;
+}
+
+.slides .slide {
+    height: 100%;
+    padding: 2rem 5rem;
+    transition: all .2s ease-in-out;
+}
+
+.slides .slide:not(.active) {
+    display: none;
+}
+
+.slides .slide.inverted {
+    color: white;
+}
+
+.slides .slide.shadow {
+    text-shadow: 1px 1px 2px black;
+}
+
+.faded {
+    animation: fade .5s;
+}
+
+.blurred {
+    animation: blur .4s;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes blur {
+    from {
+        filter: blur(5px);
+    }
+
+    to {
+        filter: blur(0);
+    }
+}
