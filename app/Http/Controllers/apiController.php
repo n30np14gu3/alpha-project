@@ -133,11 +133,6 @@ class apiController extends Controller
         }
 
         $game = @Game::where('id', $game_id)->get()->first();
-        $game_id = @$request['game_id'];
-        if(!$game_id){
-            $response['code'] = env('API_CODE_GAME_NOT_FOUND');
-            return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
-        }
 
         if(!$game){
             $response['code'] = env('API_CODE_GAME_NOT_FOUND');
@@ -149,7 +144,7 @@ class apiController extends Controller
             return CryptoHelper::EncryptResponse(json_encode($response), env('CRYPTO_KEY_API'), env('CRYPTO_IV_API'));
         }
 
-        $response['code'] = env('API_CODE_GAME_DISABLED');
+        $response['code'] = env('API_CODE_OK');
         $response['data'] = [
             'last_update' => date("d-m-Y H:i:s", $game->last_update)
         ];
