@@ -1,13 +1,13 @@
- /*
- * # Semantic UI - 2.2.13
- * https://github.com/Semantic-Org/Semantic-UI
- * http://www.semantic-ui.com/
- *
- * Copyright 2014 Contributors
- * Released under the MIT license
- * http://opensource.org/licenses/MIT
- *
- */
+/*
+* # Semantic UI - 2.2.13
+* https://github.com/Semantic-Org/Semantic-UI
+* http://www.semantic-ui.com/
+*
+* Copyright 2014 Contributors
+* Released under the MIT license
+* http://opensource.org/licenses/MIT
+*
+*/
 
 /*!
  * # Semantic UI 2.2.13 - Reset
@@ -22,239 +22,239 @@
 /*******************************
              Reset
 *******************************/
- @font-face {
-   font-family: 'DIN Pro';
-   src: url('/assets/fonts/DINPro/DINPro-Medium.eot');
-   src: local('DIN Pro Medium'), local('DINPro-Medium'),
-   url('/assets/fonts/DINPro/DINPro-Medium.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-Medium.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-Medium.ttf') format('truetype');
-   font-weight: 500;
-   font-style: normal;
- }
+@font-face {
+  font-family: 'DIN Pro';
+  src: url('/assets/fonts/DINPro/DINPro-Medium.eot');
+  src: local('DIN Pro Medium'), local('DINPro-Medium'),
+  url('/assets/fonts/DINPro/DINPro-Medium.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-Medium.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
 
- @font-face {
-   font-family: 'DIN Pro';
-   src: url('/assets/fonts/DINPro/DINPro-BlackItalic.eot');
-   src: local('DIN Pro Black Italic'), local('DINPro-BlackItalic'),
-   url('/assets/fonts/DINPro/DINPro-BlackItalic.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-BlackItalic.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-BlackItalic.ttf') format('truetype');
-   font-weight: 900;
-   font-style: italic;
- }
+@font-face {
+  font-family: 'DIN Pro';
+  src: url('/assets/fonts/DINPro/DINPro-BlackItalic.eot');
+  src: local('DIN Pro Black Italic'), local('DINPro-BlackItalic'),
+  url('/assets/fonts/DINPro/DINPro-BlackItalic.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-BlackItalic.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
 
- @font-face {
-   font-family: 'DIN Pro Cond';
-   src: url('/assets/fonts/DINPro/DINPro-CondensedBlackItalic.eot');
-   src: local('DIN Pro Condensed Black Italic'), local('DINPro-CondensedBlackItalic'),
-   url('/assets/fonts/DINPro/DINPro-CondensedBlackItalic.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-CondensedBlackItalic.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-CondensedBlackItalic.ttf') format('truetype');
-   font-weight: 900;
-   font-style: italic;
- }
+@font-face {
+  font-family: 'DIN Pro Cond';
+  src: url('/assets/fonts/DINPro/DINPro-CondensedBlackItalic.eot');
+  src: local('DIN Pro Condensed Black Italic'), local('DINPro-CondensedBlackItalic'),
+  url('/assets/fonts/DINPro/DINPro-CondensedBlackItalic.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-CondensedBlackItalic.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-CondensedBlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
 
- @font-face {
-   font-family: 'DIN Pro Cond';
-   src: url('/assets/fonts/DINPro/DINPro-CondensedMedium.eot');
-   src: local('/assets/fonts/DINPro/DIN Pro Condensed Medium'), local('DINPro-CondensedMedium'),
-   url('/assets/fonts/DINPro/DINPro-CondensedMedium.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-CondensedMedium.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-CondensedMedium.ttf') format('truetype');
-   font-weight: 500;
-   font-style: normal;
- }
+@font-face {
+  font-family: 'DIN Pro Cond';
+  src: url('/assets/fonts/DINPro/DINPro-CondensedMedium.eot');
+  src: local('/assets/fonts/DINPro/DIN Pro Condensed Medium'), local('DINPro-CondensedMedium'),
+  url('/assets/fonts/DINPro/DINPro-CondensedMedium.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-CondensedMedium.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-CondensedMedium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
 
- @font-face {
-   font-family: 'DIN Pro';
-   src: url('/assets/fonts/DINPro/DINPro-MediumItalic.eot');
-   src: local('DIN Pro Medium Italic'), local('DINPro-MediumItalic'),
-   url('/assets/fonts/DINPro/DINPro-MediumItalic.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-MediumItalic.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-MediumItalic.ttf') format('truetype');
-   font-weight: 500;
-   font-style: italic;
- }
+@font-face {
+  font-family: 'DIN Pro';
+  src: url('/assets/fonts/DINPro/DINPro-MediumItalic.eot');
+  src: local('DIN Pro Medium Italic'), local('DINPro-MediumItalic'),
+  url('/assets/fonts/DINPro/DINPro-MediumItalic.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-MediumItalic.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+}
 
- @font-face {
-   font-family: 'DIN Pro';
-   src: url('/assets/fonts/DINPro/DINPro-Bold.eot');
-   src: local('DIN Pro Bold'), local('DINPro-Bold'),
-   url('/assets/fonts/DINPro/DINPro-Bold.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-Bold.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-Bold.ttf') format('truetype');
-   font-weight: bold;
-   font-style: normal;
- }
+@font-face {
+  font-family: 'DIN Pro';
+  src: url('/assets/fonts/DINPro/DINPro-Bold.eot');
+  src: local('DIN Pro Bold'), local('DINPro-Bold'),
+  url('/assets/fonts/DINPro/DINPro-Bold.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-Bold.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
 
- @font-face {
-   font-family: 'DIN Pro';
-   src: url('/assets/fonts/DINPro/DINPro-Light.eot');
-   src: local('DIN Pro Light'), local('DINPro-Light'),
-   url('/assets/fonts/DINPro/DINPro-Light.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-Light.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-Light.ttf') format('truetype');
-   font-weight: 300;
-   font-style: normal;
- }
+@font-face {
+  font-family: 'DIN Pro';
+  src: url('/assets/fonts/DINPro/DINPro-Light.eot');
+  src: local('DIN Pro Light'), local('DINPro-Light'),
+  url('/assets/fonts/DINPro/DINPro-Light.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-Light.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
 
- @font-face {
-   font-family: 'DIN Pro Cond';
-   src: url('/assets/fonts/DINPro/DINPro-CondensedMediumItalic.eot');
-   src: local('DIN Pro Condensed Medium Italic'), local('DINPro-CondensedMediumItalic'),
-   url('/assets/fonts/DINPro/DINPro-CondensedMediumItalic.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-CondensedMediumItalic.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-CondensedMediumItalic.ttf') format('truetype');
-   font-weight: 500;
-   font-style: italic;
- }
+@font-face {
+  font-family: 'DIN Pro Cond';
+  src: url('/assets/fonts/DINPro/DINPro-CondensedMediumItalic.eot');
+  src: local('DIN Pro Condensed Medium Italic'), local('DINPro-CondensedMediumItalic'),
+  url('/assets/fonts/DINPro/DINPro-CondensedMediumItalic.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-CondensedMediumItalic.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-CondensedMediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+}
 
- @font-face {
-   font-family: 'DIN Pro';
-   src: url('/assets/fonts/DINPro/DINPro-Italic.eot');
-   src: local('DIN Pro Italic'), local('DINPro-Italic'),
-   url('/assets/fonts/DINPro/DINPro-Italic.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-Italic.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-Italic.ttf') format('truetype');
-   font-weight: normal;
-   font-style: italic;
- }
+@font-face {
+  font-family: 'DIN Pro';
+  src: url('/assets/fonts/DINPro/DINPro-Italic.eot');
+  src: local('DIN Pro Italic'), local('DINPro-Italic'),
+  url('/assets/fonts/DINPro/DINPro-Italic.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-Italic.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
 
- @font-face {
-   font-family: 'DIN Pro';
-   src: url('/assets/fonts/DINPro/DINPro.eot');
-   src: local('DIN Pro'), local('DINPro'),
-   url('/assets/fonts/DINPro/DINPro.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro.ttf') format('truetype');
-   font-weight: normal;
-   font-style: normal;
- }
+@font-face {
+  font-family: 'DIN Pro';
+  src: url('/assets/fonts/DINPro/DINPro.eot');
+  src: local('DIN Pro'), local('DINPro'),
+  url('/assets/fonts/DINPro/DINPro.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
- @font-face {
-   font-family: 'DIN Pro Cond';
-   src: url('/assets/fonts/DINPro/DINPro-CondensedBlack.eot');
-   src: local('DIN Pro Condensed Black'), local('DINPro-CondensedBlack'),
-   url('/assets/fonts/DINPro/DINPro-CondensedBlack.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-CondensedBlack.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-CondensedBlack.ttf') format('truetype');
-   font-weight: 900;
-   font-style: normal;
- }
+@font-face {
+  font-family: 'DIN Pro Cond';
+  src: url('/assets/fonts/DINPro/DINPro-CondensedBlack.eot');
+  src: local('DIN Pro Condensed Black'), local('DINPro-CondensedBlack'),
+  url('/assets/fonts/DINPro/DINPro-CondensedBlack.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-CondensedBlack.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-CondensedBlack.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
 
- @font-face {
-   font-family: 'DIN Pro Cond';
-   src: url('/assets/fonts/DINPro/DINPro-CondensedBold.eot');
-   src: local('DIN Pro Condensed Bold'), local('DINPro-CondensedBold'),
-   url('/assets/fonts/DINPro/DINPro-CondensedBold.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-CondensedBold.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-CondensedBold.ttf') format('truetype');
-   font-weight: bold;
-   font-style: normal;
- }
+@font-face {
+  font-family: 'DIN Pro Cond';
+  src: url('/assets/fonts/DINPro/DINPro-CondensedBold.eot');
+  src: local('DIN Pro Condensed Bold'), local('DINPro-CondensedBold'),
+  url('/assets/fonts/DINPro/DINPro-CondensedBold.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-CondensedBold.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-CondensedBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
 
- @font-face {
-   font-family: 'DIN Pro';
-   src: url('/assets/fonts/DINPro/DINPro-Black.eot');
-   src: local('DIN Pro Black'), local('DINPro-Black'),
-   url('/assets/fonts/DINPro/DINPro-Black.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-Black.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-Black.ttf') format('truetype');
-   font-weight: 900;
-   font-style: normal;
- }
+@font-face {
+  font-family: 'DIN Pro';
+  src: url('/assets/fonts/DINPro/DINPro-Black.eot');
+  src: local('DIN Pro Black'), local('DINPro-Black'),
+  url('/assets/fonts/DINPro/DINPro-Black.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-Black.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
 
- @font-face {
-   font-family: 'DIN Pro';
-   src: url('/assets/fonts/DINPro/DINPro-LightItalic.eot');
-   src: local('DIN Pro Light Italic'), local('DINPro-LightItalic'),
-   url('/assets/fonts/DINPro/DINPro-LightItalic.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-LightItalic.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-LightItalic.ttf') format('truetype');
-   font-weight: 300;
-   font-style: italic;
- }
+@font-face {
+  font-family: 'DIN Pro';
+  src: url('/assets/fonts/DINPro/DINPro-LightItalic.eot');
+  src: local('DIN Pro Light Italic'), local('DINPro-LightItalic'),
+  url('/assets/fonts/DINPro/DINPro-LightItalic.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-LightItalic.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
 
- @font-face {
-   font-family: 'DIN Pro Cond';
-   src: url('/assets/fonts/DINPro/DINPro-CondensedBoldItalic.eot');
-   src: local('DIN Pro Condensed Bold Italic'), local('DINPro-CondensedBoldItalic'),
-   url('/assets/fonts/DINPro/DINPro-CondensedBoldItalic.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-CondensedBoldItalic.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-CondensedBoldItalic.ttf') format('truetype');
-   font-weight: bold;
-   font-style: italic;
- }
+@font-face {
+  font-family: 'DIN Pro Cond';
+  src: url('/assets/fonts/DINPro/DINPro-CondensedBoldItalic.eot');
+  src: local('DIN Pro Condensed Bold Italic'), local('DINPro-CondensedBoldItalic'),
+  url('/assets/fonts/DINPro/DINPro-CondensedBoldItalic.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-CondensedBoldItalic.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-CondensedBoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
 
- @font-face {
-   font-family: 'DIN Pro Cond';
-   src: url('/assets/fonts/DINPro/DINPro-CondensedRegular.eot');
-   src: local('DIN Pro Condensed Regular'), local('DINPro-CondensedRegular'),
-   url('/assets/fonts/DINPro/DINPro-CondensedRegular.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-CondensedRegular.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-CondensedRegular.ttf') format('truetype');
-   font-weight: normal;
-   font-style: normal;
- }
+@font-face {
+  font-family: 'DIN Pro Cond';
+  src: url('/assets/fonts/DINPro/DINPro-CondensedRegular.eot');
+  src: local('DIN Pro Condensed Regular'), local('DINPro-CondensedRegular'),
+  url('/assets/fonts/DINPro/DINPro-CondensedRegular.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-CondensedRegular.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-CondensedRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
- @font-face {
-   font-family: 'DIN Pro Cond';
-   src: url('/assets/fonts/DINPro/DINPro-CondensedItalic.eot');
-   src: local('DIN Pro Condensed Italic'), local('DINPro-CondensedItalic'),
-   url('/assets/fonts/DINPro/DINPro-CondensedItalic.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-CondensedItalic.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-CondensedItalic.ttf') format('truetype');
-   font-weight: normal;
-   font-style: italic;
- }
+@font-face {
+  font-family: 'DIN Pro Cond';
+  src: url('/assets/fonts/DINPro/DINPro-CondensedItalic.eot');
+  src: local('DIN Pro Condensed Italic'), local('DINPro-CondensedItalic'),
+  url('/assets/fonts/DINPro/DINPro-CondensedItalic.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-CondensedItalic.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-CondensedItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
 
- @font-face {
-   font-family: 'DIN Pro Cond';
-   src: url('/assets/fonts/DINPro/DINPro-CondensedLightItalic.eot');
-   src: local('DIN Pro Condensed Light Italic'), local('DINPro-CondensedLightItalic'),
-   url('/assets/fonts/DINPro/DINPro-CondensedLightItalic.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-CondensedLightItalic.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-CondensedLightItalic.ttf') format('truetype');
-   font-weight: 300;
-   font-style: italic;
- }
+@font-face {
+  font-family: 'DIN Pro Cond';
+  src: url('/assets/fonts/DINPro/DINPro-CondensedLightItalic.eot');
+  src: local('DIN Pro Condensed Light Italic'), local('DINPro-CondensedLightItalic'),
+  url('/assets/fonts/DINPro/DINPro-CondensedLightItalic.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-CondensedLightItalic.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-CondensedLightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
 
- @font-face {
-   font-family: 'DIN Pro Cond';
-   src: url('/assets/fonts/DINPro/DINPro-CondensedLight.eot');
-   src: local('DIN Pro Condensed Light'), local('DINPro-CondensedLight'),
-   url('/assets/fonts/DINPro/DINPro-CondensedLight.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-CondensedLight.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-CondensedLight.ttf') format('truetype');
-   font-weight: 300;
-   font-style: normal;
- }
+@font-face {
+  font-family: 'DIN Pro Cond';
+  src: url('/assets/fonts/DINPro/DINPro-CondensedLight.eot');
+  src: local('DIN Pro Condensed Light'), local('DINPro-CondensedLight'),
+  url('/assets/fonts/DINPro/DINPro-CondensedLight.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-CondensedLight.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-CondensedLight.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
 
- @font-face {
-   font-family: 'DIN Pro';
-   src: url('/assets/fonts/DINPro/DINPro-BoldItalic.eot');
-   src: local('DIN Pro Bold Italic'), local('DINPro-BoldItalic'),
-   url('/assets/fonts/DINPro/DINPro-BoldItalic.eot?#iefix') format('embedded-opentype'),
-   url('/assets/fonts/DINPro/DINPro-BoldItalic.woff') format('woff'),
-   url('/assets/fonts/DINPro/DINPro-BoldItalic.ttf') format('truetype');
-   font-weight: bold;
-   font-style: italic;
- }
+@font-face {
+  font-family: 'DIN Pro';
+  src: url('/assets/fonts/DINPro/DINPro-BoldItalic.eot');
+  src: local('DIN Pro Bold Italic'), local('DINPro-BoldItalic'),
+  url('/assets/fonts/DINPro/DINPro-BoldItalic.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/DINPro/DINPro-BoldItalic.woff') format('woff'),
+  url('/assets/fonts/DINPro/DINPro-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
 
- @font-face {
-   font-family: 'GlacialIndifference';
-   src: url('/assets/fonts/GlacialIndifference/GlacialIndifference-Regular.otf');
-   font-weight: normal;
- }
+@font-face {
+  font-family: 'GlacialIndifference';
+  src: url('/assets/fonts/GlacialIndifference/GlacialIndifference-Regular.otf');
+  font-weight: normal;
+}
 
- @font-face {
-   font-family: 'BeauSans';
-   src: url('/public/assets/fonts/BeauSans/BeauSans.ttf') format('truetype');
-   font-weight: normal;
- }
+@font-face {
+  font-family: 'BeauSans';
+  src: url('/public/assets/fonts/BeauSans/BeauSans.ttf') format('truetype');
+  font-weight: normal;
+}
 
- *,
+*,
 *:before,
 *:after {
   -webkit-box-sizing: inherit;
@@ -3378,10 +3378,10 @@ pre .code {
 
 .ui.basic.orange.buttons .button,
 .ui.basic.orange.button {
-    -webkit-box-shadow: 0px 0px 0px 1px #F2711C inset !important;
-    box-shadow: 0px 0px 0px 1px #F2711C inset !important;
-    color: #F2711C !important;
-    border: solid 1px #F2711C;
+  -webkit-box-shadow: 0px 0px 0px 1px #F2711C inset !important;
+  box-shadow: 0px 0px 0px 1px #F2711C inset !important;
+  color: #F2711C !important;
+  border: solid 1px #F2711C;
 }
 
 .ui.basic.orange.buttons .button:hover,
@@ -5490,13 +5490,13 @@ pre .code {
 
 /* Inside grid */
 
- .row{
-     padding-bottom: 2em;
- }
+.row{
+  padding-bottom: 2em;
+}
 
- .row.header{
-   padding-bottom: 0.5em;
- }
+.row.header{
+  padding-bottom: 0.5em;
+}
 @media only screen and (max-width: 767px) {
   .ui.stackable.grid .ui.vertical.divider,
   .ui.grid .stackable.row .ui.vertical.divider {
@@ -7743,20 +7743,20 @@ a.ui.inverted.grey.header:hover {
   text-transform: none;
 }
 
- @font-face {
-   font-family: 'brand-icons';
-   src: url("./themes/default/assets/fonts/brand-icons.eot");
-   src: url("./themes/default/assets/fonts/brand-icons.eot?#iefix") format('embedded-opentype'),
-   url("./themes/default/assets/fonts/brand-icons.woff2") format('woff2'),
-   url("./themes/default/assets/fonts/brand-icons.woff") format('woff'),
-   url("./themes/default/assets/fonts/brand-icons.ttf") format('truetype'),
-   url("./themes/default/assets/fonts/brand-icons.svg#icons") format('svg');
-   font-style: normal;
-   font-weight: normal;
-   font-variant: normal;
-   text-decoration: inherit;
-   text-transform: none;
- }
+@font-face {
+  font-family: 'brand-icons';
+  src: url("./themes/default/assets/fonts/brand-icons.eot");
+  src: url("./themes/default/assets/fonts/brand-icons.eot?#iefix") format('embedded-opentype'),
+  url("./themes/default/assets/fonts/brand-icons.woff2") format('woff2'),
+  url("./themes/default/assets/fonts/brand-icons.woff") format('woff'),
+  url("./themes/default/assets/fonts/brand-icons.ttf") format('truetype'),
+  url("./themes/default/assets/fonts/brand-icons.svg#icons") format('svg');
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-decoration: inherit;
+  text-transform: none;
+}
 i.icon {
   display: inline-block;
   opacity: 1;
@@ -10920,8 +10920,8 @@ i.icon.contao:before {
 }
 
 i.icon.\35 00px:before {
-  content: "\f26e";
-}
+               content: "\f26e";
+             }
 
 i.icon.amazon:before {
   content: "\f270";
@@ -12012,353 +12012,353 @@ i.icon.times.rectangle.outline:before {
 }
 
 
- /* Brand Icon Font Family */
- i.icon.\35 00px,
-              i.icon.accessible.icon,
-              i.icon.accusoft,
-              i.icon.adn,
-              i.icon.adversal,
-              i.icon.affiliatetheme,
-              i.icon.algolia,
-              i.icon.amazon,
-              i.icon.amazon.pay,
-              i.icon.amilia,
-              i.icon.android,
-              i.icon.angellist,
-              i.icon.angrycreative,
-              i.icon.angular,
-              i.icon.app.store,
-              i.icon.app.store.ios,
-              i.icon.apper,
-              i.icon.apple,
-              i.icon.apple.pay,
-              i.icon.asymmetrik,
-              i.icon.audible,
-              i.icon.autoprefixer,
-              i.icon.avianex,
-              i.icon.aviato,
-              i.icon.aws,
-              i.icon.bandcamp,
-              i.icon.behance,
-              i.icon.behance.square,
-              i.icon.bimobject,
-              i.icon.bitbucket,
-              i.icon.bitcoin,
-              i.icon.bity,
-              i.icon.black.tie,
-              i.icon.blackberry,
-              i.icon.blogger,
-              i.icon.blogger.b,
-              i.icon.bluetooth,
-              i.icon.bluetooth.b,
-              i.icon.btc,
-              i.icon.buromobelexperte,
-              i.icon.buysellads,
-              i.icon.cc.amazon.pay,
-              i.icon.cc.amex,
-              i.icon.cc.apple.pay,
-              i.icon.cc.diners.club,
-              i.icon.cc.discover,
-              i.icon.cc.jcb,
-              i.icon.cc.mastercard,
-              i.icon.cc.paypal,
-              i.icon.cc.stripe,
-              i.icon.cc.visa,
-              i.icon.centercode,
-              i.icon.chrome,
-              i.icon.cloudscale,
-              i.icon.cloudsmith,
-              i.icon.cloudversify,
-              i.icon.codepen,
-              i.icon.codiepie,
-              i.icon.connectdevelop,
-              i.icon.contao,
-              i.icon.cpanel,
-              i.icon.creative.commons,
-              i.icon.css3,
-              i.icon.css3.alternate,
-              i.icon.cuttlefish,
-              i.icon.d.and.d,
-              i.icon.dashcube,
-              i.icon.delicious,
-              i.icon.deploydog,
-              i.icon.deskpro,
-              i.icon.deviantart,
-              i.icon.digg,
-              i.icon.digital.ocean,
-              i.icon.discord,
-              i.icon.discourse,
-              i.icon.dochub,
-              i.icon.docker,
-              i.icon.draft2digital,
-              i.icon.dribbble,
-              i.icon.dribbble.square,
-              i.icon.dropbox,
-              i.icon.drupal,
-              i.icon.dyalog,
-              i.icon.earlybirds,
-              i.icon.edge,
-              i.icon.elementor,
-              i.icon.ember,
-              i.icon.empire,
-              i.icon.envira,
-              i.icon.erlang,
-              i.icon.ethereum,
-              i.icon.etsy,
-              i.icon.expeditedssl,
-              i.icon.facebook,
-              i.icon.facebook.f,
-              i.icon.facebook.messenger,
-              i.icon.facebook.square,
-              i.icon.firefox,
-              i.icon.first.order,
-              i.icon.firstdraft,
-              i.icon.flickr,
-              i.icon.flipboard,
-              i.icon.fly,
-              i.icon.font.awesome,
-              i.icon.font.awesome.alternate,
-              i.icon.font.awesome.flag,
-              i.icon.fonticons,
-              i.icon.fonticons.fi,
-              i.icon.fort.awesome,
-              i.icon.fort.awesome.alternate,
-              i.icon.forumbee,
-              i.icon.foursquare,
-              i.icon.free.code.camp,
-              i.icon.freebsd,
-              i.icon.get.pocket,
-              i.icon.gg,
-              i.icon.gg.circle,
-              i.icon.git,
-              i.icon.git.square,
-              i.icon.github,
-              i.icon.github.alternate,
-              i.icon.github.square,
-              i.icon.gitkraken,
-              i.icon.gitlab,
-              i.icon.gitter,
-              i.icon.glide,
-              i.icon.glide.g,
-              i.icon.gofore,
-              i.icon.goodreads,
-              i.icon.goodreads.g,
-              i.icon.google,
-              i.icon.google.drive,
-              i.icon.google.play,
-              i.icon.google.plus,
-              i.icon.google.plus.g,
-              i.icon.google.plus.square,
-              i.icon.google.wallet,
-              i.icon.gratipay,
-              i.icon.grav,
-              i.icon.gripfire,
-              i.icon.grunt,
-              i.icon.gulp,
-              i.icon.hacker.news,
-              i.icon.hacker.news.square,
-              i.icon.hips,
-              i.icon.hire.a.helper,
-              i.icon.hooli,
-              i.icon.hotjar,
-              i.icon.houzz,
-              i.icon.html5,
-              i.icon.hubspot,
-              i.icon.imdb,
-              i.icon.instagram,
-              i.icon.internet.explorer,
-              i.icon.ioxhost,
-              i.icon.itunes,
-              i.icon.itunes.note,
-              i.icon.jenkins,
-              i.icon.joget,
-              i.icon.joomla,
-              i.icon.js,
-              i.icon.js.square,
-              i.icon.jsfiddle,
-              i.icon.keycdn,
-              i.icon.kickstarter,
-              i.icon.kickstarter.k,
-              i.icon.korvue,
-              i.icon.laravel,
-              i.icon.lastfm,
-              i.icon.lastfm.square,
-              i.icon.leanpub,
-              i.icon.less,
-              i.icon.linechat,
-              i.icon.linkedin,
-              i.icon.linkedin.alternate,
-              i.icon.linkedin.in,
-              i.icon.linode,
-              i.icon.linux,
-              i.icon.lyft,
-              i.icon.magento,
-              i.icon.maxcdn,
-              i.icon.medapps,
-              i.icon.medium,
-              i.icon.medium.m,
-              i.icon.medrt,
-              i.icon.meetup,
-              i.icon.microsoft,
-              i.icon.mix,
-              i.icon.mixcloud,
-              i.icon.mizuni,
-              i.icon.modx,
-              i.icon.monero,
-              i.icon.napster,
-              i.icon.nintendo.switch,
-              i.icon.node,
-              i.icon.node.js,
-              i.icon.npm,
-              i.icon.ns8,
-              i.icon.nutritionix,
-              i.icon.odnoklassniki,
-              i.icon.odnoklassniki.square,
-              i.icon.opencart,
-              i.icon.openid,
-              i.icon.opera,
-              i.icon.optin.monster,
-              i.icon.osi,
-              i.icon.page4,
-              i.icon.pagelines,
-              i.icon.palfed,
-              i.icon.patreon,
-              i.icon.paypal,
-              i.icon.periscope,
-              i.icon.phabricator,
-              i.icon.phoenix.framework,
-              i.icon.php,
-              i.icon.pied.piper,
-              i.icon.pied.piper.alternate,
-              i.icon.pied.piper.pp,
-              i.icon.pinterest,
-              i.icon.pinterest.p,
-              i.icon.pinterest.square,
-              i.icon.playstation,
-              i.icon.product.hunt,
-              i.icon.pushed,
-              i.icon.python,
-              i.icon.qq,
-              i.icon.quinscape,
-              i.icon.quora,
-              i.icon.ravelry,
-              i.icon.react,
-              i.icon.rebel,
-              i.icon.redriver,
-              i.icon.reddit,
-              i.icon.reddit.alien,
-              i.icon.reddit.square,
-              i.icon.rendact,
-              i.icon.renren,
-              i.icon.replyd,
-              i.icon.resolving,
-              i.icon.rocketchat,
-              i.icon.rockrms,
-              i.icon.safari,
-              i.icon.sass,
-              i.icon.schlix,
-              i.icon.scribd,
-              i.icon.searchengin,
-              i.icon.sellcast,
-              i.icon.sellsy,
-              i.icon.servicestack,
-              i.icon.shirtsinbulk,
-              i.icon.simplybuilt,
-              i.icon.sistrix,
-              i.icon.skyatlas,
-              i.icon.skype,
-              i.icon.slack,
-              i.icon.slack.hash,
-              i.icon.slideshare,
-              i.icon.snapchat,
-              i.icon.snapchat.ghost,
-              i.icon.snapchat.square,
-              i.icon.soundcloud,
-              i.icon.speakap,
-              i.icon.spotify,
-              i.icon.stack.exchange,
-              i.icon.stack.overflow,
-              i.icon.staylinked,
-              i.icon.steam,
-              i.icon.steam.square,
-              i.icon.steam.symbol,
-              i.icon.sticker.mule,
-              i.icon.strava,
-              i.icon.stripe,
-              i.icon.stripe.s,
-              i.icon.studiovinari,
-              i.icon.stumbleupon,
-              i.icon.stumbleupon.circle,
-              i.icon.superpowers,
-              i.icon.supple,
-              i.icon.telegram,
-              i.icon.telegram.plane,
-              i.icon.tencent.weibo,
-              i.icon.themeisle,
-              i.icon.trello,
-              i.icon.tripadvisor,
-              i.icon.tumblr,
-              i.icon.tumblr.square,
-              i.icon.twitch,
-              i.icon.twitter,
-              i.icon.twitter.square,
-              i.icon.typo3,
-              i.icon.uber,
-              i.icon.uikit,
-              i.icon.uniregistry,
-              i.icon.untappd,
-              i.icon.usb,
-              i.icon.ussunnah,
-              i.icon.vaadin,
-              i.icon.viacoin,
-              i.icon.viadeo,
-              i.icon.viadeo.square,
-              i.icon.viber,
-              i.icon.vimeo,
-              i.icon.vimeo.square,
-              i.icon.vimeo.v,
-              i.icon.vine,
-              i.icon.vk,
-              i.icon.vnv,
-              i.icon.vuejs,
-              i.icon.wechat,
-              i.icon.weibo,
-              i.icon.weixin,
-              i.icon.whatsapp,
-              i.icon.whatsapp.square,
-              i.icon.whmcs,
-              i.icon.wikipedia.w,
-              i.icon.windows,
-              i.icon.wordpress,
-              i.icon.wordpress.simple,
-              i.icon.wpbeginner,
-              i.icon.wpexplorer,
-              i.icon.wpforms,
-              i.icon.xbox,
-              i.icon.xing,
-              i.icon.xing.square,
-              i.icon.y.combinator,
-              i.icon.yahoo,
-              i.icon.yandex,
-              i.icon.yandex.international,
-              i.icon.yelp,
-              i.icon.yoast,
-              i.icon.youtube,
-              i.icon.youtube.square {
-                font-family: 'brand-icons';
-              }
+/* Brand Icon Font Family */
+i.icon.\35 00px,
+             i.icon.accessible.icon,
+             i.icon.accusoft,
+             i.icon.adn,
+             i.icon.adversal,
+             i.icon.affiliatetheme,
+             i.icon.algolia,
+             i.icon.amazon,
+             i.icon.amazon.pay,
+             i.icon.amilia,
+             i.icon.android,
+             i.icon.angellist,
+             i.icon.angrycreative,
+             i.icon.angular,
+             i.icon.app.store,
+             i.icon.app.store.ios,
+             i.icon.apper,
+             i.icon.apple,
+             i.icon.apple.pay,
+             i.icon.asymmetrik,
+             i.icon.audible,
+             i.icon.autoprefixer,
+             i.icon.avianex,
+             i.icon.aviato,
+             i.icon.aws,
+             i.icon.bandcamp,
+             i.icon.behance,
+             i.icon.behance.square,
+             i.icon.bimobject,
+             i.icon.bitbucket,
+             i.icon.bitcoin,
+             i.icon.bity,
+             i.icon.black.tie,
+             i.icon.blackberry,
+             i.icon.blogger,
+             i.icon.blogger.b,
+             i.icon.bluetooth,
+             i.icon.bluetooth.b,
+             i.icon.btc,
+             i.icon.buromobelexperte,
+             i.icon.buysellads,
+             i.icon.cc.amazon.pay,
+             i.icon.cc.amex,
+             i.icon.cc.apple.pay,
+             i.icon.cc.diners.club,
+             i.icon.cc.discover,
+             i.icon.cc.jcb,
+             i.icon.cc.mastercard,
+             i.icon.cc.paypal,
+             i.icon.cc.stripe,
+             i.icon.cc.visa,
+             i.icon.centercode,
+             i.icon.chrome,
+             i.icon.cloudscale,
+             i.icon.cloudsmith,
+             i.icon.cloudversify,
+             i.icon.codepen,
+             i.icon.codiepie,
+             i.icon.connectdevelop,
+             i.icon.contao,
+             i.icon.cpanel,
+             i.icon.creative.commons,
+             i.icon.css3,
+             i.icon.css3.alternate,
+             i.icon.cuttlefish,
+             i.icon.d.and.d,
+             i.icon.dashcube,
+             i.icon.delicious,
+             i.icon.deploydog,
+             i.icon.deskpro,
+             i.icon.deviantart,
+             i.icon.digg,
+             i.icon.digital.ocean,
+             i.icon.discord,
+             i.icon.discourse,
+             i.icon.dochub,
+             i.icon.docker,
+             i.icon.draft2digital,
+             i.icon.dribbble,
+             i.icon.dribbble.square,
+             i.icon.dropbox,
+             i.icon.drupal,
+             i.icon.dyalog,
+             i.icon.earlybirds,
+             i.icon.edge,
+             i.icon.elementor,
+             i.icon.ember,
+             i.icon.empire,
+             i.icon.envira,
+             i.icon.erlang,
+             i.icon.ethereum,
+             i.icon.etsy,
+             i.icon.expeditedssl,
+             i.icon.facebook,
+             i.icon.facebook.f,
+             i.icon.facebook.messenger,
+             i.icon.facebook.square,
+             i.icon.firefox,
+             i.icon.first.order,
+             i.icon.firstdraft,
+             i.icon.flickr,
+             i.icon.flipboard,
+             i.icon.fly,
+             i.icon.font.awesome,
+             i.icon.font.awesome.alternate,
+             i.icon.font.awesome.flag,
+             i.icon.fonticons,
+             i.icon.fonticons.fi,
+             i.icon.fort.awesome,
+             i.icon.fort.awesome.alternate,
+             i.icon.forumbee,
+             i.icon.foursquare,
+             i.icon.free.code.camp,
+             i.icon.freebsd,
+             i.icon.get.pocket,
+             i.icon.gg,
+             i.icon.gg.circle,
+             i.icon.git,
+             i.icon.git.square,
+             i.icon.github,
+             i.icon.github.alternate,
+             i.icon.github.square,
+             i.icon.gitkraken,
+             i.icon.gitlab,
+             i.icon.gitter,
+             i.icon.glide,
+             i.icon.glide.g,
+             i.icon.gofore,
+             i.icon.goodreads,
+             i.icon.goodreads.g,
+             i.icon.google,
+             i.icon.google.drive,
+             i.icon.google.play,
+             i.icon.google.plus,
+             i.icon.google.plus.g,
+             i.icon.google.plus.square,
+             i.icon.google.wallet,
+             i.icon.gratipay,
+             i.icon.grav,
+             i.icon.gripfire,
+             i.icon.grunt,
+             i.icon.gulp,
+             i.icon.hacker.news,
+             i.icon.hacker.news.square,
+             i.icon.hips,
+             i.icon.hire.a.helper,
+             i.icon.hooli,
+             i.icon.hotjar,
+             i.icon.houzz,
+             i.icon.html5,
+             i.icon.hubspot,
+             i.icon.imdb,
+             i.icon.instagram,
+             i.icon.internet.explorer,
+             i.icon.ioxhost,
+             i.icon.itunes,
+             i.icon.itunes.note,
+             i.icon.jenkins,
+             i.icon.joget,
+             i.icon.joomla,
+             i.icon.js,
+             i.icon.js.square,
+             i.icon.jsfiddle,
+             i.icon.keycdn,
+             i.icon.kickstarter,
+             i.icon.kickstarter.k,
+             i.icon.korvue,
+             i.icon.laravel,
+             i.icon.lastfm,
+             i.icon.lastfm.square,
+             i.icon.leanpub,
+             i.icon.less,
+             i.icon.linechat,
+             i.icon.linkedin,
+             i.icon.linkedin.alternate,
+             i.icon.linkedin.in,
+             i.icon.linode,
+             i.icon.linux,
+             i.icon.lyft,
+             i.icon.magento,
+             i.icon.maxcdn,
+             i.icon.medapps,
+             i.icon.medium,
+             i.icon.medium.m,
+             i.icon.medrt,
+             i.icon.meetup,
+             i.icon.microsoft,
+             i.icon.mix,
+             i.icon.mixcloud,
+             i.icon.mizuni,
+             i.icon.modx,
+             i.icon.monero,
+             i.icon.napster,
+             i.icon.nintendo.switch,
+             i.icon.node,
+             i.icon.node.js,
+             i.icon.npm,
+             i.icon.ns8,
+             i.icon.nutritionix,
+             i.icon.odnoklassniki,
+             i.icon.odnoklassniki.square,
+             i.icon.opencart,
+             i.icon.openid,
+             i.icon.opera,
+             i.icon.optin.monster,
+             i.icon.osi,
+             i.icon.page4,
+             i.icon.pagelines,
+             i.icon.palfed,
+             i.icon.patreon,
+             i.icon.paypal,
+             i.icon.periscope,
+             i.icon.phabricator,
+             i.icon.phoenix.framework,
+             i.icon.php,
+             i.icon.pied.piper,
+             i.icon.pied.piper.alternate,
+             i.icon.pied.piper.pp,
+             i.icon.pinterest,
+             i.icon.pinterest.p,
+             i.icon.pinterest.square,
+             i.icon.playstation,
+             i.icon.product.hunt,
+             i.icon.pushed,
+             i.icon.python,
+             i.icon.qq,
+             i.icon.quinscape,
+             i.icon.quora,
+             i.icon.ravelry,
+             i.icon.react,
+             i.icon.rebel,
+             i.icon.redriver,
+             i.icon.reddit,
+             i.icon.reddit.alien,
+             i.icon.reddit.square,
+             i.icon.rendact,
+             i.icon.renren,
+             i.icon.replyd,
+             i.icon.resolving,
+             i.icon.rocketchat,
+             i.icon.rockrms,
+             i.icon.safari,
+             i.icon.sass,
+             i.icon.schlix,
+             i.icon.scribd,
+             i.icon.searchengin,
+             i.icon.sellcast,
+             i.icon.sellsy,
+             i.icon.servicestack,
+             i.icon.shirtsinbulk,
+             i.icon.simplybuilt,
+             i.icon.sistrix,
+             i.icon.skyatlas,
+             i.icon.skype,
+             i.icon.slack,
+             i.icon.slack.hash,
+             i.icon.slideshare,
+             i.icon.snapchat,
+             i.icon.snapchat.ghost,
+             i.icon.snapchat.square,
+             i.icon.soundcloud,
+             i.icon.speakap,
+             i.icon.spotify,
+             i.icon.stack.exchange,
+             i.icon.stack.overflow,
+             i.icon.staylinked,
+             i.icon.steam,
+             i.icon.steam.square,
+             i.icon.steam.symbol,
+             i.icon.sticker.mule,
+             i.icon.strava,
+             i.icon.stripe,
+             i.icon.stripe.s,
+             i.icon.studiovinari,
+             i.icon.stumbleupon,
+             i.icon.stumbleupon.circle,
+             i.icon.superpowers,
+             i.icon.supple,
+             i.icon.telegram,
+             i.icon.telegram.plane,
+             i.icon.tencent.weibo,
+             i.icon.themeisle,
+             i.icon.trello,
+             i.icon.tripadvisor,
+             i.icon.tumblr,
+             i.icon.tumblr.square,
+             i.icon.twitch,
+             i.icon.twitter,
+             i.icon.twitter.square,
+             i.icon.typo3,
+             i.icon.uber,
+             i.icon.uikit,
+             i.icon.uniregistry,
+             i.icon.untappd,
+             i.icon.usb,
+             i.icon.ussunnah,
+             i.icon.vaadin,
+             i.icon.viacoin,
+             i.icon.viadeo,
+             i.icon.viadeo.square,
+             i.icon.viber,
+             i.icon.vimeo,
+             i.icon.vimeo.square,
+             i.icon.vimeo.v,
+             i.icon.vine,
+             i.icon.vk,
+             i.icon.vnv,
+             i.icon.vuejs,
+             i.icon.wechat,
+             i.icon.weibo,
+             i.icon.weixin,
+             i.icon.whatsapp,
+             i.icon.whatsapp.square,
+             i.icon.whmcs,
+             i.icon.wikipedia.w,
+             i.icon.windows,
+             i.icon.wordpress,
+             i.icon.wordpress.simple,
+             i.icon.wpbeginner,
+             i.icon.wpexplorer,
+             i.icon.wpforms,
+             i.icon.xbox,
+             i.icon.xing,
+             i.icon.xing.square,
+             i.icon.y.combinator,
+             i.icon.yahoo,
+             i.icon.yandex,
+             i.icon.yandex.international,
+             i.icon.yelp,
+             i.icon.yoast,
+             i.icon.youtube,
+             i.icon.youtube.square {
+               font-family: 'brand-icons';
+             }
 
- /* Brand Icons Ideally Would Be Defined Here */
-
-
- /*******************************
-          Site Overrides
- *******************************/
+/* Brand Icons Ideally Would Be Defined Here */
 
 
- /*******************************
-          Site Overrides
- *******************************/
+/*******************************
+         Site Overrides
+*******************************/
+
+
+/*******************************
+         Site Overrides
+*******************************/
 /*!
  * # Semantic UI 2.2.13 - Image
  * http://github.com/semantic-org/semantic-ui/
@@ -15298,7 +15298,7 @@ ul.ui.list li:before,
   left: auto;
   font-weight: normal;
   margin-left: -1.25rem;
-  content: '•';
+  content: 'â€¢';
   opacity: 1;
   color: inherit;
   vertical-align: top;
@@ -16612,15 +16612,15 @@ ol.ui.horizontal.list li:before,
 *******************************/
 
 .ui.segment {
-    color: #FFF;
-    position: relative;
-    background: #111217;
-    -webkit-box-shadow: 0px 0px 19px 1px rgba(0,0,0,0.3);
-    -moz-box-shadow: 0px 0px 19px 1px rgba(0,0,0,0.3);
-    box-shadow: 0px 0px 19px 1px rgba(0,0,0,0.3);
-    margin: 1rem 0em;
-    padding: 1em 1em;
-    border-radius: 0;
+  color: #FFF;
+  position: relative;
+  background: #111217;
+  -webkit-box-shadow: 0px 0px 19px 1px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 0px 19px 1px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 19px 1px rgba(0,0,0,0.3);
+  margin: 1rem 0em;
+  padding: 1em 1em;
+  border-radius: 0;
 }
 
 .ui.segment:first-child {
@@ -16646,14 +16646,14 @@ ol.ui.horizontal.list li:before,
 }
 
 .ui.segment.simple {
-    color: #FFF;
-    position: relative;
-    margin: 0;
-    padding: 0.5em 0.5em;
-    background: none;
-    border: none;
-    box-shadow: none;
-    border-radius: 0;
+  color: #FFF;
+  position: relative;
+  margin: 0;
+  padding: 0.5em 0.5em;
+  background: none;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
 }
 .ui.vertical.segment:last-child {
   border-bottom: none;
@@ -22555,9 +22555,9 @@ Floated Menu / Item
   box-shadow: 0px 0px 37px -5px rgba(0,0,0,0.75) !important;
 }
 
- .ui.vertical.tabular.menu .item:last-child{
-   border-bottom: none !important;
- }
+.ui.vertical.tabular.menu .item:last-child{
+  border-bottom: none !important;
+}
 .ui.vertical.tabular.menu .item {
   font-family: "BeauSans";
   border-radius: 0 !important;
@@ -22817,9 +22817,9 @@ Floated Menu / Item
 -----------------------*/
 
 .ui.secondary.pointing.menu {
-    font-family: 'BeauSans';
-    margin-left: 0;
-    margin-right: 0;
+  font-family: 'BeauSans';
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .ui.secondary.pointing.menu .item {
@@ -22879,7 +22879,7 @@ Floated Menu / Item
 /* Active Hover */
 
 .ui.secondary.pointing.menu .active.item:hover {
-    color: #c9c9c9;
+  color: #c9c9c9;
 }
 
 /* Active Dropdown */
@@ -24188,7 +24188,7 @@ Floated Menu / Item
 
 .ui.message .list:not(.ui) li:before {
   position: absolute;
-  content: '•';
+  content: 'â€¢';
   left: -1em;
   height: 100%;
   vertical-align: baseline;
@@ -24695,7 +24695,7 @@ Floated Menu / Item
 
 .ui.table th,
 .ui.table td {
-  font-family: "DIN Pro";
+  font-family: "BeauSans", sans-serif;
   -webkit-transition: background 0.1s ease, color 0.1s ease;
   transition: background 0.1s ease, color 0.1s ease;
 }
@@ -31175,8 +31175,8 @@ select.ui.dropdown {
 
 .ui.dropdown.selected,
 .ui.dropdown .menu .selected.item {
-  background: rgba(17, 37, 49, 0.21);
-  color: #555;
+  background: #14212E;
+  color: #808080;
 }
 
 /*--------------------

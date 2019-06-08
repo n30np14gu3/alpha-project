@@ -32,7 +32,7 @@
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Хотябы 1</div>
                                     <div class="menu">
-                                        @foreach(@$staff_data['game_modules'] as $module)
+                                        @foreach(@$staff_data['games']['modules'] as $module)
                                             <div class="item" data-value="{{@$module->id}}">{{@$module->name}}</div>
                                         @endforeach
                                     </div>
@@ -72,7 +72,7 @@
                             <i class="dropdown icon"></i>
                             <div class="default text">Игра</div>
                             <div class="menu">
-                                @foreach(@$staff_data['games'] as $game)
+                                @foreach(@$staff_data['games']['base'] as $game)
                                     <div class="item" data-value="{{@$game->id}}">{{@$game->name}}</div>
                                 @endforeach
                             </div>
@@ -111,7 +111,7 @@
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Хотябы 1</div>
                                     <div class="menu">
-                                        @foreach(@$staff_data['game_modules'] as $module)
+                                        @foreach(@$staff_data['games']['modules'] as $module)
                                             <div class="item" data-value="{{@$module->id}}">{{@$module->name}}</div>
                                         @endforeach
                                     </div>

@@ -34,12 +34,55 @@ class adminController extends Controller
 
         $settings = @UserSettings::where('user_id', $user->id)->get()->first();
 
+        $staff_data = [
+            'support_tickets' => [],
+            'games' =>[
+                'base' => [],
+                'modules' => [],
+            ],
+            'products' => [
+                'base' => [],
+                'modules' => [],
+                'increments' => [],
+                'costs' => []
+            ],
+            'countries' => [],
+        ];
+
+        $tickets = Ticket::all();
+        foreach($tickets as $ticket)
+        {
+            array_push($staff_data['support_tickets'],
+                [
+                    'base' => $ticket,
+                    'user' => User::where('id', $ticket->user_id)->get()->first(),
+                    'is_empty' => $ticket->user_id != null,
+                    'is_my' => $ticket->user_id == $user->id
+                ]);
+        }
+        if($user->staff_status >=3){
+            $staff_data['games']['base'] = Game::all();
+            $staff_data['games']['modules'] = GameModule::all();
+
+            $staff_data['products']['base'] = Product::all();
+            $staff_data['products']['modules'] = ProductFeature::all();
+            $staff_data['products']['increments'] = ProductIncrement::all();
+            $staff_data['products']['costs'] = ProductCost::all();
+
+        }
+
+        if($user->staff_status == 4){
+            $staff_data['countries'] = Country::all();
+        }
+
         $data = [
             'logged' => true,
             'user_data' => [
                 'base' => $user,
                 'settings' => $settings,
             ],
+
+            'staff_data' => $staff_data
         ];
 
         return view('pages.webmaster', $data);

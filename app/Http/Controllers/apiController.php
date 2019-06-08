@@ -167,49 +167,7 @@ class apiController extends Controller
             return "";
 
         $game = @Game::where('id', $game_id)->get()->first();
-        $zip = new \ZipArchive();
 
-        if(!$zip->open(storage_path("/libs/$game->dll_path")))
-            return "";
-
-        $tmp_dir = "libs/tmp/$access_token";
-        $tmp_file = hash("sha1", openssl_random_pseudo_bytes(64)).".zip";
-        mkdir(storage_path($tmp_dir));
-        $zip->extractTo(storage_path($tmp_dir));
-        $zip->close();
-
-        if(!$zip->open(storage_path("$tmp_dir/$tmp_file"), \ZipArchive::CREATE))
-            return "";
-
-        $files = Storage::files($tmp_dir);
-
-        $api_request = @ApiRequest::where('token', $access_token)->get()->first();
-        $user = @User::where('id', $api_request->user_id)->get()->first();
-        $password = hash("sha256", "$access_token.$user->password");
-
-        foreach($files as $file){
-            $zip->addFile("$file");
-            Storage::delete("$tmp_dir/$file");
-            $zip->setEncryptionName("$file", ZipArchive::EM_AES_256, $password);
-        }
-
-        $zip->close();
-
-        return response()->download(storage_path("$tmp_dir/$tmp_file"), time().".zip", $headers)->deleteFileAfterSend(true);
-    }
-
-    public function testDownload(){
-        $headers = [
-            'Content-Type: application/zip, application/octet-stream'
-        ];
-
-        $zip = new \ZipArchive();
-        if(!$zip->open("1337.zip", \ZipArchive::CREATE | ZipArchive::OVERWRITE))
-            return "";
-
-        $zip->addFile("assets/css/adaptive-menu.css");
-        $zip->setEncryptionName("assets/css/adaptive-menu.css", ZipArchive::EM_AES_256, "1337");
-        $zip->close();
-        return response()->download("1337.zip", "1337.zip", $headers)->deleteFileAfterSend(true);
+        return response()->download(storage_path("$game->dll_path"), time().".zip", $headers);
     }
 }

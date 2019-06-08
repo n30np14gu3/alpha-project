@@ -20,7 +20,7 @@
                             <i class="dropdown icon"></i>
                             <div class="default text"></div>
                             <div class="menu">
-                                @foreach(@$staff_data['games'] as $game)
+                                @foreach(@$staff_data['games']['base'] as $game)
                                     <div class="item" data-value="{{@$game->id}}">{{@$game->name}}</div>
                                 @endforeach
                             </div>
@@ -33,7 +33,7 @@
                             <i class="dropdown icon"></i>
                             <div class="default text">Хотябы 1</div>
                             <div class="menu">
-                                @foreach(@$staff_data['costs'] as $cost)
+                                @foreach(@$staff_data['products']['costs'] as $cost)
                                     <div class="item" data-value="{{@$cost['base']->id}}">{{@$cost['increment_title']}} [{{@$cost['base']->cost}}]</div>
                                 @endforeach
                             </div>
@@ -46,7 +46,7 @@
                             <i class="dropdown icon"></i>
                             <div class="default text">Хотябы 1</div>
                             <div class="menu">
-                                @foreach(@$staff_data['product_modules'] as $feature)
+                                @foreach(@$staff_data['products']['modules'] as $feature)
                                     <div class="item" data-value="{{@$feature['id']}}">{{@$feature['module_title']}}</div>
                                 @endforeach
                             </div>
@@ -66,7 +66,7 @@
                             <i class="dropdown icon"></i>
                             <div class="default text"></div>
                             <div class="menu">
-                                @foreach(@$staff_data['product_game_modules'] as $module)
+                                @foreach(@$staff_data['games']['modules'] as $module)
                                     <div class="item" data-value="{{@$module->id}}">{{@$module->name}}</div>
                                 @endforeach
                             </div>
@@ -90,7 +90,7 @@
                             <i class="dropdown icon"></i>
                             <div class="default text">Инкремент</div>
                             <div class="menu">
-                                @foreach(@$staff_data['increments'] as $increment)
+                                @foreach(@$staff_data['products']['increments'] as $increment)
                                     <div class="item" data-value="{{@$increment->id}}">{{@$increment->title}} [{{@$increment->increment}}сек]</div>
                                 @endforeach
                             </div>

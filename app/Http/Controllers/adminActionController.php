@@ -208,22 +208,37 @@ class adminActionController extends Controller
 
         $code = trim(strtolower(@$request['country']['code']));
         $title = trim(@$request['country']['title']);
+        $all = @$request['country']['all'];
 
         if(!$code || !$title){
             $result['message'] = 'Не все поля заполнены!';
             return json_encode($result);
         }
 
-        if(@Country::where('code', $code)->get()->first()){
-            $result['message'] = 'Страна с таким кодом уже существует';
-            return json_encode($result);
+        if($all) {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+            Country::query()->truncate();
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            $countries = json_decode(Storage::get('/support_files/countries.json'));
+            foreach($countries as $c){
+                $cc = new Country();
+                $cc->code = strtolower($c->cca2);
+                $cc->title = $c->name->official;
+                $cc->save();
+            }
         }
+        else{
+            if(@Country::where('code', $code)->get()->first()){
+                $result['message'] = 'Страна с таким кодом уже существует';
+                return json_encode($result);
+            }
 
-        $country = new Country();
-        $country->title = $title;
-        $country->code = $code;
-        $country->save();
+            $country = new Country();
+            $country->title = $title;
+            $country->code = $code;
+            $country->save();
 
+        }
         $result['status'] = 'OK';
         return json_encode($result);
     }

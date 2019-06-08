@@ -45,6 +45,12 @@
                                 <input type="text" name="country[code]" placeholder="" required>
                             </div>
                             <div class="field">
+                                <div class="ui checkbox">
+                                    <input type="checkbox" name="country[all]">
+                                    <label>Добавить все страны</label>
+                                </div>
+                            </div>
+                            <div class="field">
                                 <button type="submit" class="ui alpha button">Создать</button>
                             </div>
                         </form>

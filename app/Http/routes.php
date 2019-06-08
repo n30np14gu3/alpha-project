@@ -19,7 +19,9 @@ Route::get('/download/{game_id}', ['uses' => 'dashboardController@downloadLoader
 Route::get('/webmaster', ['uses' => 'adminController@index', 'as' => 'webmaster_panel', 'middleware' => 'webmaster_panel']);
 
 Route::get('/legal', ['uses' => 'lendingController@legal', 'as' => 'legal']);
-
+Route::get('/c', function (){
+    dd(json_decode(Storage::get('/support_files/countries.json'))[1]);
+});
 Route::group(['prefix' => 'form', 'middleware' => 'form'], function (){
     Route::get('login', ['uses' => 'formController@login', 'as' => 'show_login']);
     Route::get('register', ['uses' => 'formController@register', 'as' => 'show_register']);
