@@ -8,6 +8,31 @@ use App\Http\Requests;
 
 class CryptoHelper
 {
+
+    public static function LEFT_SHIFT($z_value, $z_shift){
+        return (($z_value << $z_shift) | ($z_value >> (8 - $z_shift))) & 0xFF;
+    }
+
+    public static function RIGHT_SHIFT($z_value, $z_shift){
+        return (($z_value >> $z_shift) | ($z_value << (8 - $z_shift))) & 0xFF;
+    }
+
+    public  static  function strToHex($string, $size){
+        $hex='';
+        for ($i=0; $i < $size; $i++){
+            $hex .= dechex(ord($string[$i]));
+        }
+        return $hex;
+    }
+
+    public static function hexToStr($hex){
+        $string='';
+        for ($i=0; $i < strlen($hex)-1; $i+=2){
+            $string .= chr(hexdec($hex[$i].$hex[$i+1]));
+        }
+        return $string;
+    }
+
     /**
      * return base64 str
      * @param $rsp

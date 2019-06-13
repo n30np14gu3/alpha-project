@@ -65,9 +65,21 @@ class adminController extends Controller
             $staff_data['games']['modules'] = GameModule::all();
 
             $staff_data['products']['base'] = Product::all();
-            $staff_data['products']['modules'] = ProductFeature::all();
+            $product_features = ProductFeature::all();
+            foreach ($product_features as $feature){
+                array_push($staff_data['products']['modules'], [
+                    'id' => $feature->id,
+                    'module_title' => GameModule::where('id', $feature->module_id)->get()->first()->name
+                ]);
+            }
             $staff_data['products']['increments'] = ProductIncrement::all();
-            $staff_data['products']['costs'] = ProductCost::all();
+            $costs = ProductCost::all();
+            foreach ($costs as $cost){
+                array_push($staff_data['products']['costs'], [
+                    'base' => $cost,
+                    'increment_title' => ProductIncrement::where('id', $cost->increment_id)->get()->first()->title,
+                ]);
+            }
 
         }
 

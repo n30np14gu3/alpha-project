@@ -14,7 +14,8 @@
       "ext-libxml": "*",
       "ext-intl": "*",
       "ext-zip": "*",
-        "phpseclib/phpseclib": "^2.0"
+        "phpseclib/phpseclib": "^2.0",
+      "ext-rar": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -78,6 +78,7 @@
                             @include('pages.modules.dashboard.ref')
                         </div>
                     </div>
+                    @include('pages.modules.dashboard.games')
                 @else
                     <div class="ui active tab" data-tab="t-bans">
                         <div class="ui raised segment">

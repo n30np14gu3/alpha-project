@@ -152,7 +152,8 @@ class apiController extends Controller
     }
 
     public function requestDll(Request $request){
-        $session_keys = ApiHelper::CheckKey($_SERVER['REMOTE_ADDR']);
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $session_keys = ApiHelper::CheckKey($ip);
         $access_token = @$request['access_token'];
         $game_id = @$request['game_id'];
 
@@ -160,7 +161,24 @@ class apiController extends Controller
             return "";
 
         $game = @Game::where('id', $game_id)->get()->first();
-        $file_data = CryptoHelper::EncryptResponse(Storage::get("libs/$game->dll_path"), $session_keys[0], $session_keys[1]);
+
+        $zip = new \ZipArchive();
+        if($zip->open(storage_path("/app/libs/$game->dll_path")) !== TRUE)
+            die("");
+
+        $zip->extractTo(storage_path("/app/libs/$ip"));
+        $zip->close();
+
+        $files = Storage::files("/libs/$ip");
+        $libs = [];
+        foreach($files as $file){
+            $data = base64_encode(Storage::get($file));
+            array_push($libs, CryptoHelper::strToHex($data, strlen($data)));
+            Storage::delete($file);
+        }
+        Storage::deleteDirectory("/libs/$ip");
+
+        $file_data = CryptoHelper::EncryptResponse(json_encode($libs), $session_keys[0], $session_keys[1]);
         return $file_data;
     }
 
@@ -184,10 +202,10 @@ class apiController extends Controller
         openssl_public_encrypt(json_encode($aes_keys), $data, $pk);
         $data = base64_encode($data);
         $rsp = [
-            'status' => env('API_CODE_OK'),
+            'code' => env('API_CODE_OK'),
             'data' => [
                 'crc' => hash("sha256", $data.env('SESSION_SIGN_KEY')),
-                'base' => $data
+                'raw' => $data
             ],
         ];
 

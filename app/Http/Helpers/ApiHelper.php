@@ -47,17 +47,16 @@ class ApiHelper
     public static function SaveKey($ip){
         $config = [
             'last_update' => time(),
-            'ase_key' => UserHelper::NewPassword(32),
+            'aes_key' => UserHelper::NewPassword(32),
             'aes_iv' => UserHelper::NewPassword(16)
         ];
         Storage::put("/keys/$ip/config.json", json_encode($config));
 
-        return [$config['ase_key'], $config['aes_iv']];
+        return [$config['aes_key'], $config['aes_iv']];
     }
 
     public static function CheckKey($ip){
         $key_info = (array)json_decode(Storage::get("/keys/$ip/config.json"));
-
         if(!$key_info['last_update'])
             return self::SaveKey($ip);
 
