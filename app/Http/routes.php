@@ -93,8 +93,10 @@ Route::group(['prefix' => 'support', 'middleware' => 'support'], function (){
 });
 
 Route::group(['prefix' => 'api'], function (){
+    Route::post('request_session', ['uses' => 'apiController@requestSession', 'as' => 'api_request_session']);
     Route::post('login', ['uses' => 'apiController@login', 'as' => 'api_login']);
     Route::post('request_updates', ['uses' => 'apiController@requestUpdates', 'as' => 'api_request_updates']);
     Route::get('request_dll', ['uses' => 'apiController@requestDll', 'as' => 'api_request_dll']);
     Route::get('test_download', ['uses' => 'apiController@testDownload', 'as' => 'test_download']);
+
 });

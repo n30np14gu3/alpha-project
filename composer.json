@@ -13,7 +13,8 @@
       "ext-openssl": "*",
       "ext-libxml": "*",
       "ext-intl": "*",
-      "ext-zip": "*"
+      "ext-zip": "*",
+        "phpseclib/phpseclib": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -7,6 +7,7 @@ use App\Models\ApiRequest;
 use App\Models\Subscription;
 use App\Models\SubscriptionSettings;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class ApiHelper
 {
@@ -41,5 +42,28 @@ class ApiHelper
         }
 
         return true;
+    }
+
+    public static function SaveKey($ip){
+        $config = [
+            'last_update' => time(),
+            'ase_key' => UserHelper::NewPassword(32),
+            'aes_iv' => UserHelper::NewPassword(16)
+        ];
+        Storage::put("/keys/$ip/config.json", json_encode($config));
+
+        return [$config['ase_key'], $config['aes_iv']];
+    }
+
+    public static function CheckKey($ip){
+        $key_info = (array)json_decode(Storage::get("/keys/$ip/config.json"));
+
+        if(!$key_info['last_update'])
+            return self::SaveKey($ip);
+
+        if((time() - $key_info['last_update']) > 60 * 60 * 2)
+            return self::SaveKey($ip);
+
+        return [$key_info['aes_key'], $key_info['aes_iv']];
     }
 }
