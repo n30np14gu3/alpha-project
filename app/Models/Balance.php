@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Model;
  * @package App\Models
  *
  * @property int user_id
- * @property int balance
- * @property int total_spend
+ * @property double balance
+ * @property double total_spend
  */
 class Balance extends Model
 {

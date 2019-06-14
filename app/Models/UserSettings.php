@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string referral
  * @property int temp_invoice_id
  */
+
 class UserSettings extends Model
 {
     public $timestamps = false;

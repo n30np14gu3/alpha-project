@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Ban
  * @package App\Models
+ * @property int id
  * @property int user_id
  * @property int staff_id
  * @property int submit_date
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string reason
  * @property int is_permanent
  * @property int end_date
+ * @property string token
  */
 class Ban extends Model
 {

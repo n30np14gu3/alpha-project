@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int id
  * @property string sid
  * @property string value
- * @property int use_id
+ * @property int user_id
  */
 class Gift extends Model
 {

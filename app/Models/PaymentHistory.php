@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Model;
  * @package App\Models
  * @property int id
  * @property int user_id
- * @property int amount
- * @property string description
- * @property int date
  * @property int product_id
  * @property int cost_id
+ * @property double amount
+ * @property string description
+ * @property int date
  * @property string sign
  */
 class PaymentHistory extends Model

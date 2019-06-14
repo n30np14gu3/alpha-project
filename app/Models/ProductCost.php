@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int product_id
  * @property int increment_id
  * @property string country_id
- * @property int cost
+ * @property double cost
  */
 class ProductCost extends Model
 {
