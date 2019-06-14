@@ -5,8 +5,7 @@
     @include('pages.modules.default.main-menu')
     <div class="ui raised segment">
         @if(@$staff_info['success'])
-
-            <div class="bold" style="text-align: center"><a href="/dashboard" style="color: #2e79a7"><i class="ui angle left icon"></i></a> Поддержка [{{@$messages['ticket_title']}}]</div>
+            <div class="bold" style="text-align: center"><a href="/webmaster" style="color: #2e79a7"><i class="ui angle left icon"></i></a> Поддержка [{{@$messages['ticket_title']}}]</div>
             <div id="ticket-chat">
                 @foreach(@$messages['data'] as $message)
                     <div class="ticket-message {{!@$message['is_answer'] ? '' : 'ticket-message__answer'}}">

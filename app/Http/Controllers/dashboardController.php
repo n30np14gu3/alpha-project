@@ -173,6 +173,6 @@ class dashboardController extends Controller
         if(!UserHelper::SubscriptionActive($user_subscription->id))
             return redirect()->route('dashboard');
 
-        return response()->download(storage_path("/loaders/$game->loader_path"), 'loader.zip', $headers);
+        return response()->download(storage_path("app/loaders/$game->loader_path"), 'loader.zip', $headers);
     }
 }
