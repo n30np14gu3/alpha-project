@@ -57,7 +57,7 @@ class adminController extends Controller
                     'base' => $ticket,
                     'user' => User::where('id', $ticket->user_id)->get()->first(),
                     'is_empty' => $ticket->user_id != null,
-                    'is_my' => $ticket->user_id == $user->id
+                    'is_my' => $ticket->staff_id == $user->id
                 ]);
         }
         if($user->staff_status >=3){

@@ -14,5 +14,4 @@
         </div>
         {{ csrf_field() }}
     </form>
-    <button class="ui button" onclick="showProductsForm()">Купить подписку</button>
 </div>

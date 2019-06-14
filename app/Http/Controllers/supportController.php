@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\MailHelper;
 use App\Http\Helpers\ReCaptcha;
 use App\Http\Helpers\TicketHelper;
 use App\Http\Requests;
@@ -314,6 +315,13 @@ class supportController extends Controller
         }
 
         TicketHelper::SendMessageToTicket($ticketId, $ticketMessage, true);
+        $base_user = User::where('id', $ticket->user_id)->get()->first();
+        $base_user_settings = UserSettings::where('user_id', $base_user->id)->get()->first();
+        MailHelper::SendMail('mail.types.ticket_answer',
+            [
+                'user_nickname' => $base_user_settings->nickname,
+                'link' => url("/support/ticket/$ticketId")
+            ], $base_user->email, 'Запрос в службу поддержки');
         $result['status'] = 'OK';
         return json_encode($result);
     }
