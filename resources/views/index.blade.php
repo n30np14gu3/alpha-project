@@ -49,7 +49,7 @@
 <div id="particles-js"></div>
 <div class="ui vertical sidebar menu left">
     <a class="item" href="/">@lang('menu.index')</a>
-    <a class="item">@lang('menu.account')</a>
+    <a class="item" href="/dashboard">@lang('menu.account')</a>
 </div>
 <div style="min-height: calc(100vh - 100px);">
     <div class="ui container fluid">
