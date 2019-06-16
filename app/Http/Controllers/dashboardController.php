@@ -42,7 +42,7 @@ class dashboardController extends Controller
         $ref_nickname = @UserSettings::where('user_id', $settings->referral)->get()->first();
         $ref_nickname = @$ref_nickname->nickname;
         $has_domain = UserHelper::CheckSteamNick($settings->steam_id);
-        $user_country = @json_decode(Geolocation::getLocationInfo())->geoplugin_countryCode;
+        $user_country = @strtolower(json_decode(Geolocation::getLocationInfo())->geoplugin_countryCode);
         $country_id = @Country::where('code', $user_country)->get()->first()->id;
 
         $subscriptions = [];
@@ -82,10 +82,10 @@ class dashboardController extends Controller
                 'features' => []
             ];
 
-            $product_costs = ProductCost::where('country_id', $country_id)->get();
+            $product_costs = ProductCost::where('country_id', $country_id)->where('product_id', $product->id)->get();
             if(!count($product_costs)){
-                $usa = Country::where('code', 'us')->get()->first();
-                $product_costs = ProductCost::where('country_id', $usa->id)->where('product_id', $product->id)->get();
+                $russia = Country::where('code', 'ru')->get()->first();
+                $product_costs = ProductCost::where('country_id', $russia->id)->where('product_id', $product->id)->get();
             }
             foreach($product_costs as $costs){
                 $cost_module = [

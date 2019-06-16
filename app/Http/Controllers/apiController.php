@@ -146,7 +146,7 @@ class apiController extends Controller
 
         $response['code'] = env('API_CODE_OK');
         $response['data'] = [
-            'last_update' => date("d-m-Y H:i:s", $game->last_update)
+            'last_update' => date("Y-m-d H:i:s", $game->last_update)
         ];
         return CryptoHelper::EncryptResponse(json_encode($response), $session_keys[0], $session_keys[1]);
     }
