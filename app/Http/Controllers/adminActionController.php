@@ -7,7 +7,6 @@ use App\Models\Game;
 use App\Models\GameModule;
 use App\Models\Product;
 use App\Models\ProductCost;
-use App\Models\ProductFeature;
 use App\Models\ProductIncrement;
 use Illuminate\Http\Request;
 
@@ -309,37 +308,6 @@ class adminActionController extends Controller
         return json_encode($result);
     }
 
-    public function createProductFeature(Request $request){
-        $result = [
-            'status' => 'ERROR',
-            'message' => 'Недостаточно прав для выполнения запроса!'
-        ];
-
-
-        $module = @$request['product']['features'];
-        if(!$module){
-            $result['message'] = 'Не все поля заполнены!';
-            return json_encode($result);
-        }
-
-        $module = @GameModule::where('id', $module)->get()->first();
-        if(!$module){
-            $result['message'] = 'Такого модуля не найдено';
-        }
-
-        if(count(ProductFeature::where('module_id', $module->id)->get())){
-            $result['message'] = 'Этот модуль уже используется';
-            return json_encode($result);
-        }
-
-        $feature = new ProductFeature();
-        $feature->module_id = $module->id;
-        $feature->save();
-
-        $result['status'] = 'OK';
-        return json_encode($result);
-    }
-
     public function createProduct(Request $request){
         $result = [
             'status' => 'ERROR',
@@ -358,15 +326,13 @@ class adminActionController extends Controller
             return json_encode($result);
         }
 
-        $costs = ProductCost::whereIn('id', $costs)->where('product_id', null)->get();
-        if(count($costs) < $costs_count){
-            $result['message'] = 'Некоторые цены принадлежат другим продуктам!';
+        if($costs_count > count(ProductCost::whereIn('id', $costs)->get())){
+            $result['message'] = 'Не все цены найдены!';
             return json_encode($result);
         }
 
-        $features = ProductFeature::whereIn('id', $features)->where('product_id', null)->get();
-        if(count($features) < $features_count){
-            $result['message'] = 'Некоторые компоненты продуктов уже заняты';
+        if($features_count > count(GameModule::whereIn('id', $features)->get())){
+            $result['message'] = 'Не все модули найдены!';
             return json_encode($result);
         }
 
@@ -379,17 +345,10 @@ class adminActionController extends Controller
         $product = new Product();
         $product->game_id = $game->id;
         $product->status = 1;
+        $product->costs = implode(",", $costs);
+        $product->game_modules = implode(",", $features);
         $product->title = $title;
         $product->save();
-
-        $costs->each(function ($item) use($product){
-            $item->update(['product_id' => $product->id]);
-        });
-
-        $features->each(function ($item) use($product){
-            $item->update(['product_id' => $product->id]);
-        });
-
         $result['status'] = 'OK';
         return json_encode($result);
     }

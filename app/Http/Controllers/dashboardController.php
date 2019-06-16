@@ -79,28 +79,24 @@ class dashboardController extends Controller
                 'title' => @$product->title,
                 'game' => @Game::where('id', $product->game_id)->get()->first(),
                 'costs' => [],
-                'features' => []
+                'modules' => GameModule::whereIn('id', explode(",", $product->game_modules))->get()
             ];
 
-            $product_costs = ProductCost::where('country_id', $country_id)->where('product_id', $product->id)->get();
+            $product_costs = ProductCost::whereIn('id', explode(",", $product->costs))->where('country_id', $country_id)->orderBy('cost', 'asc')->get();
             if(!count($product_costs)){
-                $russia = Country::where('code', 'ru')->get()->first();
-                $product_costs = ProductCost::where('country_id', $russia->id)->where('product_id', $product->id)->get();
+                $country_id = Country::where('code', 'ru')->get()->first()->id;
+                $product_costs = ProductCost::whereIn('id', explode(",", $product->costs))->where('country_id', $country_id)->orderBy('cost', 'asc')->get();
             }
+            //$product_costs = $product_costs->orderBy('cost', 'inc')->get();
             foreach($product_costs as $costs){
                 $cost_module = [
                     'cid' => $costs->id,
                     'increment' => ProductIncrement::where('id', $costs->increment_id)->get()->first(),
-                    'cost' => CostHelper::Convert($costs->cost, $request)
+                    'cost' => CostHelper::Convert($costs->cost, $request),
                 ];
                 if($has_domain)
                     $cost_module['cost'] *= 0.97;
                 array_push($product_module['costs'], $cost_module);
-            }
-
-            $features = ProductFeature::where('product_id', $product->id)->get();
-            foreach($features as $feature){
-                array_push($product_module['features'], $feature);
             }
 
             array_push($products, $product_module);

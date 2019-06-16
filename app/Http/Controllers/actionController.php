@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Helpers\UserHelper;
 use App\Models\Balance;
 use App\Models\Game;
+use App\Models\GameModule;
 use App\Models\PaymentHistory;
 use App\Models\Product;
 use App\Models\ProductCost;
-use App\Models\ProductFeature;
 use App\Models\ProductIncrement;
 use App\Models\Subscription;
 use App\Models\SubscriptionSettings;
@@ -390,7 +390,8 @@ class actionController extends Controller
             return json_encode($result);
         }
 
-        if($product_cost->product_id != $product_id){
+        $product_costs = explode(",", $product->costs);
+        if(!in_array($product_cost->id, $product_costs)){
             $result['message'] = 'Цена принадлежит другому продукту';
             return json_encode($result);
         }
@@ -401,7 +402,7 @@ class actionController extends Controller
             $country_id = 1;
 
         if($product_cost->country_id != $country_id){
-            $result['message'] = 'Данный продукт не доступен в Вашем регионе';
+            $result['message'] = 'Данный продукт недоступен в Вашем регионе';
             return json_encode($result);
         }
 
@@ -420,7 +421,7 @@ class actionController extends Controller
         $product_increment = @ProductIncrement::where('id', $product_cost->increment_id)->get()->first();
 
         $user_subscription = @Subscription::where('user_id', $user_info['id'])->get()->first();
-        $product_features = @ProductFeature::where('product_id', $product_id)->get();
+        $product_features = @GameModule::whereIn('id',explode(",", $product->game_modules))->get();
         $product_game = @Game::where('id', $product->game_id)->get()->first();
         $current_time = time();
 
@@ -435,18 +436,18 @@ class actionController extends Controller
             foreach($product_features as $feature){
                 $subscription_setting = new SubscriptionSettings();
                 $subscription_setting->subscription_id = $user_subscription->id;
-                $subscription_setting->module_id = $feature->module_id;
+                $subscription_setting->module_id = $feature->id;
                 $subscription_setting->end_date = $current_time + $product_increment->increment;
                 $subscription_setting->save();
             }
         }
         else{
             foreach($product_features as $feature){
-                $subscription_setting = SubscriptionSettings::where('subscription_id', $user_subscription->id)->where('module_id', $feature->module_id)->get()->first();
+                $subscription_setting = SubscriptionSettings::where('subscription_id', $user_subscription->id)->where('module_id', $feature->id)->get()->first();
                 if(!@$subscription_setting){
                     $subscription_setting = new SubscriptionSettings();
                     $subscription_setting->subscription_id = $user_subscription->id;
-                    $subscription_setting->module_id = $feature->module_id;
+                    $subscription_setting->module_id = $feature->id;
                     $subscription_setting->end_date = $current_time + $product_increment->increment;
                 }
                 else{

@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Product
- * @package App\Models
  * @property int id
  * @property int game_id
+ * @property string game_modules
+ * @property string costs
  * @property string title
  * @property int status
  */

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
  * Class ProductCost
  * @package App\Models
  * @property int id
- * @property int product_id
  * @property int increment_id
  * @property string country_id
  * @property double cost

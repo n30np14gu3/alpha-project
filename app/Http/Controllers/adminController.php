@@ -12,7 +12,6 @@ use App\Models\Country;
 use App\Models\GameModule;
 use App\Models\Product;
 use App\Models\ProductCost;
-use App\Models\ProductFeature;
 use App\Models\ProductIncrement;
 use App\Models\Subscription;
 use App\Models\SubscriptionSettings;
@@ -65,11 +64,11 @@ class adminController extends Controller
             $staff_data['games']['modules'] = GameModule::all();
 
             $staff_data['products']['base'] = Product::all();
-            $product_features = ProductFeature::all();
+            $product_features = $staff_data['games']['modules'];
             foreach ($product_features as $feature){
                 array_push($staff_data['products']['modules'], [
                     'id' => $feature->id,
-                    'module_title' => GameModule::where('id', $feature->module_id)->get()->first()->name
+                    'module_title' => $feature->name
                 ]);
             }
             $staff_data['products']['increments'] = ProductIncrement::all();

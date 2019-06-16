@@ -3,7 +3,6 @@
         <div class="row">
             <div class="ui top attached tabular menu">
                 <a class="active item" data-tab="t-products">Продукты</a>
-                <a class="item" data-tab="t-product-features">Модули</a>
                 <a class="item" data-tab="t-costs">Цены</a>
                 <a class="item" data-tab="t-increments">Инкременты</a>
             </div>
@@ -54,26 +53,6 @@
                     </div>
                     <div class="field">
                         <button type="submit" class="ui alpha button">Создать</button>
-                    </div>
-                </form>
-            </div>
-            <div class="ui bottom attached tab segment" data-tab="t-product-features"  style="padding: 15px">
-                <form class="ui form" id="create-product-feature-form">
-                    <div class="field">
-                        <label>Игровой модуль</label>
-                        <div class="ui fluid search selection dropdown">
-                            <input type="hidden" name="product[features]" required>
-                            <i class="dropdown icon"></i>
-                            <div class="default text"></div>
-                            <div class="menu">
-                                @foreach(@$staff_data['games']['modules'] as $module)
-                                    <div class="item" data-value="{{@$module->id}}">{{@$module->name}}</div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <button class="ui alpha button" type="submit">Создать</button>
                     </div>
                 </form>
             </div>

@@ -224,24 +224,6 @@ $('#create-cost-form').submit(function (e) {
     })
 });
 
-$('#create-product-feature-form').submit(function (e) {
-    e.preventDefault();
-    $.ajax({
-        method: "POST",
-        url: "/action/admin/create_product_feature",
-        data: $('#create-product-feature-form').serialize(),
-        success: function (data) {
-            data = JSON.parse(data);
-            if(data.status !== "OK"){
-                showToast(data.message, 'error', 3000, 'microchip');
-            }
-            else {
-                window.location.reload();
-            }
-        }
-    })
-});
-
 $('#create-product-form').submit(function (e) {
     e.preventDefault();
     $.ajax({

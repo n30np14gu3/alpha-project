@@ -53,7 +53,6 @@ Route::group(['prefix' => 'action', 'middleware' => 'action'], function (){
 
        Route::post('create_increment', ['uses' => 'adminActionController@createIncrement', 'as' => 'create_increment']);
        Route::post('create_cost', ['uses' => 'adminActionController@createCost', 'as' => 'create_cost']);
-       Route::post('create_product_feature', ['uses' => 'adminActionController@createProductFeature', 'as' => 'create_product_feature']);
        Route::post('create_product', ['uses' => 'adminActionController@createProduct', 'as' => 'create_product']);
     });
 });
