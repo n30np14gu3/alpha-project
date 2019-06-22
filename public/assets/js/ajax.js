@@ -16,12 +16,18 @@ $(document).ready(function () {
         context: $('#products-context')
     });
 
+    $('.categories').on('click', '.item', function () {
+        $('#total-cost')[0].style.display = "none";
+    });
+
     $('.products').on('click', '.item', function() {
         $('.menu.products .item').removeClass('active');
         if(!$(this).hasClass('dropdown')) {
             $(this).addClass('active').siblings('.item').removeClass('active');
             $('#cost-id').attr('value', $(this).attr('data-cost'));
             $('#product-id').attr('value', $(this).attr('data-product'));
+            $('#total-cost')[0].style.display = "block";
+            $('#total-cost-val').text($(this).attr('data-cost-val'));
         }
     });
 });
@@ -83,6 +89,7 @@ function showProductsForm(){
             $('.menu.products .item').removeClass('active');
             $('#cost-id').attr('value', 0);
             $('#product-id').attr('value', 0);
+            $('#total-cost')[0].style.display = "none";
         }
     }).modal('show');
 }

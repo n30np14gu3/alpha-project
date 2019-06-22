@@ -211,4 +211,58 @@ class apiController extends Controller
 
         return json_encode($rsp);
     }
+
+    public function requestModules(Request $request){
+        $session_keys = ApiHelper::CheckKey($_SERVER['REMOTE_ADDR']);
+
+        $user_id = @$request['user_id'];
+        $game_id = @$request['game_id'];
+        $access_token = @$request['access_token'];
+
+        if(!$user_id || !$access_token){
+            return "0";
+        }
+
+        if(!ApiHelper::CheckToken($access_token, $game_id))
+            return "1";
+
+        $user = @User::where('id', $user_id)->get()->first();
+        if(!$user)
+            return "2";
+
+        if(!UserHelper::CheckUserActivity($user))
+            return "3";
+
+        $user_sub = @Subscription::where('user_id', $user_id)->where('game_id', $game_id)->get()->first();
+        if(!$user_sub)
+            return "4";
+
+        $subscription_modules = SubscriptionSettings::where('subscription_id', $user_sub->id)->get();
+        $data = [
+          'count' => count($subscription_modules),
+          'modules' => []
+        ];
+
+        foreach($subscription_modules as $module){
+            array_push($data['modules'],
+                [
+                    'end_date' =>  $module->end_date,
+                    'id' => $module->module_id
+                ]);
+        }
+
+        $response = [
+            'code' => (int)env('API_CODE_OK'),
+            'data' => $data,
+            'salt'=> hash("sha256", openssl_random_pseudo_bytes(64).time())
+        ];
+        
+        return json_encode($response);
+    }
+    public function test(Request $request){
+        $a = (int)@$request['a'];
+        $b = (int)$request['b'];
+
+        echo  $a + $b;
+    }
 }

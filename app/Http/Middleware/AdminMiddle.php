@@ -16,13 +16,17 @@ class AdminMiddle
      */
     public function handle($request, Closure $next)
     {
+
         $user = UserHelper::CheckAuth($request, true);
+        if(!$user)
+            return redirect('/');
+
         if (!UserHelper::CheckUserActivity($user)) {
-            return back();
+            return redirect('/');
         }
 
         if(@$user->staff_status < 1){
-            return back();
+            return redirect('/');
         }
 
         return $next($request);

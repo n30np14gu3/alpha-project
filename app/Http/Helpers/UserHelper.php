@@ -103,7 +103,9 @@ class UserHelper
      * @param User $user
      * @return bool
      */
-    public static function CheckUserActivity(User $user){
+    public static function CheckUserActivity($user){
+        if(!@$user->id)
+            return false;
         $bans_activity = count(Ban::where('user_id', $user->id)->where('is_active', 1)->whereRaw('is_permanent = 1 OR end_date > ?', [time()])->get()) == 0;
         $status_activity = UserSettings::where('user_id', $user->id)->get()->first()->status > 0;
         return $bans_activity && $status_activity;

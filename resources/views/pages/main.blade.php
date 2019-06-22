@@ -1,6 +1,6 @@
 @extends('index')
 @section('main-active', 'active')
-@section('title', '- Лучший провайдер читов')
+@section('title', '- Твой проводник в мир читов')
 
 @section('additional-css')
     <style>
@@ -17,7 +17,7 @@
             @include('pages.modules.default.main-menu-lending')
             <div class="ui container fluid" style="margin: 120px 0 0 0;">
                 <div class="ui segment simple" style="padding: 0 0 0 100px">
-                    <span id="lending-header">Лучший чит<br>для всех игроков</span>
+                    <span id="lending-header">Почувствуй новый уровень игры</span>
                     @if(!@$logged)
                         <br><br><br>
                         <form id="fast-sign-up-form">
@@ -43,12 +43,12 @@
                             <h3 class="ui header">Платите только за то, что Вам нужно</h3>
                             <p>
                                 Наш продукт имеет несколько конфигураций.
-                                <span style="color: #bf1660"><b>Wallhack only</b></span>,
-                                <span style="color: #bf1660"><b>Changer only</b></span>,
-                                <span style="color: #bf1660"><b>Legit pack</b></span>,
-                                <span style="color: #bf1660"><b>Rage pack</b></span>,
-                                <span style="color: #bf1660"><b>Steamer pack</b></span>,
-                                <span style="color: #bf1660"><b>Full pack</b></span><br>
+                                <span style="color: #bf1660"><b>Bunny Hop Pack</b></span>,
+                                <span style="color: #bf1660"><b>Esp Pack</b></span>,
+                                <span style="color: #bf1660"><b>Skin Changer Pack</b></span>,
+                                <span style="color: #bf1660"><b>Trigger Bot Pack</b></span>,
+                                <span style="color: #bf1660"><b>Streamer Pack</b></span>,
+                                <span style="color: #bf1660"><b>Platinum Pack. </b></span>
                                 Выберите комплект, который соответствует Вашим требованиям и не платите за ненужные Вам функции.
                             </p>
                             <h3 class="ui header">Гибко настраивайте конфигурацию</h3>

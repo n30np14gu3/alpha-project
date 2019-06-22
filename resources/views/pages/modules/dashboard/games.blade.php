@@ -22,15 +22,17 @@
                     <br>
                     <div class="ui vertical menu products fluid" style="background: transparent; padding: 0 12px">
                         @foreach(@$products[$i]['costs'] as $cost)
-                            <div class="item" data-cost="{{@$cost['cid']}}" data-product="{{@$products[@$i]['id']}}">
+                            <div class="item" data-cost="{{@$cost['cid']}}" data-product="{{@$products[@$i]['id']}}" data-cost-val="{{@$cost['cost'][0]}}">
                                 {{@$cost['increment']->title}}
-                                <div class="ui teal left pointing label">{{@$cost['cost'][0]}}</div>
                             </div>
                         @endforeach
                     </div>
                     <br>
                 </div>
             @endfor
+        </div>
+        <div id="total-cost" style="font-size: 30px; padding: 0 32px; display: none;">
+            К оплате: <span class="ui teal label"style="font-size: 30px" id="total-cost-val"></span>
         </div>
         <input id="cost-id" name="cid" type="hidden" required>
         <input id="product-id" name="pid" type="hidden" required>

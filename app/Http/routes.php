@@ -95,7 +95,8 @@ Route::group(['prefix' => 'api'], function (){
     Route::post('request_session', ['uses' => 'apiController@requestSession', 'as' => 'api_request_session']);
     Route::post('login', ['uses' => 'apiController@login', 'as' => 'api_login']);
     Route::post('request_updates', ['uses' => 'apiController@requestUpdates', 'as' => 'api_request_updates']);
+    Route::post('request_modules', ['uses' => 'apiController@requestModules', 'as' => 'api_request_modules']);
     Route::post('request_dll', ['uses' => 'apiController@requestDll', 'as' => 'api_request_dll']);
-    Route::get('test_download', ['uses' => 'apiController@testDownload', 'as' => 'test_download']);
+    Route::get('test', ['uses' => 'apiController@test', 'as' => 'api_test']);
 
 });
