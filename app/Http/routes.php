@@ -39,6 +39,7 @@ Route::group(['prefix' => 'action', 'middleware' => 'action'], function (){
     Route::post('save_info', ['uses' => 'actionController@saveInfo', 'as' => 'save_info']);
     Route::post('password_change', ['uses' => 'actionController@changePassword', 'as' => 'password_change']);
     Route::post('purchase', ['uses' => 'actionController@purchase', 'as' => 'purchase']);
+    Route::post('confirm_invoice', ['uses' => 'actionController@confirmInvoice', 'as' => 'confirm_invoice']);
 
     Route::group(['prefix' => 'admin', 'middleware' => 'admin_action'], function (){
        Route::post('create_module', ['uses' => 'adminActionController@createModule', 'as' => 'module_create']);

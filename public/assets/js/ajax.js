@@ -47,6 +47,27 @@ function fastRegistration() {
     }
 }
 
+function confirmInvoice(inv_id) {
+    $.ajax(
+        {
+            type: "POST",
+            url: "/action/confirm_invoice",
+            data: {"inv_id": inv_id},
+            success: function(data) {
+                data = JSON.parse(data);
+                if(data.status !== "OK"){
+                    showToast(data.message, 'error', 3000, 'microchip');
+                }
+                else
+                {
+                    showToast('Счет успешно подтвержден', 'success', 5000, 'microchip');
+                    $('#inv-' + inv_id).remove();
+                }
+            }
+        }
+    );
+}
+
 function fastRegistrationAjax() {
     var form = $('#fast-sign-up-form');
     $.ajax({

@@ -38,6 +38,7 @@
                         <div class="item" data-tab="t-subscription">Подписка</div>
                         <div class="item" data-tab="t-ref">Реферальная система</div>
                         <div class="item" data-tab="t-shop-history">История покупок</div>
+                        <div class="item" data-tab="t-invoices">Неподтвержденные счета</div>
                         <div class="item" data-tab="t-auth-history">История входов</div>
                         @if(@$user_data['base']->staff_status >= 1)
                             <a class="item"  href="/webmaster" target="_blank">Панель управления</a>
@@ -76,6 +77,11 @@
                     <div class="ui tab" data-tab="t-ref">
                         <div class="ui raised segment">
                             @include('pages.modules.dashboard.ref')
+                        </div>
+                    </div>
+                    <div class="ui tab" data-tab="t-invoices">
+                        <div class="ui raised segment">
+                            @include('pages.modules.dashboard.invoices')
                         </div>
                     </div>
                     @include('pages.modules.dashboard.games')

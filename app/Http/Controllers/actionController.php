@@ -12,6 +12,7 @@ use App\Models\ProductCost;
 use App\Models\ProductIncrement;
 use App\Models\Subscription;
 use App\Models\SubscriptionSettings;
+use App\Models\UserInvoice;
 use App\Models\UserSettings;
 use App\Models\Country;
 use Illuminate\Http\Request;
@@ -251,6 +252,7 @@ class actionController extends Controller
         }
 
         $user_data = simplexml_load_file("$link?xml=1", null, LIBXML_NOCDATA);
+
         if(strpos(@$user_data->steamID, 'alphacheat.com') === false){
             $result['message'] = 'Имя пользователя не содержит имени домена';
             return json_encode($result);
@@ -370,8 +372,8 @@ class actionController extends Controller
             'message' => 'UNKNOWN ERROR'
         ];
 
-        $cost_id = @$_POST['cid'];
-        $product_id = @$_POST['pid'];
+        $cost_id = @$request['cid'];
+        $product_id = @$request['pid'];
 
         if(!$cost_id || !$product_id){
             $result['message'] = 'Не все поля заполнены!';
@@ -396,7 +398,7 @@ class actionController extends Controller
             return json_encode($result);
         }
 
-        $user_country = @json_decode(Geolocation::getLocationInfo())->geoplugin_countryCode;
+        $user_country = @'ru';
         $country_id = @Country::where('code', $user_country)->get()->first()->id;
         if(!$country_id)
             $country_id = 1;
@@ -471,6 +473,36 @@ class actionController extends Controller
         $payment_log->description = "[$product_game->name] :: $product->title ($product_increment->title)";
         $payment_log->sign = hash("sha256","$payment_log->description :: ".base64_encode(openssl_random_pseudo_bytes(64)).time());
         $payment_log->save();
+
+        $result['status'] = 'OK';
+        return json_encode($result);
+    }
+
+    public function confirmInvoice(Request $request){
+        $result = [
+            'status' => 'ERROR',
+            'message' => 'UNKNOWN ERROR'
+        ];
+
+        $inv_id = @$request['inv_id'];
+        if(!$inv_id) {
+            $result['message'] = 'Не все поля заполнены!';
+            return json_encode($result);
+        }
+
+        $user_data = UserHelper::GetLocalUserInfo($request);
+        $invoice = @UserInvoice::where('user_id', $user_data['id'])->where('id', $inv_id)->get()->first();
+        if(!$invoice){
+            $result['message'] = 'Такого счета не существует!';
+            return json_encode($result);
+        }
+
+        if(!$invoice->active){
+            $result['message'] = 'Счет уже оплачен!';
+            return json_encode($result);
+        }
+
+        UserHelper::MakePayment($user_data['id'], $invoice, $invoice->amount, $invoice->token);
 
         $result['status'] = 'OK';
         return json_encode($result);

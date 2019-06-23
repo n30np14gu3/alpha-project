@@ -56,10 +56,13 @@ class mailController extends Controller
 
         if((time() - $mail->request_time) > 1200){
 
-            $data = [
+            $mailData = [
                 'link' => url('/email/confirm/').MailHelper::NewMailConfirmToken($user->id),
                 'mail_title' => 'Регистрация на сайте ALPHA CHEAT'
+
             ];
+
+            MailHelper::SendMail('mail.types.password_reset', $mailData, $user->email, 'Регистрация на сайте :: '.url('/'));
 
             $data['text'] = 'Ссылка устарела! На ваш почтовый ящик отправлено новое письмо!';
             return view('pages.mail', $data);

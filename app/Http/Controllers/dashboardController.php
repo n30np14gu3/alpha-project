@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PaymentHistory;
 use App\Models\Ticket;
+use App\Models\UserInvoice;
 use Illuminate\Http\Request;
 
 
@@ -42,7 +43,7 @@ class dashboardController extends Controller
         $ref_nickname = @UserSettings::where('user_id', $settings->referral)->get()->first();
         $ref_nickname = @$ref_nickname->nickname;
         $has_domain = UserHelper::CheckSteamNick($settings->steam_id);
-        $user_country = @strtolower(json_decode(Geolocation::getLocationInfo())->geoplugin_countryCode);
+        $user_country = 'ru';
         $country_id = @Country::where('code', $user_country)->get()->first()->id;
 
         $subscriptions = [];
@@ -92,10 +93,9 @@ class dashboardController extends Controller
                 $cost_module = [
                     'cid' => $costs->id,
                     'increment' => ProductIncrement::where('id', $costs->increment_id)->get()->first(),
-                    'cost' => CostHelper::Convert($costs->cost, $request),
+                    'cost' => CostHelper::Convert(($has_domain ? $costs->cost * 0.97 : $costs->cost), $request),
                 ];
-                if($has_domain)
-                    $cost_module['cost'] *= 0.97;
+
                 array_push($product_module['costs'], $cost_module);
             }
 
@@ -141,7 +141,8 @@ class dashboardController extends Controller
                 'steam_link' => ($settings->steam_id != 0) ? 'https://steamcommunity.com/profiles/'.$settings->steam_id : '',
                 'subscriptions' => $subscriptions,
                 'payment_history' => PaymentHistory::where('user_id', $user->id)->get(),
-                'bans' => $bans
+                'bans' => $bans,
+                'invoices' => @UserInvoice::where('user_id', $user->id)->where('active', '1')->get()
             ],
             'balance_funds' => $balance_funds,
             'products' => $products,

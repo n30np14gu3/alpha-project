@@ -135,34 +135,7 @@ class paymentController extends Controller
             return view('pages.mail', $data);
         }
 
-        $user_balance = Balance::where('user_id', $user_id)->get()->first();
-        $user_settings = UserSettings::where('user_id', $user_id)->get()->first();
-        $user_referral = null;
-
-        if(@$user_settings->referral){
-            $user_referral = User::where('user_id', $user_settings->referral)->get()->first();
-            $referral_balance = Balance::where('user_id', $user_referral->id)->get()->first();
-            $referral_balance->balance += $out_sum * 0.1;
-            $referral_balance->save();
-        }
-
-        $user_balance->balance += $out_sum;
-        $user_balance->total_spend += $out_sum;
-        $user_balance->save();
-
-        $user_settings->status = 2;
-        $user_settings->save();
-
-        $user_invoice->active = 0;
-        $user_invoice->save();
-
-        $payment_history = new PaymentHistory();
-        $payment_history->user_id = $user_info['id'];
-        $payment_history->date = time();
-        $payment_history->amount = $out_sum;
-        $payment_history->description = "Пополнение баланса на ".CostHelper::Format($out_sum)[1]." ID счета [".$inv_id."]";
-        $payment_history->sign = hash("sha256", "$out_sum :: $payment_history->description".base64_encode(openssl_random_pseudo_bytes(64)));
-        $payment_history->save();
+        UserHelper::MakePayment($user_id, $user_invoice, $out_sum, $inv_id);
 
         $data['style'] = 'success';
         $data['text'] = 'Оплата произошла успешно!';

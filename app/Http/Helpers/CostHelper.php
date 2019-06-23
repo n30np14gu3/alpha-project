@@ -9,26 +9,12 @@ class CostHelper
 
     public static function Convert($cost, Request $request)
     {
-        $location_info = json_decode(Geolocation::getLocationInfo());
-        $currencies = self::get_currencies($request);
-        $locale = 'en_US';
-
-        if($location_info->geoplugin_countryCode)
-            $locale = self::country2locale(strtolower($location_info->geoplugin_countryCode));
+        $locale = 'RU';
+        $locale = self::country2locale(strtolower($locale));
         $formatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
 
-        if(@$location_info->geoplugin_currencyCode != 'RUB')
-        {
-            if(!$currencies[$location_info->geoplugin_currencyCode])
-                $self_info = $currencies['EUR'];
-            else
-                $self_info = $currencies[$location_info->geoplugin_currencyCode];
-
-            $cost *=  $self_info;
-        }
-
         return [
-            $formatter->formatCurrency(round($cost, 2), $location_info->geoplugin_currencyCode),
+            $formatter->formatCurrency(round($cost, 2), 'RUB'),
             round($cost, 2)
         ];
     }
@@ -38,16 +24,14 @@ class CostHelper
      * @return array
      */
     public static function Format($value){
-        $location_info = json_decode(Geolocation::getLocationInfo());
-        $locale = 'en_US';
+        $locale = 'RU';
 
-        if($location_info->geoplugin_countryCode)
-            $locale = self::country2locale(strtolower($location_info->geoplugin_countryCode));
+        $locale = self::country2locale(strtolower('RU'));
         $formatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
 
        return [
            $value,
-           $formatter->formatCurrency($value, $location_info->geoplugin_currencyCode)
+           $formatter->formatCurrency($value,'RUB')
        ];
     }
 
