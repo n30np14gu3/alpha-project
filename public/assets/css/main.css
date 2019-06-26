@@ -738,80 +738,17 @@ input{
     font-weight: normal;
 }
 
-.slides {
-    height: 20rem;
-    width: 100%;
-    overflow: hidden;
+.is-staff{
+    text-transform: uppercase;
+    background: -webkit-linear-gradient(90deg, #f958c5 0%, #6459f5 100%, #00dd72);
+    background: linear-gradient(90deg, #f958c5 0%, #6459f5 100%, #00dd72);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.slides .angle {
-    color: lightblue;
-    cursor: pointer;
-    position: relative;
-    top: calc(50% - 20px);
-    transform: scale(1);
-    transition: all .2s ease-in-out;
-    z-index: 10;
-}
-
-.slides .angle:hover {
-    transform: scale(1.7);
-}
-
-.slides .angle.right {
-    color: lightblue;
-    float: right;
-    margin-right: 1rem;
-}
-
-.slides .angle.left {
-    color: lightblue;
-    float: left;
-    margin-left: 1rem;
-}
-
-.slides .slide {
-    height: 100%;
-    padding: 2rem 5rem;
-    transition: all .2s ease-in-out;
-}
-
-.slides .slide:not(.active) {
-    display: none;
-}
-
-.slides .slide.inverted {
-    color: white;
-}
-
-.slides .slide.shadow {
-    text-shadow: 1px 1px 2px black;
-}
-
-.faded {
-    animation: fade .5s;
-}
-
-.blurred {
-    animation: blur .4s;
-}
-
-@keyframes fade {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes blur {
-    from {
-        filter: blur(5px);
-    }
-
-    to {
-        filter: blur(0);
-    }
+.partner-status{
+    background: -webkit-linear-gradient(90deg, #0095dd 0%, #f1094b 100%, #0095dd);
+    background: linear-gradient(90deg, #f94444 0%, #6459f5 100%, #0095dd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

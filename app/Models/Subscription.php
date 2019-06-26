@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int game_id
  * @property int user_id
  * @property int status
+ * @property int is_lifetime
  * @property string activation_date
  * @property string hwid
  */

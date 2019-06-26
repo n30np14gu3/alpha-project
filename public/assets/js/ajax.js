@@ -32,89 +32,6 @@ $(document).ready(function () {
     });
 });
 
-function fastRegistration() {
-    if(!$('#recaptcha-div').length)
-    {
-        fastRegistrationAjax();
-    }
-    else
-    {
-        grecaptcha.render('recaptcha-div', {
-            'sitekey' : '6Lcn36AUAAAAAODJO5kSQjRi2LE52aieDJBwJ_F-',
-            'theme': 'dark',
-            'callback': fastRegistrationAjax
-        });
-    }
-}
-
-function confirmInvoice(inv_id) {
-    $.ajax(
-        {
-            type: "POST",
-            url: "/action/confirm_invoice",
-            data: {"inv_id": inv_id},
-            success: function(data) {
-                data = JSON.parse(data);
-                if(data.status !== "OK"){
-                    showToast(data.message, 'error', 3000, 'microchip');
-                }
-                else
-                {
-                    showToast('Счет успешно подтвержден', 'success', 5000, 'microchip');
-                    $('#inv-' + inv_id).remove();
-                }
-            }
-        }
-    );
-}
-
-function fastRegistrationAjax() {
-    var form = $('#fast-sign-up-form');
-    $.ajax({
-        type: "POST",
-        url: "/fast_register",
-        data: form.serialize(),
-        success: function(data) {
-            data = JSON.parse(data);
-            if(data.status !== "OK"){
-                showToast(data.message, 'error', 3000, 'microchip');
-            }
-            else
-            {
-                showToast('Пользователь успешно зарегестрирован!<br>На почтовый ящик была отправлены дальнейшие инструкции', 'success', 5000, 'microchip');
-                $('#register-form')[0].reset();
-            }
-            grecaptcha.reset();
-        },
-        error: function () {
-            grecaptcha.reset();
-        }
-    });
-    form[0].reset();
-}
-function showToast(text, type, duration, icon) {
-    $('body')
-        .toast({
-            class: type.toString(),
-            showIcon: icon.toString(),
-            displayTime: duration,
-            closeIcon: true,
-            message: text
-        })
-    ;
-}
-
-function showProductsForm(){
-    $('#products-modal').modal({
-        onHide: function () {
-            $('.menu.products .item').removeClass('active');
-            $('#cost-id').attr('value', 0);
-            $('#product-id').attr('value', 0);
-            $('#total-cost')[0].style.display = "none";
-        }
-    }).modal('show');
-}
-
 $('#register-form').submit(function (e) {
     e.preventDefault();
     $.ajax(
@@ -209,19 +126,19 @@ $('#account-data-form').submit(function (e) {
 $('#password-form').submit(function (e) {
     e.preventDefault();
     $.ajax({
-       type: "POST",
-       url: "/action/password_change",
-       data: $('#password-form').serialize(),
-       success: function (data) {
-           data = JSON.parse(data);
-           if(data.status !== "OK"){
-               showToast(data.message, 'error', 3000, 'microchip');
-           }
-           else {
-               showToast('Пароль успешно сохранен!', 'success', 3000, 'microchip');
-           }
-           $('#password-form')[0].reset();
-       }
+        type: "POST",
+        url: "/action/password_change",
+        data: $('#password-form').serialize(),
+        success: function (data) {
+            data = JSON.parse(data);
+            if(data.status !== "OK"){
+                showToast(data.message, 'error', 3000, 'microchip');
+            }
+            else {
+                showToast('Пароль успешно сохранен!', 'success', 3000, 'microchip');
+            }
+            $('#password-form')[0].reset();
+        }
     });
 });
 
@@ -263,29 +180,21 @@ $('#products-form').submit(function (e) {
         type: "POST",
         url: "/action/purchase",
         data: $('#products-form').serialize(),
-       success: function (data) {
-           data = JSON.parse(data);
-           if(data.status === "OK"){
-               showToast('Оплата произошла успешно!', 'success', 5000, 'microchip');
-           }
-           else{
-               showToast(data.message, 'error', 5000, 'microchip');
-           }
+        success: function (data) {
+            data = JSON.parse(data);
+            if(data.status === "OK"){
+                showToast('Оплата произошла успешно!', 'success', 5000, 'microchip');
+            }
+            else{
+                showToast(data.message, 'error', 5000, 'microchip');
+            }
 
-           $('.menu.products .item').removeClass('active');
-           $('#cost-id').attr('value', 0);
-           $('#product-id').attr('value', 0);
-       }
+            $('.menu.products .item').removeClass('active');
+            $('#cost-id').attr('value', 0);
+            $('#product-id').attr('value', 0);
+        }
     });
 });
-
-function showTicketModal() {
-    $('#ticket-modal').modal('show');
-}
-
-function openTicket(id) {
-    window.location.replace('/support/ticket/' + id);
-}
 
 $('#ticket-form').submit(function (e) {
     e.preventDefault();
@@ -327,6 +236,98 @@ $('#ticket-append-form').submit(function (e) {
     });
     grecaptcha.reset();
 });
+
+function fastRegistration() {
+    if(!$('#recaptcha-div').length)
+    {
+        fastRegistrationAjax();
+    }
+    else
+    {
+        grecaptcha.render('recaptcha-div', {
+            'sitekey' : '6Lcn36AUAAAAAODJO5kSQjRi2LE52aieDJBwJ_F-',
+            'theme': 'dark',
+            'callback': fastRegistrationAjax
+        });
+    }
+}
+
+function confirmInvoice(inv_id) {
+    $.ajax(
+        {
+            type: "POST",
+            url: "/action/confirm_invoice",
+            data: {"inv_id": inv_id},
+            success: function(data) {
+                data = JSON.parse(data);
+                if(data.status !== "OK"){
+                    showToast(data.message, 'error', 3000, 'microchip');
+                }
+                else
+                {
+                    showToast('Счет успешно подтвержден', 'success', 5000, 'microchip');
+                    $('#inv-' + inv_id).remove();
+                }
+            }
+        }
+    );
+}
+
+function fastRegistrationAjax() {
+    var form = $('#fast-sign-up-form');
+    $.ajax({
+        type: "POST",
+        url: "/fast_register",
+        data: form.serialize(),
+        success: function(data) {
+            data = JSON.parse(data);
+            if(data.status !== "OK"){
+                showToast(data.message, 'error', 3000, 'microchip');
+            }
+            else
+            {
+                showToast('Пользователь успешно зарегестрирован!<br>На почтовый ящик была отправлены дальнейшие инструкции', 'success', 5000, 'microchip');
+                $('#register-form')[0].reset();
+            }
+            grecaptcha.reset();
+        },
+        error: function () {
+            grecaptcha.reset();
+        }
+    });
+    form[0].reset();
+}
+
+function showToast(text, type, duration, icon) {
+    $('body')
+        .toast({
+            class: type.toString(),
+            showIcon: icon.toString(),
+            displayTime: duration,
+            closeIcon: true,
+            message: text
+        })
+    ;
+}
+
+function showProductsForm(){
+    $('#products-modal').modal({
+        onHide: function () {
+            $('.menu.products .item').removeClass('active');
+            $('#cost-id').attr('value', 0);
+            $('#product-id').attr('value', 0);
+            $('#total-cost')[0].style.display = "none";
+        }
+    }).modal('show');
+}
+
+function showTicketModal() {
+    $('#ticket-modal').modal('show');
+}
+
+function openTicket(id) {
+    window.location.replace('/support/ticket/' + id);
+}
 
 function closeTicket(ticketId) {
     if(confirm("Вы уверены? Это действие нельзя будет отменить.")){

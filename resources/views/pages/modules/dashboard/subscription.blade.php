@@ -31,7 +31,7 @@
                                     @foreach(@$subscription['modules'] as $subscription_module)
                                         <tr>
                                             <td>{{@$subscription_module['name']}}</td>
-                                            <td>{{$subscription_module['end_date']}}</td>
+                                            <td>{{@$subscription['base']->is_lifetime ? 'Навсегда' : @$subscription_module['end_date']}}</td>
                                         </tr>
                                     @endforeach
                                     <tr>

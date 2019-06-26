@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int user_id
  * @property int status
+ * @property int is_partner
  * @property false|string reg_date
  * @property string nickname
  * @property string fist_name

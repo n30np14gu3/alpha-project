@@ -26,7 +26,7 @@
                     </div>
                     <div class="item">
                         <h2>
-                            <span id="nickname">{{@$user_data['settings']->nickname}}</span>
+                            <span id="nickname" class="{{@$user_data['base']->staff_status ? 'is-staff' : ''}} {{@$user_data['settings']->is_partner ? 'is-partner' : ''}}">{{@$user_data['settings']->nickname}}</span>
                             <span class="info-popup verify-status icon {{@$user_data['has_domain'] ? 'active' : ''}}" id="account-status" data-content="{{@$user_data['has_domain'] ? 'Аккаунт подтвержден' : 'Добавь свой Steam аккаунт и получи скидку 3%! (Скидка будет работать, если в вашем нике присутствет ссылка на наш сайт)'}}">あ</span>
                         </h2>
                     </div>

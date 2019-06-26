@@ -507,4 +507,13 @@ class actionController extends Controller
         $result['status'] = 'OK';
         return json_encode($result);
     }
+
+    public function resetHwid(Request $request){
+        $result = [
+            'status' => 'ERROR',
+            'message' => 'функция находится в разработке'
+        ];
+
+        return json_encode($result);
+    }
 }

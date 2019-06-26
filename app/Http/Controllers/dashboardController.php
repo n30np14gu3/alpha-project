@@ -52,6 +52,7 @@ class dashboardController extends Controller
         foreach($subscriptions_db as $sub)
         {
             $subscription_info = [
+                'base' => $sub,
                 'game' => null,
                 'modules' => []
             ];

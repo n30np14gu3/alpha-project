@@ -89,6 +89,7 @@ class apiController extends Controller
             'ip' => $_SERVER['REMOTE_ADDR'],
             'reg_date' =>  $user_settings->reg_date,
             'access_token' => '',
+            'lifetime_subscription' => (bool)$user_subscription->is_lifetime,
             'subscription_modules' => []
         ];
 
@@ -213,8 +214,6 @@ class apiController extends Controller
     }
 
     public function requestModules(Request $request){
-        $session_keys = ApiHelper::CheckKey($_SERVER['REMOTE_ADDR']);
-
         $user_id = @$request['user_id'];
         $game_id = @$request['game_id'];
         $access_token = @$request['access_token'];
@@ -239,8 +238,9 @@ class apiController extends Controller
 
         $subscription_modules = SubscriptionSettings::where('subscription_id', $user_sub->id)->get();
         $data = [
-          'count' => count($subscription_modules),
-          'modules' => []
+            'count' => count($subscription_modules),
+            'is_lifetime' => (bool)$user_sub->is_lifetime,
+            'modules' => []
         ];
 
         foreach($subscription_modules as $module){

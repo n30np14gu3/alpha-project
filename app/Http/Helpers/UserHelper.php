@@ -227,9 +227,9 @@ class UserHelper
         $user_referral = null;
 
         if(@$user_settings->referral){
-            $user_referral = User::where('user_id', $user_settings->referral)->get()->first();
-            $referral_balance = Balance::where('user_id', $user_referral->id)->get()->first();
-            $referral_balance->balance += $out_sum * 0.1;
+            $user_referral = UserSettings::where('user_id', $user_settings->referral)->get()->first();
+            $referral_balance = Balance::where('user_id', $user_settings->referral)->get()->first();
+            $referral_balance->balance += $out_sum * ($user_referral->is_partner ? 0.2 : 0.1);
             $referral_balance->save();
         }
 
