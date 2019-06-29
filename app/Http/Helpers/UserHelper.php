@@ -73,6 +73,23 @@ class UserHelper
 
     /**
      * @param Request $request
+     * @param string %newPassword
+     */
+    public static function UpdateEmail(Request $request, $newEmail){
+        $user_data = self::GetLocalUserInfo($request);
+        $user = User::where('id', $user_data['id'])->get()->first();
+        $user->email = $newEmail;
+        $user_data['email'] = $user->email;
+        $user_data = CryptoHelper::EncryptResponse(json_encode($user_data));
+        $request->session()->put('user_session', $user_data);
+        if(@$_COOKIE['user_session'])
+            setcookie('user_session', $user_data, time() + 60*60*24*7, '/');
+
+        $user->save();
+    }
+
+    /**
+     * @param Request $request
      * @param bool $secure
      * @param bool $return_user
      * @return int|User

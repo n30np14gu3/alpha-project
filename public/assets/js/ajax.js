@@ -237,6 +237,29 @@ $('#ticket-append-form').submit(function (e) {
     grecaptcha.reset();
 });
 
+$('#change-email-form').submit(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: "/action/change_email",
+        data: $('#change-email-form').serialize(),
+        success: function(data) {
+            data = JSON.parse(data);
+            if(data.status !== "OK"){
+                showToast(data.message, 'error', 3000, 'microchip');
+            }
+            else
+            {
+                showToast('Email был успешно сменен!<br>На новый почтовый ящик была отправлены дальнейшие инструкции', 'success', 5000, 'microchip');
+                $('#register-form')[0].reset();
+                sleep(2000);
+                document.location.replace('/dashboard');
+            }
+            grecaptcha.reset();
+        }
+    });
+});
+
 function fastRegistration() {
     if(!$('#recaptcha-div').length)
     {
@@ -347,4 +370,27 @@ function closeTicket(ticketId) {
             }
         });
     }
+}
+
+function sleep(ms) {
+    ms += new Date().getTime();
+    while (new Date() < ms){}
+}
+
+function resendConfirm() {
+    $.ajax({
+        type: "POST",
+        url: "/action/resend_confirm",
+        success: function(data) {
+            data = JSON.parse(data);
+            if(data.status !== "OK"){
+                showToast(data.message, 'error', 3000, 'microchip');
+            }
+            else
+            {
+                showToast('Новое письмо было успешно отправлено на Ваш почтовый адрес!', 'success', 5000, 'microchip')
+            }
+            grecaptcha.reset();
+        }
+    });
 }

@@ -16,6 +16,7 @@ class AuthMiddle
      */
     public function handle($request, Closure $next)
     {
+
         if(!UserHelper::CheckAuth($request))
             return redirect()->route('index');
 

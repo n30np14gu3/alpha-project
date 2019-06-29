@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\MailHelper;
 use App\Http\Helpers\UserHelper;
 use App\Models\Balance;
 use App\Models\Game;
@@ -514,6 +515,77 @@ class actionController extends Controller
             'message' => 'функция находится в разработке'
         ];
 
+        return json_encode($result);
+    }
+
+    public function changeEmail(Request $request){
+        $email = @$request['email'];
+        $result = [
+            'status' => 'ERROR',
+            'message' => 'UNKNOWN ERROR'
+        ];
+
+        if(!$email){
+            $result['message'] = 'Не все поля заполнены!';
+            return json_encode($result);
+        }
+
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            $result['message'] = 'Email введен в неверном формате!';
+            return json_encode($result);
+        }
+
+        if(!env('BETA_DISABLERECAPTCHA') && !ReCaptcha::Verify()) {
+            $result['message'] = "Ошибка ReCaptcha!";
+            return json_encode($result);
+        }
+
+        if(count(@User::where('email', $email)->get())){
+            $result['message'] = 'Данный email уже используется!';
+            return json_encode($result);
+        }
+
+        $user_data = UserHelper::GetLocalUserInfo($request);
+        $user = User::where('id', $user_data['id'])->get()->first();
+        $user_settings = UserSettings::where('user_id', $user->id)->get()->first();
+        if($user_settings->status != 0) {
+            $result['message'] = 'Аккаунт уже подтвержден!';
+            return json_encode($result);
+        }
+
+        $data = [
+            'link' => url('/email/confirm/'.MailHelper::NewMailConfirmToken($user->id)),
+            'mail_title' => 'Регистрация на сайте ALPHA CHEAT',
+        ];
+
+        MailHelper::SendMail('mail.types.reg_complete', $data, $email, 'Подтверждение регистрации :: '.url('/'));
+        UserHelper::UpdateEmail($request, $email);
+        $result['status'] = 'OK';
+        return json_encode($result);
+    }
+
+    public function resendConfirm(Request $request){
+        $result = [
+            'status' => 'ERROR',
+            'message' => 'UNKNOWN ERROR'
+        ];
+
+        $user_data = UserHelper::GetLocalUserInfo($request);
+        $user = User::where('id', $user_data['id'])->get()->first();
+        $user_settings = UserSettings::where('user_id', $user->id)->get()->first();
+        if($user_settings->status != 0) {
+            $result['message'] = 'Аккаунт уже подтвержден!';
+            return json_encode($result);
+        }
+
+        $data = [
+            'link' => url('/email/confirm/'.MailHelper::NewMailConfirmToken($user->id)),
+            'mail_title' => 'Регистрация на сайте ALPHA CHEAT',
+        ];
+
+        MailHelper::SendMail('mail.types.reg_complete', $data, $user->email, 'Подтверждение регистрации :: '.url('/'));
+
+        $result['status'] = 'OK';
         return json_encode($result);
     }
 }

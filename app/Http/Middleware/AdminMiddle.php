@@ -16,7 +16,6 @@ class AdminMiddle
      */
     public function handle($request, Closure $next)
     {
-
         $user = UserHelper::CheckAuth($request, true);
         if(!$user)
             return redirect('/');

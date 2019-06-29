@@ -93,8 +93,10 @@
                                     <div class="header">
                                        Даннный аккаунт не потвержден
                                     </div>
-                                    <ul class="list">
+                                    <ul>
                                         <li>Подтвердите свой аккаунт, перейдя по ссылке, отправленной Вам на почту</li>
+                                        <li>Для повторной отправки письма на {{@$user_data['base']->email}} перейдите по следующей <a onclick="resendConfirm()" style="color: blue; font-weight: bold; cursor: pointer">ссылке</a></li>
+                                        <li>Для смены email перейдите по следующей <a href="/form/change_email" style="color: blue; font-weight: bold;">ссылке</a></li>
                                     </ul>
                                 </div>
                             @endif

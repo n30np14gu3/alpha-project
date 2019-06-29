@@ -19,13 +19,14 @@ Route::get('/download/{game_id}', ['uses' => 'dashboardController@downloadLoader
 Route::get('/webmaster', ['uses' => 'adminController@index', 'as' => 'webmaster_panel', 'middleware' => 'webmaster_panel']);
 
 Route::get('/legal', ['uses' => 'lendingController@legal', 'as' => 'legal']);
-Route::get('/c', function (){
-    dd(json_decode(Storage::get('/support_files/countries.json'))[1]);
-});
-Route::group(['prefix' => 'form', 'middleware' => 'form'], function (){
-    Route::get('login', ['uses' => 'formController@login', 'as' => 'show_login']);
-    Route::get('register', ['uses' => 'formController@register', 'as' => 'show_register']);
-    Route::get('reset_password', ['uses' => 'formController@resetPassword', 'as' => 'show_reset_password']);
+
+Route::group(['prefix' => 'form'], function (){
+    Route::group([ 'middleware' => 'form'], function (){
+        Route::get('login', ['uses' => 'formController@login', 'as' => 'show_login']);
+        Route::get('register', ['uses' => 'formController@register', 'as' => 'show_register']);
+        Route::get('reset_password', ['uses' => 'formController@resetPassword', 'as' => 'show_reset_password']);
+    });
+    Route::get('change_email', ['uses' => 'formController@changeEmail', 'as' => 'show_change_email', 'middleware' => 'support']);
 });
 
 Route::get('/logout', ['uses' => 'actionController@logout', 'as' => 'logout']);
@@ -34,27 +35,34 @@ Route::post('/fast_register', ['uses' => 'actionController@fastRegister', 'as' =
 Route::post('/login', ['uses' => 'actionController@login', 'as' => 'login']);
 Route::post('/reset_password', ['uses' => 'actionController@resetPassword', 'as' => 'reset_password']);
 
-Route::group(['prefix' => 'action', 'middleware' => 'action'], function (){
-    Route::post('verify_steam', ['uses' => 'actionController@verifySteam', 'as' => 'verify_steam']);
-    Route::post('save_info', ['uses' => 'actionController@saveInfo', 'as' => 'save_info']);
-    Route::post('password_change', ['uses' => 'actionController@changePassword', 'as' => 'password_change']);
-    Route::post('purchase', ['uses' => 'actionController@purchase', 'as' => 'purchase']);
-    Route::post('confirm_invoice', ['uses' => 'actionController@confirmInvoice', 'as' => 'confirm_invoice']);
+Route::group(['prefix' => 'action'], function (){
+    Route::group(['middleware' => 'support'], function (){
+        Route::post('change_email', ['uses' => 'actionController@changeEmail', 'as' => 'change_email']);
+        Route::post('resend_confirm', ['uses' => 'actionController@resendConfirm', 'as' => 'resend_confirm']);
+    });
 
-    Route::group(['prefix' => 'admin', 'middleware' => 'admin_action'], function (){
-       Route::post('create_module', ['uses' => 'adminActionController@createModule', 'as' => 'module_create']);
-       Route::post('create_game', ['uses' => 'adminActionController@createGame', 'as' => 'create_game']);
+    Route::group(['middleware' => 'action'], function (){
+        Route::post('verify_steam', ['uses' => 'actionController@verifySteam', 'as' => 'verify_steam']);
+        Route::post('save_info', ['uses' => 'actionController@saveInfo', 'as' => 'save_info']);
+        Route::post('password_change', ['uses' => 'actionController@changePassword', 'as' => 'password_change']);
+        Route::post('purchase', ['uses' => 'actionController@purchase', 'as' => 'purchase']);
+        Route::post('confirm_invoice', ['uses' => 'actionController@confirmInvoice', 'as' => 'confirm_invoice']);
 
-       Route::post('get_game_data', ['uses' => 'adminActionController@getGameData', 'as' => 'get_game_data']);
+        Route::group(['prefix' => 'admin', 'middleware' => 'admin_action'], function (){
+            Route::post('create_module', ['uses' => 'adminActionController@createModule', 'as' => 'module_create']);
+            Route::post('create_game', ['uses' => 'adminActionController@createGame', 'as' => 'create_game']);
 
-       Route::post('update_game', ['uses' => 'adminActionController@updateGame', 'as' => 'update_game']);
+            Route::post('get_game_data', ['uses' => 'adminActionController@getGameData', 'as' => 'get_game_data']);
 
-       Route::post('create_country', ['uses' => 'adminActionController@createCountry', 'as' => 'create_country']);
+            Route::post('update_game', ['uses' => 'adminActionController@updateGame', 'as' => 'update_game']);
+
+            Route::post('create_country', ['uses' => 'adminActionController@createCountry', 'as' => 'create_country']);
 
 
-       Route::post('create_increment', ['uses' => 'adminActionController@createIncrement', 'as' => 'create_increment']);
-       Route::post('create_cost', ['uses' => 'adminActionController@createCost', 'as' => 'create_cost']);
-       Route::post('create_product', ['uses' => 'adminActionController@createProduct', 'as' => 'create_product']);
+            Route::post('create_increment', ['uses' => 'adminActionController@createIncrement', 'as' => 'create_increment']);
+            Route::post('create_cost', ['uses' => 'adminActionController@createCost', 'as' => 'create_cost']);
+            Route::post('create_product', ['uses' => 'adminActionController@createProduct', 'as' => 'create_product']);
+        });
     });
 });
 
