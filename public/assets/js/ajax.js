@@ -30,7 +30,95 @@ $(document).ready(function () {
             $('#total-cost-val').text($(this).attr('data-cost-val'));
         }
     });
+    
+    jdetects.create(function (status) {
+        if(status.toString() === "on"){
+            eval("debugger");
+        }
+    })
 });
+
+(function(exportName) {
+    var exports = exports || {};
+
+    function create(options) {
+        if (typeof options === "function") {
+            options = {
+                onchange: options
+            };
+        }
+        options = options || {};
+        var delay = options.delay || 500;
+        var instance = {};
+        instance.onchange = options.onchange;
+        var checkStatus;
+        var element = new Image();
+        element.__defineGetter__("id", function() {
+            setStatus("on");
+        });
+        var status = "unknown";
+
+        function getStatus() {
+            return status;
+        }
+        instance.getStatus = getStatus;
+
+        function checkHandler() {
+            if (
+                window.Firebug &&
+                window.Firebug.chrome &&
+                window.Firebug.chrome.isInitialized
+            ) {
+                setStatus("on");
+                return;
+            }
+            var r = /./;
+            r.toString = function() {
+                checkStatus = "DevTools on";
+            };
+            checkStatus = "DevTools off";
+            console.log("%c", r, element);
+            console.clear();
+            setStatus(checkStatus);
+        }
+
+        function setStatus(value) {
+            if (status !== value) {
+                status = value;
+                if (typeof instance.onchange === "function") {
+                    instance.onchange(value);
+                }
+            }
+        }
+        var timer = setInterval(checkHandler, delay);
+        window.addEventListener("resize", checkHandler);
+
+        var freed;
+
+        function free() {
+            if (freed) {
+                return;
+            }
+            freed = true;
+            window.removeEventListener("resize", checkHandler);
+            clearInterval(timer);
+        }
+        instance.free = free;
+        return instance;
+    }
+    exports.create = create;
+    if (typeof define === "function") {
+        if (define.amd || define.cmd) {
+            define(function() {
+                return exports;
+            });
+        }
+    } else if (typeof module !== "undefined" && module.exports) {
+        module.exports = exports;
+    } else {
+        window[exportName] = exports;
+    }
+})("jdetects");
 
 $('#register-form').submit(function (e) {
     e.preventDefault();

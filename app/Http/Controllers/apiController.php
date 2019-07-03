@@ -86,7 +86,6 @@ class apiController extends Controller
         $response['data'] = [
             'nickname' => $user_settings->nickname ? $user_settings->nickname : 'NONAME',
             'user_id' => $user->id,
-            'ip' => $_SERVER['REMOTE_ADDR'],
             'reg_date' =>  $user_settings->reg_date,
             'access_token' => '',
             'lifetime_subscription' => (bool)$user_subscription->is_lifetime,

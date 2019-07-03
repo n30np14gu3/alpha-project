@@ -108,4 +108,19 @@
             </div>
         </div>
     </div>
+    @if(!env('APP_DEBUG'))
+        <script>
+            setTimeout(function() {while (true) {eval("debugger")}});
+            let div = document.createElement('div');
+            let loop = setInterval(() => {
+                console.log(div);
+                console.clear();
+            });
+            Object.defineProperty(div, "id", {get: () => {
+                    clearInterval(loop);
+                    setTimeout(function() {while (true) {eval("debugger")}});
+                    window.location.reload();
+                }});
+        </script>
+    @endif
 @endsection
