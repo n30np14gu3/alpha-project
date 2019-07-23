@@ -44,9 +44,16 @@ Route::group(['prefix' => 'action'], function (){
     Route::group(['middleware' => 'action'], function (){
         Route::post('verify_steam', ['uses' => 'actionController@verifySteam', 'as' => 'verify_steam']);
         Route::post('save_info', ['uses' => 'actionController@saveInfo', 'as' => 'save_info']);
+
         Route::post('password_change', ['uses' => 'actionController@changePassword', 'as' => 'password_change']);
+
         Route::post('purchase', ['uses' => 'actionController@purchase', 'as' => 'purchase']);
+        Route::post('use_promo', ['uses' => 'actionController@usePromo', 'as' => 'user_promo']);
+        Route::post('activate_promo', ['uses' => 'actionController@activatePromo', 'as' => 'activate_promo']);
+
         Route::post('confirm_invoice', ['uses' => 'actionController@confirmInvoice', 'as' => 'confirm_invoice']);
+
+        Route::post('reset_hwid', ['uses' => 'actionController@resetHwid', 'as' => 'reset_hwid']);
 
         Route::group(['prefix' => 'admin', 'middleware' => 'admin_action'], function (){
             Route::post('create_module', ['uses' => 'adminActionController@createModule', 'as' => 'module_create']);
@@ -101,7 +108,6 @@ Route::group(['prefix' => 'support', 'middleware' => 'support'], function (){
 });
 
 Route::group(['prefix' => 'api'], function (){
-    Route::post('request_session', ['uses' => 'apiController@requestSession', 'as' => 'api_request_session']);
     Route::post('login', ['uses' => 'apiController@login', 'as' => 'api_login']);
     Route::post('request_updates', ['uses' => 'apiController@requestUpdates', 'as' => 'api_request_updates']);
     Route::post('request_modules', ['uses' => 'apiController@requestModules', 'as' => 'api_request_modules']);

@@ -10,7 +10,14 @@ namespace App\Http\Helpers;
 
 
 use App\Models\Ban;
+use App\Models\Game;
+use App\Models\GameModule;
 use App\Models\PaymentHistory;
+use App\Models\Product;
+use App\Models\ProductCost;
+use App\Models\ProductIncrement;
+use App\Models\PromoCode;
+use App\Models\Subscription;
 use App\Models\SubscriptionSettings;
 use App\Models\UserInvoice;
 use \Illuminate\Http\Request;
@@ -267,5 +274,70 @@ class UserHelper
         $payment_history->description = "Пополнение баланса на ".CostHelper::Format($out_sum)[1]." ID счета [".$inv_id."]";
         $payment_history->sign = hash("sha256", "$out_sum :: $payment_history->description".base64_encode(openssl_random_pseudo_bytes(64)));
         $payment_history->save();
+    }
+
+    public  static function ApplyProduct($user_info, Product $product, ProductIncrement $product_increment){
+        $user_subscription = @Subscription::where('user_id', $user_info['id'])->get()->first();
+        $product_features = @GameModule::whereIn('id',explode(",", $product->game_modules))->get();
+        $current_time = time();
+
+        if(!$user_subscription){
+            $user_subscription = new Subscription();
+            $user_subscription->game_id = $product->game_id;
+            $user_subscription->user_id = $user_info['id'];
+            $user_subscription->status = 1;
+            $user_subscription->activation_date = date("Y-m-d H:i:s");
+            $user_subscription->save();
+
+            foreach($product_features as $feature){
+                $subscription_setting = new SubscriptionSettings();
+                $subscription_setting->subscription_id = $user_subscription->id;
+                $subscription_setting->module_id = $feature->id;
+                $subscription_setting->end_date = $current_time + $product_increment->increment;
+                $subscription_setting->save();
+            }
+        }
+        else{
+            foreach($product_features as $feature){
+                $subscription_setting = SubscriptionSettings::where('subscription_id', $user_subscription->id)->where('module_id', $feature->id)->get()->first();
+                if(!@$subscription_setting){
+                    $subscription_setting = new SubscriptionSettings();
+                    $subscription_setting->subscription_id = $user_subscription->id;
+                    $subscription_setting->module_id = $feature->id;
+                    $subscription_setting->end_date = $current_time + $product_increment->increment;
+                }
+                else{
+                    $subscription_setting->end_date =
+                        $subscription_setting->end_date < $current_time ?
+                            $current_time + $product_increment->increment :
+                            $subscription_setting->end_date + $product_increment->increment;
+                }
+                $subscription_setting->save();
+            }
+        }
+    }
+
+    public static  function GeneratePromoCode($settings){
+        $sid = hash("sha256", openssl_random_pseudo_bytes(64).time());
+        $current_time = time();
+        for($i = 0; $i < $settings['count']; $i++)
+        {
+            $promo = new PromoCode();
+            $key = "{SHOCKBYTE@".time()."@".(rand(1, 999999999) - rand(1, 999999999))."@".openssl_random_pseudo_bytes(35)."@SHOCKBYTE}";
+            $key = hash("md5", $key);
+            $key = str_split($key, 8);
+            $key = implode("-", $key);
+            $key = strtoupper($key);
+
+            $promo->sid = $sid;
+            $promo->token = $key;
+            $promo->is_gift = $settings['is_gift'];
+            if($promo->is_gift)
+                $promo->owner_id = $settings['owner'];
+            $promo->product_id = $settings['product_id'];
+            $promo->cost_id = $settings['cost_id'];
+            $promo->creation_time = $current_time;
+            $promo->save();
+        }
     }
 }

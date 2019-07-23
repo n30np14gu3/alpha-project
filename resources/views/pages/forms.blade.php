@@ -22,6 +22,7 @@
                     </div>
                     @yield('after-links')
                 </div>
+                {{csrf_field()}}
             </form>
         </div>
     </div>

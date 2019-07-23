@@ -31,11 +31,11 @@ $(document).ready(function () {
         }
     });
     
-    jdetects.create(function (status) {
-        if(status.toString() === "on"){
-            eval("debugger");
-        }
-    })
+//    jdetects.create(function (status) {
+//         if(status.toString() === "on"){
+//             eval("debugger");
+//         }
+//     })
 });
 
 (function(exportName) {
@@ -262,28 +262,6 @@ $('#verify-account').click(function (e) {
     });
 });
 
-$('#products-form').submit(function (e) {
-    e.preventDefault();
-    $.ajax({
-        type: "POST",
-        url: "/action/purchase",
-        data: $('#products-form').serialize(),
-        success: function (data) {
-            data = JSON.parse(data);
-            if(data.status === "OK"){
-                showToast('Оплата произошла успешно!', 'success', 5000, 'microchip');
-            }
-            else{
-                showToast(data.message, 'error', 5000, 'microchip');
-            }
-
-            $('.menu.products .item').removeClass('active');
-            $('#cost-id').attr('value', 0);
-            $('#product-id').attr('value', 0);
-        }
-    });
-});
-
 $('#ticket-form').submit(function (e) {
     e.preventDefault();
     $.ajax({
@@ -344,6 +322,27 @@ $('#change-email-form').submit(function (e) {
                 document.location.replace('/dashboard');
             }
             grecaptcha.reset();
+        }
+    });
+});
+
+$('#activate-promo-form').submit(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: "/action/activate_promo",
+        data: $('#activate-promo-form').serialize(),
+        success: function (data) {
+            data = JSON.parse(data);
+            if(data.status === "OK"){
+                showToast('Промокод успешно активирован', 'success', 5000, 'microchip');
+                const elem = $('#promo-' + data.message + '-action');
+                if(elem[0] !== undefined)
+                    elem.html('Уже активирован');
+            }
+            else{
+                showToast(data.message, 'error', 5000, 'microchip');
+            }
         }
     });
 });
@@ -479,6 +478,84 @@ function resendConfirm() {
                 showToast('Новое письмо было успешно отправлено на Ваш почтовый адрес!', 'success', 5000, 'microchip')
             }
             grecaptcha.reset();
+        }
+    });
+}
+
+function use_promo() {
+    $.ajax({
+        type: "POST",
+        url: "/action/use_promo",
+        data: $('#products-form').serialize(),
+        success: function (data) {
+            data = JSON.parse(data);
+            if(data.status === "OK"){
+                showToast('Оплата произошла успешно!', 'success', 5000, 'microchip');
+            }
+            else{
+                showToast(data.message, 'error', 5000, 'microchip');
+            }
+
+            $('.menu.products .item').removeClass('active');
+            $('#cost-id').attr('value', 0);
+            $('#product-id').attr('value', 0);
+        }
+    });
+}
+
+function purchase() {
+    $.ajax({
+        type: "POST",
+        url: "/action/purchase",
+        data: $('#products-form').serialize(),
+        success: function (data) {
+            data = JSON.parse(data);
+            if(data.status === "OK"){
+                showToast('Оплата произошла успешно!', 'success', 5000, 'microchip');
+            }
+            else{
+                showToast(data.message, 'error', 5000, 'microchip');
+            }
+
+            $('.menu.products .item').removeClass('active');
+            $('#cost-id').attr('value', 0);
+            $('#product-id').attr('value', 0);
+        }
+    });
+}
+
+function resetHwid(sid) {
+    $.ajax({
+        type: "POST",
+        url: "/action/reset_hwid",
+        data: {"sid": sid},
+        success: function (data) {
+            data = JSON.parse(data);
+            if(data.status === "OK"){
+                showToast('HWID успешно сброшен!', 'success', 5000, 'microchip');
+                $('#hwid-reset-btn').addClass('disabled');
+            }
+            else{
+                showToast(data.message, 'error', 5000, 'microchip');
+            }
+        }
+    });
+}
+
+function activatePromo(promo_id) {
+    $.ajax({
+       type: "POST",
+       url: "/action/activate_promo",
+       data: {"by_id": true, "promo_id" : promo_id},
+        success: function (data) {
+            data = JSON.parse(data);
+            if(data.status === "OK"){
+                showToast('Промокод успешно активирован', 'success', 5000, 'microchip');
+                $('#promo-' + promo_id + '-action').html('Уже активирован');
+            }
+            else{
+                showToast(data.message, 'error', 5000, 'microchip');
+            }
         }
     });
 }

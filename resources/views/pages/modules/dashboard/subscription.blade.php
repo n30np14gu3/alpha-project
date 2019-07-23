@@ -8,7 +8,9 @@
         <div class="row">
             <div style="padding: 0 15px">
                 @if(count(@$user_data['subscriptions']) == 0)
-                    <button class="ui alpha fluid button" onclick="showProductsForm()">Купить подписку</button>
+                    <div class="ui alpha dark fluid big button" onclick="showProductsForm()">
+                        <span class="no-sub">Купить подписку {{@$user_data['balance'][0] == 0 ? '(сначала пополни баланс)' : ''}}</span>
+                    </div>
                 @else
                     @foreach(@$user_data['subscriptions'] as $subscription)
                         <div class="ui styled accordion" style="font-size: 16px; width: 100%;">
@@ -20,18 +22,18 @@
                                 <table class="ui unstackable table striped center aligned alpha">
                                     <thead>
                                     <tr>
-                                        <th colspan="2">Компоненты подписки</th>
+                                        <th colspan="3">Компоненты подписки</th>
                                     </tr>
                                     <tr>
                                         <th>Имя</th>
-                                        <th>Дата окончания</th>
+                                        <th colspan="2">Дата окончания</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach(@$subscription['modules'] as $subscription_module)
                                         <tr>
                                             <td>{{@$subscription_module['name']}}</td>
-                                            <td>{{@$subscription['base']->is_lifetime ? 'Навсегда' : @$subscription_module['end_date']}}</td>
+                                            <td colspan="2">{{@$subscription['base']->is_lifetime ? 'Навсегда' : @$subscription_module['end_date']}}</td>
                                         </tr>
                                     @endforeach
                                     <tr>
@@ -40,6 +42,14 @@
                                         </td>
                                         <td style="padding: 0">
                                             <a class="ui fluid positive button" style="border-radius: 0" href="/download/{{@$subscription['game']->id}}">Скачать лоадер</a>
+                                        </td>
+                                        <td style="padding: 0">
+                                            <button
+                                                    class="ui fluid negative {{@$subscription['base']->hwid_reseted ? 'disabled' : ''}} button info-popup"
+                                                    style="border-radius: 0"
+                                                    onclick="resetHwid({{@$subscription['base']->id}})"
+                                                    id="hwid-reset-btn"
+                                                    data-content='HWID сбрасывается только ОДИН раз!'>Сбросить HWID ({{@$subscription['game']->reset_cost}}₽)</button>
                                         </td>
                                     </tr>
                                     </tbody>

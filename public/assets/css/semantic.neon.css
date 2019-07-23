@@ -22561,7 +22561,7 @@ Floated Menu / Item
 .ui.vertical.tabular.menu .item {
   font-family: "BeauSans";
   border-radius: 0 !important;
-  font-size: 14px !important;
+  font-size: 14px;
   font-weight: normal !important;
   text-transform: none !important;
   background: none;

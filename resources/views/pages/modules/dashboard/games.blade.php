@@ -32,13 +32,16 @@
             @endfor
         </div>
         <div id="total-cost" style="font-size: 30px; padding: 0 32px; display: none;">
-            К оплате: <span class="ui teal label"style="font-size: 30px" id="total-cost-val"></span>
+            К оплате: <span class="ui teal label" style="font-size: 30px" id="total-cost-val"></span>
         </div>
         <input id="cost-id" name="cid" type="hidden" required>
         <input id="product-id" name="pid" type="hidden" required>
         <br>
         <div class="field">
-            <button class="ui alpha button fluid" type="submit">Оплатить</button>
+            <button class="ui alpha button fluid" type="button" onclick="purchase()">Купить для себя</button>
+        </div>
+        <div class="field">
+            <button class="ui alpha light button fluid" type="button" onclick="use_promo()">Купить в подарок</button>
         </div>
     </form>
 </div>

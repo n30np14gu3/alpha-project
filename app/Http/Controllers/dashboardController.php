@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\PaymentHistory;
-use App\Models\Ticket;
+use App\Models\PromoCode;
 use App\Models\UserInvoice;
 use Illuminate\Http\Request;
 
@@ -14,17 +14,14 @@ use App\Models\Country;
 use App\Models\GameModule;
 use App\Models\Product;
 use App\Models\ProductCost;
-use App\Models\ProductFeature;
 use App\Models\ProductIncrement;
 use App\Models\Subscription;
 use App\Models\SubscriptionSettings;
 use App\Models\UserSettings;
 use App\Models\LoginHistory;
 use App\Models\Balance;
-use App\Models\BalanceFund;
 use App\Models\Ban;
 
-use App\Http\Helpers\Geolocation;
 use App\Http\Helpers\UserHelper;
 use App\Http\Helpers\CostHelper;
 
@@ -71,9 +68,26 @@ class dashboardController extends Controller
             array_push($subscriptions, $subscription_info);
         }
 
+        $promo_codes = [];
+        $promo_codes_db = PromoCode::where('owner_id', $user->id)->orWhere('receiver_id', $user->id)->get();
+        foreach($promo_codes_db as $promo_code){
+            $promo = [
+                'base' => $promo_code,
+                'activated' => $promo_code->is_gift ? ($promo_code-> receiver_id ? true: false) : ($promo_code-> owner_id ? true: false),
+                'description' => ''
+            ];
+
+            $promo_product = Product::where('id', $promo_code->product_id)->get()->first();
+            $promo_game = Game::where('id', $promo_product->game_id)->get()->first();
+            $promo_cost = ProductCost::where('id', $promo_code->cost_id)->get()->first();
+            $promo_increment = ProductIncrement::where('id', $promo_cost->increment_id)->get()->first();
+
+            $promo['description'] = "[$promo_game->name] :: $promo_product->title ($promo_increment->title)";
+            array_push($promo_codes, $promo);
+        }
+
         $products = [];
         $products_db = Product::all();
-
         foreach($products_db as $product)
         {
             $product_module = [
@@ -89,7 +103,7 @@ class dashboardController extends Controller
                 $country_id = Country::where('code', 'ru')->get()->first()->id;
                 $product_costs = ProductCost::whereIn('id', explode(",", $product->costs))->where('country_id', $country_id)->orderBy('cost', 'asc')->get();
             }
-            //$product_costs = $product_costs->orderBy('cost', 'inc')->get();
+
             foreach($product_costs as $costs){
                 $cost_module = [
                     'cid' => $costs->id,
@@ -101,12 +115,6 @@ class dashboardController extends Controller
             }
 
             array_push($products, $product_module);
-        }
-
-        $balance_funds = [];
-        $balance_funds_db = BalanceFund::where('country_id', $country_id)->get()->sortBy('amount');
-        foreach($balance_funds_db as $fund) {
-            array_push($balance_funds, CostHelper::Format($fund->amount));
         }
 
         $bans = [
@@ -127,7 +135,6 @@ class dashboardController extends Controller
             }
             $bans['exist'] = true;
         }
-
         $data = [
             'logged' => true,
             'user_data' => [
@@ -141,11 +148,12 @@ class dashboardController extends Controller
                 'has_domain' =>$has_domain,
                 'steam_link' => ($settings->steam_id != 0) ? 'https://steamcommunity.com/profiles/'.$settings->steam_id : '',
                 'subscriptions' => $subscriptions,
+                'no_sub' => count($subscriptions) == 0,
                 'payment_history' => PaymentHistory::where('user_id', $user->id)->get(),
                 'bans' => $bans,
-                'invoices' => @UserInvoice::where('user_id', $user->id)->where('active', '1')->get()
+                'invoices' => @UserInvoice::where('user_id', $user->id)->where('active', '1')->get(),
+                'promo_codes' => $promo_codes
             ],
-            'balance_funds' => $balance_funds,
             'products' => $products,
         ];
         return view('pages.dashboard', $data);

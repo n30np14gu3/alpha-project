@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Gift
+ * Class ResetHwid
  * @package App\Models
  * @property int id
- * @property string sid
- * @property string value
  * @property int user_id
+ * @property int request_time
+ * @property string old_hwid
  */
-class Gift extends Model
+class ResetHwid extends Model
 {
     public $timestamps = false;
-
+    protected $table = 'reset_hwid';
 }

@@ -22,7 +22,7 @@
             <div class="four wide column">
                 <div class="ui vertical fluid tabular menu">
                     <div class="item user-personalisation">
-                    <span id="avatar"></span>
+                        <span id="avatar"></span>
                     </div>
                     <div class="item">
                         <h2>
@@ -35,7 +35,8 @@
                     @else
                         <div class="item active" data-tab="t-account">Аккаунт</div>
                         <div class="item" data-tab="t-security">Безопасность</div>
-                        <div class="item" data-tab="t-subscription">Подписка</div>
+                        <div class="{{@$user_data['no_sub'] ? 'no-sub' : ''}} item" data-tab="t-subscription">{{@$user_data['no_sub'] ? 'Купить подписку' : 'Подписка'}}</div>
+                        <div class="item" data-tab="t-promo_codes">Промокоды</div>
                         <div class="item" data-tab="t-ref">Реферальная система</div>
                         <div class="item" data-tab="t-shop-history">История покупок</div>
                         <div class="item" data-tab="t-invoices">Неподтвержденные счета</div>
@@ -62,6 +63,11 @@
                     <div class="ui tab" data-tab="t-subscription">
                         <div class="ui raised segment">
                             @include('pages.modules.dashboard.subscription')
+                        </div>
+                    </div>
+                    <div class="ui tab" data-tab="t-promo_codes">
+                        <div class="ui raised segment">
+                            @include('pages.modules.dashboard.promo-codes')
                         </div>
                     </div>
                     <div class="ui tab" data-tab="t-shop-history">
@@ -91,7 +97,7 @@
                             @if(!$user_data['settings']->status)
                                 <div class="ui error message">
                                     <div class="header">
-                                       Даннный аккаунт не потвержден
+                                        Даннный аккаунт не потвержден
                                     </div>
                                     <ul>
                                         <li>Подтвердите свой аккаунт, перейдя по ссылке, отправленной Вам на почту</li>
@@ -110,7 +116,6 @@
     </div>
     @if(!env('APP_DEBUG'))
         <script>
-            setTimeout(function() {while (true) {eval("debugger")}});
             let div = document.createElement('div');
             let loop = setInterval(() => {
                 console.log(div);

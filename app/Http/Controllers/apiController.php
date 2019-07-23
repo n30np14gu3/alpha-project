@@ -22,7 +22,6 @@ class apiController extends Controller
         $response = [
             'code' => env('API_CODE_UNKNOWN_ERROR'),
             'data' => null,
-            'salt'=> base64_encode(openssl_random_pseudo_bytes(64).time())
         ];
 
         $email = @$_POST['email'];
@@ -37,41 +36,40 @@ class apiController extends Controller
 
         $user_ip = $_SERVER['REMOTE_ADDR'];
         $current_time = time();
-        $session_keys = ApiHelper::CheckKey($user_ip);
 
         $user = @User::where('email', $email)->where('password', $password)->get()->first();
         if(!$user){
             $response['code'] = env('API_CODE_USER_NOT_FOUND');
-            return CryptoHelper::EncryptResponse(json_encode($response), $session_keys[0], $session_keys[1]);
+            return json_encode($response);
         }
 
         $user_settings = UserSettings::where('user_id', $user->id)->get()->first();
         if(!UserHelper::CheckUserActivity($user)){
             $response['code'] = env('API_CODE_USER_BLOCKED');
-            return CryptoHelper::EncryptResponse(json_encode($response), $session_keys[0], $session_keys[1]);
+            return json_encode($response);
         }
 
         $game = @Game::where('id', $game_id)->get()->first();
         if(!$game){
             $response['code'] = env('API_CODE_GAME_NOT_FOUND');
-            return CryptoHelper::EncryptResponse(json_encode($response), $session_keys[0], $session_keys[1]);
+            return json_encode($response);
         }
 
         $user_subscription = @Subscription::where('user_id', $user->id)->where('game_id', $game_id)->get()->first();
         if(!$user_subscription){
             $response['code'] = env('API_CODE_SUBSCRIPTION_EXPIRY');
-            return CryptoHelper::EncryptResponse(json_encode($response), $session_keys[0], $session_keys[1]);
+            return json_encode($response);
         }
 
         if($user_subscription->hwid && $user_subscription->hwid != $hwid){
             $response['code'] = env('API_CODE_HWID_ERROR');
-            return CryptoHelper::EncryptResponse(json_encode($response), $session_keys[0], $session_keys[1]);
+            return json_encode($response);
         }
 
         if(!$user_subscription->hwid){
             if(count(Subscription::where('game_id', $user_subscription->game_id)->where('hwid', $hwid)->get()) >= 1){
                 $response['code'] = env('API_CODE_SUBSCRIPTION_DUPLICATE');
-                return CryptoHelper::EncryptResponse(json_encode($response), $session_keys[0], $session_keys[1]);
+                return json_encode($response);
             }
             $user_subscription->hwid = $hwid;
         }
@@ -79,7 +77,7 @@ class apiController extends Controller
         $subscription_modules = @SubscriptionSettings::where('subscription_id', $user_subscription->id)->where('end_date', '>', $current_time)->get();
         if(!count($subscription_modules)){
             $response['code'] = env('API_CODE_SUBSCRIPTION_EXPIRY');
-            return CryptoHelper::EncryptResponse(json_encode($response), $session_keys[0], $session_keys[1]);
+            return json_encode($response);
         }
 
         $response['code'] = env('API_CODE_OK');
@@ -115,45 +113,42 @@ class apiController extends Controller
 
         $response['data']['access_token'] = $api_request->token;
 
-        return CryptoHelper::EncryptResponse(json_encode($response), $session_keys[0], $session_keys[1]);
+        return json_encode($response);
     }
 
     public function requestUpdates(Request $request){
         $response = [
             'code' => env('API_CODE_UNKNOWN_ERROR'),
             'data' => null,
-            'salt'=> base64_encode(openssl_random_pseudo_bytes(64).time())
         ];
-        $session_keys = ApiHelper::CheckKey($_SERVER['REMOTE_ADDR']);
 
         $game_id = @$request['game_id'];
         if(!$game_id){
             $response['code'] = env('API_CODE_GAME_NOT_FOUND');
-            return CryptoHelper::EncryptResponse(json_encode($response), $session_keys[0], $session_keys[1]);
+            return json_encode($response);
         }
 
         $game = @Game::where('id', $game_id)->get()->first();
 
         if(!$game){
             $response['code'] = env('API_CODE_GAME_NOT_FOUND');
-            return CryptoHelper::EncryptResponse(json_encode($response), $session_keys[0], $session_keys[1]);
+            return json_encode($response);
         }
 
         if($game->status != 1){
             $response['code'] = env('API_CODE_GAME_DISABLED');
-            return CryptoHelper::EncryptResponse(json_encode($response), $session_keys[0], $session_keys[1]);
+            return json_encode($response);
         }
 
         $response['code'] = env('API_CODE_OK');
         $response['data'] = [
             'last_update' => date("Y-m-d H:i:s", $game->last_update)
         ];
-        return CryptoHelper::EncryptResponse(json_encode($response), $session_keys[0], $session_keys[1]);
+        return json_encode($response);
     }
 
     public function requestDll(Request $request){
-        $ip = $_SERVER['REMOTE_ADDR'];
-        $session_keys = ApiHelper::CheckKey($ip);
+        $ip = "127.0.0.1";
         $access_token = @$request['access_token'];
         $game_id = @$request['game_id'];
 
@@ -178,60 +173,30 @@ class apiController extends Controller
         }
         Storage::deleteDirectory("/libs/$ip");
 
-        $file_data = CryptoHelper::EncryptResponse(json_encode($libs), $session_keys[0], $session_keys[1]);
+        $file_data = json_encode($libs);
         return $file_data;
     }
 
-    public function requestSession(Request $request){
-        $public_key = base64_decode(@$request['uid']);
-        $key_hash_req = @$request['sign'];
-        $ip = $_SERVER['REMOTE_ADDR'];
-
-        $key_hash = hash("sha256", $public_key.env('SESSION_SIGN_KEY'));
-        if($key_hash != $key_hash_req)
-            die("");
-
-        if(!file_exists(storage_path("/keys/$ip"))){
-            Storage::makeDirectory("/keys/$ip");
-        }
-
-        $aes_keys = ApiHelper::SaveKey($ip);
-
-        $pk = openssl_get_publickey($public_key);
-        $data = null;
-        openssl_public_encrypt(json_encode($aes_keys), $data, $pk);
-        $data = base64_encode($data);
-        $rsp = [
-            'code' => env('API_CODE_OK'),
-            'data' => [
-                'crc' => hash("sha256", $data.env('SESSION_SIGN_KEY')),
-                'raw' => $data
-            ],
-        ];
-
-        return json_encode($rsp);
-    }
-
     public function requestModules(Request $request){
-        $user_id = @$request['user_id'];
         $game_id = @$request['game_id'];
         $access_token = @$request['access_token'];
 
-        if(!$user_id || !$access_token){
+        if(!$access_token){
             return "0";
         }
 
         if(!ApiHelper::CheckToken($access_token, $game_id))
             return "1";
 
-        $user = @User::where('id', $user_id)->get()->first();
+        $api_request = @ApiRequest::where('token', $access_token)->get()->first();
+        $user = @User::where('id', $api_request->user_id)->get()->first();
         if(!$user)
             return "2";
 
         if(!UserHelper::CheckUserActivity($user))
             return "3";
 
-        $user_sub = @Subscription::where('user_id', $user_id)->where('game_id', $game_id)->get()->first();
+        $user_sub = @Subscription::where('user_id', $api_request->user_id)->where('game_id', $game_id)->get()->first();
         if(!$user_sub)
             return "4";
 
@@ -253,15 +218,9 @@ class apiController extends Controller
         $response = [
             'code' => (int)env('API_CODE_OK'),
             'data' => $data,
-            'salt'=> hash("sha256", openssl_random_pseudo_bytes(64).time())
         ];
         
         return json_encode($response);
     }
-    public function test(Request $request){
-        $a = (int)@$request['a'];
-        $b = (int)$request['b'];
 
-        echo  $a + $b;
-    }
 }
